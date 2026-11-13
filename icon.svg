@@ -1,0 +1,30 @@
+<svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a5c"/><stop offset=".5" stop-color="#d946ef"/><stop offset="1" stop-color="#4338ca"/></linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe27a"/><stop offset="1" stop-color="#f5a623"/></linearGradient>
+</defs>
+<rect width="512" height="512" rx="112" fill="url(#g)"/>
+<circle cx="256" cy="262" r="178" fill="#fff" opacity=".16"/>
+<path d="M60 392 Q256 330 452 392" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="10" stroke-linecap="round"/>
+<ellipse cx="262" cy="430" rx="120" ry="14" fill="#1e1b4b" opacity=".28"/>
+<!-- walking stick -->
+<path d="M338 214 L356 424" stroke="#ffe27a" stroke-width="12" stroke-linecap="round"/>
+<!-- legs -->
+<path d="M246 296 L206 410" stroke="#fff" stroke-width="26" stroke-linecap="round" fill="none"/>
+<path d="M264 296 L318 372 L304 420" stroke="#fff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+<!-- torso -->
+<path d="M256 196 L256 296" stroke="#fff" stroke-width="54" stroke-linecap="round"/>
+<!-- backpack -->
+<rect x="188" y="188" width="56" height="102" rx="22" fill="url(#gold)"/>
+<rect x="196" y="236" width="40" height="22" rx="8" fill="#e08a00" opacity=".55"/>
+<!-- arm to stick -->
+<path d="M268 214 L338 232" stroke="#fff" stroke-width="20" stroke-linecap="round"/>
+<!-- head -->
+<circle cx="262" cy="148" r="30" fill="#fff"/>
+<!-- hat -->
+<path d="M214 132 Q262 66 310 132 Z" fill="url(#gold)"/>
+<ellipse cx="262" cy="134" rx="66" ry="12" fill="url(#gold)"/>
+<!-- location pin -->
+<path d="M404 96 c-26 0 -42 18 -42 40 c0 30 42 66 42 66 s42 -36 42 -66 c0 -22 -16 -40 -42 -40 z" fill="#fff"/>
+<circle cx="404" cy="136" r="15" fill="#d946ef"/>
+</svg>
