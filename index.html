@@ -811,6 +811,12 @@ input.ltr{direction:ltr;text-align:left}
 .map-wrap{position:relative}
 .map-locate{position:absolute;top:10px;left:10px;z-index:800;border:0;border-radius:12px;padding:8px 12px;font-weight:700;background:#fff;color:var(--p1);box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:13px;cursor:pointer}
 .map-locate:active{background:#ede9fe}
+.map-toolbar{display:flex;gap:8px;margin:0 0 8px;flex-wrap:wrap}
+.map-toolbar .btn{flex:1;justify-content:center}
+.pick-cats{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.pick-list{max-height:45vh;overflow:auto;margin:6px 0}
+.pick-list .res{width:100%;text-align:right}
+
 .maplist{margin:10px 0 4px}
 .maplist details.mlg{background:#fff;border-radius:14px;box-shadow:var(--sh);margin-bottom:8px;overflow:hidden}
 .maplist details.mlg summary{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;cursor:pointer;font-weight:700;color:var(--ink);list-style:none}
@@ -4101,7 +4107,7 @@ async function getRate(cur,force){
 const SYM={EUR:'€',USD:'$',GBP:'£',CZK:'Kč',HUF:'Ft',PLN:'zł',CHF:'CHF',JPY:'¥',TRY:'₺',THB:'฿',AED:'AED',EGP:'E£'};
 
 /* ===== מפות ===== */
-function destroyMap(){if(S.map){try{S.map.stop();S.map.off();S.map.remove()}catch(e){}S.map=null;S.layers={}}}
+function destroyMap(){if(S.map){try{S.map.stop();S.map.off();S.map.remove()}catch(e){}S.map=null;S.layers={};S.markers={}}
 const TILES={
   esri:{n:'רחובות (Esri)',url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',o:{maxZoom:19,attribution:'Tiles © Esri'}},
   carto:{n:'רגיל (Carto)',url:'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',o:{subdomains:'abcd',maxZoom:19,attribution:'© OpenStreetMap © CARTO'}},
@@ -4137,7 +4143,8 @@ const StyleCtl=L.Control.extend({options:{position:'topleft'},onAdd(m){
 }});
 function mkMap(el,center,zoom){
   destroyMap();
-  const m=L.map(el,{zoomControl:true,attributionControl:true,tap:true}).setView(center,zoom,{animate:false});
+  const node=typeof el==='string'?(document.getElementById(el)||el):el;
+  const m=L.map(node,{zoomControl:true,attributionControl:true,tap:true}).setView(center,zoom,{animate:false});
   setTiles(m,LS.get('tile','esri'),true);
   new StyleCtl().addTo(m);
   S.map=m;return m;
@@ -4163,7 +4170,7 @@ function renderHome(){
   if(S.deleted.length)h+='<p style="text-align:center;margin-top:14px"><button class="btn alt sm" data-act="restore">↩ שחזור ערים שנמחקו ('+S.deleted.length+')</button></p>';
   h+='<p class="muted" style="text-align:center;margin-top:18px">מומלץ להתקין את האפליקציה במסך הבית של הטלפון.</p>';
   $('#app').innerHTML=h;loadImages();
-  const q=$('#cityQ');if(q){q.oninput=()=>{const v=q.value.trim().toLowerCase();$$('.ccard',$('#cityGrid')||document).forEach(card=>{const t=(card.innerText||'').toLowerCase();card.style.display=!v||t.includes(v)?'':'none'})};}
+  const q=$('#cityQ');if(q){q.oninput=()=>{const v=q.value.trim().toLowerCase();$$('.ccard',$('#cityGrid')||document).forEach(card=>{if(card.classList.contains('addc'))return;const t=(card.innerText||'').toLowerCase();card.style.display=!v||t.includes(v)?'':'none'})};}
 }
 
 /* ===== מסך עיר ===== */
@@ -4268,6 +4275,7 @@ document.addEventListener('click',e=>{
   if(a==='gmap'){gmapSheet(t.dataset.q);return}
   if(a==='mapkind'){S.mapKind=t.dataset.k;S.gq=t.dataset.q||S.gq;renderPane();return}
   if(a==='mapfocus'){mapFocus(t.dataset.layer,t.dataset.id);return}
+  if(a==='placepick'){openPlacePicker();return}
 });
 $('#btnHome').onclick=()=>{if(history.state&&history.state.c)history.back();else renderHome()};
 $('#btnRef').onclick=refreshAll;
@@ -4339,36 +4347,39 @@ function paneMap(c){
   return '<div class="selview"><button class="on" data-act="mapkind" data-k="own">מפה עם הסימונים שלי</button><button data-act="mapkind" data-k="google">מפת גוגל</button></div>'+paneMapOwn(c);
 }
 function paneMapOwn(c){
-  const groups=[
-    ['sites','🏛️','אתרים',c.sites||[],s=>s.en||s.name],
-    ['hotels','🏨','מלונות',c.hotels||[],s=>s.name],
-    ['rest','🍽️','מסעדות',c.restaurants||[],s=>s.name],
-    ['shop','🛍️','קניות',c.shopping||[],s=>s.name],
-    ['markets','🧺','שווקים',c.markets||[],s=>s.name],
-    ['metro','🚇','תחנות מטרו',Object.values(T0(c).stations||{}),s=>s.n+(s.he?' · '+s.he:'')]
-  ];
-  let list='<div class="maplist">';
-  groups.forEach(([key,em,title,items,lab])=>{
-    if(!items||!items.length)return;
-    const arr=Array.isArray(items)?items:Object.values(items);
-    list+='<details class="mlg" data-layer="'+key+'"'+(key==='sites'?' open':'')+'>'
-      +'<summary><span>'+em+' '+title+'</span><span class="mln">'+arr.length+'</span></summary><ul>';
-    arr.forEach((s,i)=>{
-      const id=s.id||s.n||('x'+i);
-      const name=lab(s);
-      list+='<li><button type="button" class="mlp" data-act="mapfocus" data-layer="'+key+'" data-id="'+esc(id)+'">'
-        +'<span class="mlp-name">'+esc(name)+'</span>'
-        +(s.area||s.type||s.days?'<span class="mlp-sub">'+esc(s.area||s.type||s.days||'')+'</span>':'')
-        +'</button></li>';
-    });
-    list+='</ul></details>';
-  });
-  list+='</div>';
   return '<div class="filters">'+LAYERS.map(l=>'<button class="chip on" data-act="toggle" data-l="'+l[0]+'">'+l[1]+' '+l[2]+'</button>').join('')+'</div>'
+   +'<div class="map-toolbar"><button type="button" class="btn sm" data-act="placepick">📍 בחר מקום במפה</button></div>'
    +'<div class="map-wrap"><button class="map-locate" data-act="locate" type="button">📍 המיקום שלי</button><div class="map" id="map"></div></div>'
-   +'<p class="muted">לחצו על סמן במפה או על מקום ברשימה למטה — המפה תתמקד ותראה פרטים.</p>'
-   +list;
+   +'<p class="muted">לחצו על סמן במפה לפרטים, או על «בחר מקום במפה» כדי לקפוץ למיקום.</p>';
 }
+function openPlacePicker(){
+  const c=curCity();if(!c)return;
+  const groups=[
+    ['sites','🏛️','אתרים',(c.sites||[]).map(s=>({id:s.id,name:s.en||s.name,sub:s.loc||''}))],
+    ['hotels','🏨','מלונות',(c.hotels||[]).map(s=>({id:s.id,name:s.name,sub:s.area||''}))],
+    ['rest','🍽️','מסעדות',(c.restaurants||[]).map(s=>({id:s.id,name:s.name,sub:s.type||''}))],
+    ['shop','🛍️','קניות',(c.shopping||[]).map(s=>({id:s.id||s.name,name:s.name,sub:s.desc||''}))],
+    ['markets','🧺','שווקים',(c.markets||[]).map(s=>({id:s.id||s.name,name:s.name,sub:s.days||''}))],
+    ['metro','🚇','תחנות מטרו',Object.entries(T0(c).stations||{}).map(([id,s])=>({id:id,name:s.n,sub:s.he||''}))]
+  ].filter(g=>g[3].length);
+  let body='<h3>📍 בחר מקום במפה</h3><p class="muted">בחרו קטגוריה ואז מקום — המפה תתמקד עליו.</p>';
+  body+='<div class="pick-cats">'+groups.map((g,i)=>'<button type="button" class="chip'+(i===0?' on':'')+'" data-pickcat="'+g[0]+'">'+g[1]+' '+g[2]+' ('+g[3].length+')</button>').join('')+'</div>';
+  body+='<div id="pickList" class="pick-list"></div>';
+  body+='<div class="acts"><button class="btn alt sm" id="pickX">סגירה</button></div>';
+  const o=sheet(body);
+  $('#pickX',o).onclick=closeSheet;
+  const data={};groups.forEach(g=>data[g[0]]=g);
+  function showCat(key){
+    $$('.pick-cats .chip',o).forEach(b=>b.classList.toggle('on',b.dataset.pickcat===key));
+    const g=data[key];if(!g)return;
+    const list=$('#pickList',o);
+    list.innerHTML=g[3].map(s=>'<button type="button" class="res" data-layer="'+key+'" data-id="'+esc(s.id)+'"><b>'+esc(s.name)+'</b>'+(s.sub?'<div class="muted">'+esc(s.sub)+'</div>':'')+'</button>').join('');
+    $$('.res',list).forEach(btn=>btn.onclick=()=>{closeSheet();mapFocus(btn.dataset.layer,btn.dataset.id)});
+  }
+  $$('.pick-cats .chip',o).forEach(b=>b.onclick=()=>showCat(b.dataset.pickcat));
+  showCat(groups[0][0]);
+}
+
 function initMainMap(c){
   const m=mkMap('map',c.center,c.zoom);const g=S.layers;S.markers={};
   LAYERS.forEach(l=>g[l[0]]=L.layerGroup().addTo(m));
@@ -4383,20 +4394,25 @@ function initMainMap(c){
   c.shopping.forEach(s=>add('shop',s.id||s.name,s.lat,s.lng,pin('🛍️','#db2777'),popup(s.name,s.desc,s)));
   c.markets.forEach(s=>add('markets',s.id||s.name,s.lat,s.lng,pin('🧺','#059669'),popup(s.name,s.days,s)));
   Object.entries(T0(c).stations).forEach(([id,s])=>add('metro',id,s.lat,s.lng,pin('🚇','#2563eb'),popup(s.n,s.he||'',s)));
+  // Leaflet needs size recalc after layout
+  setTimeout(()=>{try{S.map.invalidateSize(false)}catch(e){}},50);
+  setTimeout(()=>{try{S.map.invalidateSize(false)}catch(e){}},300);
 }
 function mapFocus(layer,id){
-  if(!S.map||!S.markers)return;
-  const mk=S.markers[layer+':'+id];
-  if(!mk){toast('המיקום לא נמצא במפה');return}
-  // ensure layer visible
+  if(!S.map){toast('המפה עדיין נטענת');return}
+  if(!S.markers){toast('הסימונים עדיין נטענים');return}
+  let mk=S.markers[layer+':'+id];
+  // fallback: search by matching id string
+  if(!mk){
+    const key=Object.keys(S.markers).find(k=>k===layer+':'+id||k.endsWith(':'+id));
+    if(key)mk=S.markers[key];
+  }
+  if(!mk){toast('המיקום לא נמצא במפה ('+layer+')');return}
   const g=S.layers[layer];
   if(g&&!S.map.hasLayer(g)){S.map.addLayer(g);const chip=document.querySelector('.filters [data-l="'+layer+'"]');if(chip)chip.classList.add('on')}
+  try{S.map.invalidateSize(false)}catch(e){}
   S.map.setView(mk.getLatLng(),16,{animate:true});
-  mk.openPopup();
-  // highlight list item briefly
-  $$('.mlp').forEach(b=>b.classList.remove('on'));
-  const btn=document.querySelector('.mlp[data-layer="'+layer+'"][data-id="'+id.replace(/"/g,'')+'"]');
-  if(btn){btn.classList.add('on');btn.scrollIntoView({block:'nearest',behavior:'smooth'})}
+  setTimeout(()=>{try{mk.openPopup()}catch(e){}},200);
 }
 function toggleLayer(l,btn){
   const g=S.layers[l];if(!g||!S.map)return;

@@ -1,4 +1,4 @@
-/* מדריך המטייל — Service Worker */
+/* מדריך למטייל — Service Worker */
 const CACHE = 'traveler-guide-v1';
 const PRECACHE = [
   './',
