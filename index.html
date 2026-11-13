@@ -1,14 +1,11 @@
 <!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>מדריך למטייל</title><meta name="theme-color" content="#1e1b4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="מדריך למטייל">
 <meta name="application-name" content="מדריך למטייל">
-<meta name="description" content="מדריך טיולים מקיף — מפות, אתרים, תחבורה, מסלולים ומזג אוויר">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="./icon-512.png"><style>/* required styles */
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png"><style>/* required styles */
 
 .leaflet-pane,
 .leaflet-tile,
@@ -701,10 +698,7 @@ h3{margin:0 0 4px;font-size:16px;color:var(--ink)}
 .addc{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:170px;border:2px dashed #a78bfa;border-radius:20px;color:var(--p1);background:rgba(255,255,255,.7);font-weight:700;gap:6px;cursor:pointer}
 .addc span{font-size:36px;line-height:1}
 .hello{padding:14px;border-radius:18px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:var(--sh);margin-bottom:14px}
-.hello h2{color:#fff;margin:0 0 2px}.search-row{margin:0 0 12px}
-.search-row input{width:100%;padding:11px 14px;border:1.5px solid #ddd6fe;border-radius:14px;font:inherit;background:#fff;text-align:right;box-shadow:var(--sh)}
-.search-row input:focus{outline:2px solid #7c3aed;border-color:#7c3aed}
-
+.hello h2{color:#fff;margin:0 0 2px}
 /* hero */
 .hero{border-radius:18px;color:#fff;padding:9px 12px;margin-bottom:8px;box-shadow:var(--sh);background:linear-gradient(135deg,var(--a),var(--b));position:relative;overflow:hidden}
 .hero h2{color:#fff;margin:0;font-size:21px}
@@ -724,7 +718,7 @@ bdi{unicode-bidi:isolate}
 /* cards */
 .card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
 .card .body{padding:10px 12px 12px}
-.ph{height:150px;background:linear-gradient(135deg,#c4b5fd,#f9a8d4);background-size:cover;background-position:center;background-repeat:no-repeat;position:relative;display:flex;align-items:center;justify-content:center;font-size:44px}
+.ph{height:150px;background:linear-gradient(135deg,#c4b5fd,#f9a8d4);background-size:cover;background-position:center;position:relative;display:flex;align-items:center;justify-content:center;font-size:44px}
 .ph .bd{position:absolute;inset:auto 6px 6px 6px;display:flex;flex-wrap:wrap;gap:4px}
 .b{font-size:11.5px;font-weight:700;border-radius:99px;padding:2px 8px;background:rgba(255,255,255,.92);color:var(--ink)}
 .b.g{background:#d1fae5;color:#047857}.b.r{background:#fee2e2;color:#b91c1c}.b.y{background:#fef3c7;color:#b45309}.b.p{background:#ede9fe;color:#6d28d9}.b.s{background:#e0f2fe;color:#0369a1}
@@ -800,38 +794,20 @@ input.ltr{direction:ltr;text-align:left}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cards2 .card{margin:0}}
 
 .tabs{scrollbar-width:thin;scrollbar-color:#a78bfa transparent}
-.tabs::-webkit-scrollbar{display:block;height:6px}
-.tabs::-webkit-scrollbar-track{background:transparent}
+.tabs::-webkit-scrollbar{height:6px}
 .tabs::-webkit-scrollbar-thumb{background:#a78bfa;border-radius:99px}
-.tabs::-webkit-scrollbar-thumb:hover{background:#7c3aed}
-@media(max-width:699px){
-  .tabs{scrollbar-width:none}
-  .tabs::-webkit-scrollbar{display:none}
-}
+@media(max-width:699px){.tabs{scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}}
 .map-wrap{position:relative}
 .map-locate{position:absolute;top:10px;left:10px;z-index:800;border:0;border-radius:12px;padding:8px 12px;font-weight:700;background:#fff;color:var(--p1);box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:13px;cursor:pointer}
 .map-locate:active{background:#ede9fe}
-.map-toolbar{display:flex;gap:8px;margin:0 0 8px;flex-wrap:wrap}
+.leaflet-top.leaflet-left{margin-top:48px}
+.map-toolbar{display:flex;gap:8px;margin:0 0 8px}
 .map-toolbar .btn{flex:1;justify-content:center}
 .pick-cats{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
 .pick-list{max-height:45vh;overflow:auto;margin:6px 0}
 .pick-list .res{width:100%;text-align:right}
-
-.maplist{margin:10px 0 4px}
-.maplist details.mlg{background:#fff;border-radius:14px;box-shadow:var(--sh);margin-bottom:8px;overflow:hidden}
-.maplist details.mlg summary{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;cursor:pointer;font-weight:700;color:var(--ink);list-style:none}
-.maplist details.mlg summary::-webkit-details-marker{display:none}
-.maplist details.mlg summary::after{content:'▾';color:var(--p1);font-size:12px;margin-inline-start:8px}
-.maplist details.mlg[open] summary::after{content:'▴'}
-.maplist .mln{background:#ede9fe;color:#5b21b6;border-radius:99px;padding:2px 8px;font-size:12px;font-weight:700}
-.maplist ul{list-style:none;margin:0;padding:0 8px 8px}
-.maplist .mlp{width:100%;text-align:right;border:0;background:#faf5ff;border-radius:10px;padding:8px 10px;margin:4px 0;cursor:pointer;display:flex;flex-direction:column;gap:2px;font:inherit}
-.maplist .mlp:active,.maplist .mlp.on{background:#ede9fe;outline:2px solid #7c3aed}
-.maplist .mlp-name{font-weight:700;color:var(--ink);font-size:14px}
-.maplist .mlp-sub{font-size:12px;color:var(--muted)}
-
-.leaflet-top.leaflet-left{margin-top:48px}
-.ccard .city-img{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
+.search-row{margin:0 0 12px}
+.search-row input{width:100%;padding:11px 14px;border:1.5px solid #ddd6fe;border-radius:14px;font:inherit;background:#fff;text-align:right;box-shadow:var(--sh)}
 @media print{#hdr,.tabs,.acts{display:none}}
 
 .leaflet-container.nomap{background-color:#e8eefc;background-image:linear-gradient(rgba(124,58,237,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.10) 1px,transparent 1px);background-size:44px 44px}
@@ -2062,8 +2038,8 @@ id:'athens',name:'אתונה',en:'Athens',local:'Αθήνα',country:'יוון',
 color:['#0ea5e9','#6366f1'],center:[37.9755,23.7275],zoom:14,wiki:'Athens',
 cur:'EUR',sym:'€',tz:'Europe/Athens',
 phrase:'Μπορείτε παρακαλώ να με πάτε σε αυτή τη διεύθυνση;',phraseLang:'🇬🇷 Ελληνικά',
-intro:'עיר עתיקה וחיה: אקרופוליס ופרתנון מעל הרובע הציורי פלאקה, מוזיאון מודרני לרגלי הגבעה, שווקים, טברנות ותצפיות. המרכז ההיסטורי קומפקטי וכמעט כל האתרים בהליכה או במטרו. בחורף (דצמבר) יום 8–15°, גשם אפשרי, שקיעה ~17:15 — מעיל, נעליים אטומות מים וסוליה נגד החלקה מומלצים. טיולי יום לסוניון ולדלפי.',
-updated:'עודכן 13/11/2026 לפי מסמך טיול מפורט + מקורות רשמיים (hh.gr, OASA, STASY, theacropolismuseum.gr). מחירים ושעות לחורף 2026–2027. יש לוודא באתרים הרשמיים לפני הביקור.',
+intro:'עיר עתיקה וחיה: אקרופוליס ופרתנון מעל הרובע הציורי פלאקה, מוזיאון מודרני לרגלי הגבעה, שווקים, טברנות ותצפיות. המרכז ההיסטורי קומפקטי וכמעט כל האתרים בהליכה או במטרו. טיולי יום נוחים לסוניון ולדלפי.',
+updated:'המידע נאסף ב-12/11/2026 ממקורות אתרי-התיירות ומשרד התרבות היווני (hh.gr) ומאתרי מידע. חלק מהפרטים מסומנים "לבדוק" ולא אומתו. יש לוודא שעות ומחירים באתר הרשמי לפני הביקור.',
 eventsNote:'נכון ל-12/11/2026. מקור: אתרי תזמורת המדינה של אתונה (koa.gr), Megaron ו-travel.gr. מומלץ לוודא תאריכים ומחירים באתרי האירועים.',
 events:[
  {t:'Symphonic Pink Floyd (תזמורת המדינה של אתונה)',when:'27/11/2026',where:'Megaron – היכל הקונצרטים של אתונה',price:'€11–60'},
@@ -2073,10 +2049,10 @@ events:[
  {t:'ערב ראש השנה בסגנון וינאי (Camerata)',when:'04/01/2027',where:'Megaron – אולם Christos Lambrakis',price:'€10–55'},
  {t:'תערוכה: Danae Stratou – AFALES | NAVELS',when:'עד 31/01/2027',where:'annexM, Megaron, אתונה',price:'לבדוק באתר'}
 ],
-airports:[{n:'נמל התעופה אתונה אלפתריוס ונוסלוס (ATH)',lat:37.9364,lng:23.9445,via:'airport',how:'מטרו קו 3 (כחול) עד Syntagma כ-40 דקות, €9 לכיוון (€16 הלוך-חזור, תקף 30 יום). אוטובוס אקספרס X95 ל-Syntagma, 24/7, €5.50, כ-60–90 דקות. מונית מחיר קבוע: 50€ ביום (05:00–24:00), 65€ בלילה. איסוף מוניות ביציאה Exit 5. אפליקציות: FreeNow, Bolt, Uber Taxi.'}],
+airports:[{n:'נמל התעופה אתונה אלפתריוס ונוסלוס (ATH)',lat:37.9364,lng:23.9445,via:'airport',how:'מטרו קו 3 (כחול) עד Syntagma/Monastiraki כ-40 דקות, €9 לכיוון (€16 הלוך-חזור). אוטובוס אקספרס X95 ל-Syntagma, פועל 24/7, €5.50 לכיוון, כ-60–90 דקות. מונית: לבדוק תעריף עדכני.'}],
 
 sites:[
-{id:'acropolis',en:'Acropolis & Parthenon',loc:'Ακρόπολη Αθηνών',lat:37.9715,lng:23.7257,wiki:'Acropolis_of_Athens',tags:['history','views','family'],hill:1,book:'required',bookNote:'חובה להזמין שעת כניסה (Timed Entry) באתר tickets.hh.gr / hhticket.gr. עד גיל 18 חינם (דרכון).',
+{id:'acropolis',en:'Acropolis & Parthenon',loc:'Ακρόπολη Αθηνών',lat:37.9715,lng:23.7257,wiki:'Acropolis_of_Athens',tags:['history','views','family'],hill:1,
  desc:'סלע הקודש של אתונה: הפרתנון, האראכתיאון עם הקריאטידות, מקדש אתנה ניקה ושער הפרופילאה. בכרטיס כלול גם תיאטרון דיוניסוס במורד הדרומי. הנוף לעיר מרהיב, במיוחד בבוקר מוקדם.',
  hist:'המתחם הוקם במאה ה-5 לפנה״ס בימי פריקלס, עם בניית הפרתנון המוקדש לאתנה. לאורך הדורות שימש כנסייה, מסגד ומחסן תחמושת, ועבר שחזורים נרחבים עד ימינו.',
  addr:'Ακρόπολη, Αθήνα 105 58 · Acropolis, Athens 105 58',tel:'',
@@ -2183,8 +2159,6 @@ sites:[
 ],
 
 hotels:[
-{id:'h-adia',name:'Adia Aluma Athens, Curio Collection by Hilton',stars:5,lat:37.9835,lng:23.7280,area:'Omonia / מרכז',addr:'Likourgou 18 (Λυκούργου 18), Athens 10552',price:'~919$ ל-4 לילות זוגי (כולל בוקר, לפי הצעה 2026)',
- why:'גג עם מסעדה ובר ונוף לפארתנון. בריכת אינפיניטי (סגורה בחורף). 350 מ׳ ממטרו Omonia, 5–7 דק׳ מונית ל-Syntagma. צ׳ק-אין 15:00, צ׳ק-אאוט 11:00.',tel:'+30 214 444 8946',web:'https://www.hilton.com/en/hotels/athadqq-adia-aluma-athens/'},
 {id:'h-gb',name:'Hotel Grande Bretagne, a Luxury Collection Hotel',stars:5,lat:37.9758,lng:23.7344,area:'כיכר Syntagma',addr:'Vasileos Georgiou A 1',price:'לבדוק באתר המלון (משתנה לפי עונה)',
  why:'מלון היסטורי ויוקרתי מול הפרלמנט, עם גג-בר ונוף לאקרופוליס. מטרו Syntagma בפתח.',web:'https://www.grandebretagne.gr'},
 {id:'h-njv',name:'NJV Athens Plaza',stars:5,lat:37.9748,lng:23.7338,area:'כיכר Syntagma',addr:'Vasileos Georgiou A 2',price:'לבדוק באתר המלון',
@@ -2212,7 +2186,7 @@ transport:{
   ['אוטובוס אקספרס X95, X93, X96, X97','€5.50 לכיוון','פעיל 24/7. X95 ל-Syntagma כ-60–90 דקות']
  ],
  tickets:['כרטיס אשראי מגע (Visa/Mastercard/Apple Pay/Google Pay): עוברים ב-Tap2Ride, €1.20 לנסיעה עם תקרה יומית של €4.10.','כרטיסי נייר/ATH.ENA נרכשים במכונות ובקופות בתחנות המטרו הגדולות (Syntagma, Monastiraki, שדה התעופה).','כרטיס שדה התעופה לא תקף ממכונות רגילות אלא רק בכרטיס ייעודי; לבדוק לפני שמאשרים.','מחירים נכונים לפי אתרי מידע שפורסמו ב-2026, לבדוק באתר OASA.'],
- extra:['שעות מטרו: לבדוק באתר STASY. בדרך כלל עד חצות; אחרי חצות רק אוטובוסי לילה.','תחנות מטרו עם שרידים ארכאולוגיים: Syntagma, Acropoli, Monastiraki.','תיקוף חובה (Tap In) במכונות צהובות; במטרו גם Tap Out ביציאה — אחרת הכרטיס עלול להינעל. קנס ללא תיקוף עד 100€.','Contactless: אשראי מגע / Apple Pay / Google Pay — 1.20€ לנסיעה, תקרה יומית 4.10€.','מוניות: התחלה 1.80€, לק״מ 0.90€ (יום), 1.25€ לילה/מחוץ לעיר, מינימום 4€. שדה↔עיר מחיר קבוע 50€ יום / 65€ לילה. אפליקציות: FreeNow (מומלץ), Bolt, Uber Taxi.','אפליקציית OASA Telematics — זמני אוטובוסים בזמן אמת. אתרים: stasy.gr · oasa.gr.','בעת שביתות תחבורה (שכיחות) המטרו עלול לעצור — בדקו חדשות בבוקר.'],
+ extra:['שעות מטרו: לבדוק באתר הרשמי (STASY). בדרך כלל עד חצות, בסופי שבוע מאוחר יותר.','תחנות מטרו מכילות שרידים ארכאולוגיים, בעיקר Syntagma ו-Acropoli.','בעת שביתות תחבורה (שכיחות ביוון) המטרו עלול לעצור, בדקו חדשות.','אפליקציות: Google Maps, Citymapper, Beat/FREENOW למוניות.'],
  lines:[
   {id:'1',name:'קו 1 (ירוק)',color:'#00a651',from:'Piraeus',to:'Kifissia',stations:['piraeus','thissio','monastiraki','omonia','victoria','attiki','kifissia']},
   {id:'2',name:'קו 2 (אדום)',color:'#e30613',from:'Anthoupoli',to:'Elliniko',stations:['anthoupoli','omonia','panepistimio','syntagma','acropoli','syngrou','elliniko']},
@@ -2242,11 +2216,6 @@ transport:{
 },
 
 restaurants:[
-{id:'r-kuzina',name:'Kuzina',lat:37.9750,lng:23.7215,addr:'Adrianou 9, Thissio',type:'יוונית מודרנית · גג',price:'€25–40 לאדם',note:'מסעדה מומלצת עם גג. חובה להזמין גג מראש. טל׳ +30 210-324-0133 · kuzina.gr',tel:'+30 210 324 0133',web:'https://kuzina.gr'},
-{id:'r-kafeneio',name:'To Kafeneio',lat:37.9722,lng:23.7295,addr:'Epicharmou 1 & Tripodon, Plaka',type:'אוכל ביתי יווני',price:'€15–22 לאדם',note:'טברנה בפלאקה, אוכל ביתי. טל׳ +30 210-3247755',tel:'+30 210 324 7755'},
-{id:'r-schol',name:'Scholarchio',lat:37.9720,lng:23.7288,addr:'Tripodon 14, Plaka',type:'טברנה',price:'€15–22 לאדם',note:'טברנה קלאסית בפלאקה. טל׳ +30 210-3247605',tel:'+30 210 324 7605'},
-{id:'r-aforathens',name:'A for Athens Rooftop',lat:37.9765,lng:23.7255,addr:'Miaouli 2, Monastiraki',type:'בר גג · נוף',price:'משקאות €12–15',note:'גג עם נוף אקרופוליס מואר — בעיקר משקאות ושקיעה. טל׳ +30 210-3244244',tel:'+30 210 324 4244'},
-
  {id:'gostijo',name:'Gostijo',lat:37.9772,lng:23.7255,addr:'Aisopou 10, Psiri',type:'כשר מהדרין · בשרי',price:'לבדוק',note:'מסעדה בשרית כשרה בבית חב״ד. פתוחה ראשון–חמישי 13:30–21:30 (הזמנה אחרונה 21:00); סגורה בשישי ובשבת. אתר: gostijo.gr.'},
  {id:'parakalo',name:'Parakalo',lat:37.9778,lng:23.7262,addr:'Mikonos 18, Psiri',type:'כשר גלאט · חלבי',price:'לבדוק',note:'בית קפה-ביסטרו חלבי כשר. ראשון 9:00–21:30; שני–חמישי 8:00–21:30; שישי 8:00–15:00; שבת לאחר צאת השבת.'},
  {id:'thanasis',name:'Thanasis',lat:37.9758,lng:23.7260,addr:'Mitropoleos 69, Monastiraki',type:'סובלקי · זול',price:'כ-€3–8 (הערכה)',note:'מקום מפורסם לסובלקי וגירוס בכיכר Monastiraki. תור בשעות שיא.'},
@@ -2303,47 +2272,7 @@ tips:[
 ],
 
 info:{
- 'שפה ותקשורת':[
-'שפה: יוונית · אנגלית נפוצה בתיירות',
-'חיוג מישראל: +30 (00-30)',
-'— ברכות ונימוסים —',
-'Γεια σου · יָאסוּ · שלום (לא רשמי)',
-'Γεια σας · Ya sas · שלום / להתראות',
-'Καλημέρα · Kaliméra · בוקר טוב',
-'Καλησπέρα · Kalispéra · ערב טוב',
-'Καλό μεσημέρι · Kaló mesiméri · צהריים טובים',
-'Καληνύχτα · Kaliníchta · לילה טוב',
-'Συγγνώμη · Signómi · סליחה',
-'Παρακαλώ · Parakaló · בבקשה',
-'Ευχαριστώ · Efcharistó · תודה',
-'Ευχαριστώ πολύ · אֶפְחָרִיסְטוֹ פּוֹלִי · תודה רבה',
-'Ναι · Ne · כן',
-'Όχι · Óchi · לא',
-'— שיחה קצרה —',
-'Τι κάνεις; · טִי קָנִיס · מה שלומך?',
-'Καλά, ευχαριστώ · קָלָה, אֶפְחָרִיסְטוֹ · טוב, תודה',
-'Δεν μιλάω ελληνικά · דֶן מִילָאוֹ אֶלִינִיקָה · אני לא מדבר יוונית',
-'Δεν καταλαβαίνω · Den katalavéno · אני לא מבין/ה',
-'Μιλάτε αγγλικά; · Miláte angliká? · אתה מדבר אנגלית?',
-'Πού είναι η τουαλέτα; · Pu íne i tualéta? · איפה השירותים?',
-'Πού είναι το ξενοδοχείο; · Pu íne to xenodochío? · איפה המלון?',
-'Βοήθεια! · Voíthia · עזרה!',
-'— במסעדה —',
-'Θέλω γύρο · תֶ\'לוֹ גִירוֹ · אני רוצה גירוס',
-'Θέλω νερό · תֶ\'לוֹ נֶרוֹ · אני רוצה מים',
-'Νερό παρακαλώ · Neró parakaló · מים בבקשה',
-'Τον λογαριασμό, παρακαλώ · Ton logariasmó, parakaló · החשבון בבקשה',
-'Πόσο κοστίζει; · Póso kostízi? · כמה זה עולה?',
-'Νόστιμο · נוֹסְטִימוֹ · טעים',
-'Στην υγειά σας! · Stin yiá sas! · לחיים!',
-'— מאכלים —',
-'Μουσακάς · מוּסָקָאס · מוסקה',
-'Γύρος · גִירוֹס · גירוס',
-'Σουβλάκι · סוּבְלָאקִי · סופלאקי',
-'Χωριάτικη σαλάτα · חוֹרְיָאטִיקִי סָלָאטָה · סלט יווני',
-'Σπανακόπιτα · סְפָּנָקוֹפִּיטָה · מאפה תרד',
-'Μπακλαβάς · מְבַּקְלָבָאס · בקלאווה'
-],
+ 'שפה ותקשורת':['שפה: יוונית (אנגלית נפוצה בתיירות)','חיוג מישראל: +30 (00-30)','"Kalimera" = בוקר טוב · "Efcharisto" = תודה'],
  'כסף':['מטבע: יורו (€ / EUR)','כרטיסי אשראי מקובלים כמעט בכל מקום; בטברנות קטנות כדאי מזומן','החזר מע״מ (Tax Free) לבדוק בחנויות מוכרות'],
  'חשמל ושעון':['מתח 230V, שקעים אירופאיים (C/F)','הפרש שעות: אין הפרש משעון ישראל (שניהם UTC+2 בחורף)','טיסה מישראל: כ-2 שעות וחצי (לבדוק)'],
  'כניסה למדינה':['ישראלים: כניסה ללא ויזה עד 90 יום באזור שנגן','לבדוק לפני הטיסה אם נדרש אישור ETIAS ובדיקות EES באתרים הרשמיים'],
@@ -4049,41 +3978,26 @@ const INTERESTS=[['history','🏛️ היסטוריה ותרבות'],['views','�
 /* ===== תמונות וידע חי ===== */
 const imgMem={};
 async function wikiImg(title,name){
-  const key=(title||'')+'|'+(name||'');
+  if(!title)return null;
+  const key=title||('?'+name);
   const cache=LS.get('img',{});
   if(cache[key])return cache[key];
   if(imgMem[key]===null)return null;
   try{
     let u=null;
-    const tryTitle=async (lang,t)=>{
-      if(!t)return null;
-      const r=await fetch('https://'+lang+'.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(String(t).replace(/ /g,'_')));
-      if(!r.ok)return null;const j=await r.json();
-      return (j.thumbnail&&j.thumbnail.source)||null;
-    };
     if(title){
-      let lang='en',t=title;const m=String(title).match(/^([a-z]{2,3}):(.+)$/);if(m){lang=m[1];t=m[2]}
-      u=await tryTitle(lang,t);
-      if(!u&&lang!=='en')u=await tryTitle('en',t);
-    }
-    if(!u&&name){
-      // search then summary
-      try{
-        const sr=await fetch('https://en.wikipedia.org/w/api.php?action=query&list=search&srlimit=1&format=json&origin=*&srsearch='+encodeURIComponent(name));
-        if(sr.ok){const j=await sr.json();const hit=j.query&&j.query.search&&j.query.search[0];if(hit)u=await tryTitle('en',hit.title)}
-      }catch(e){}
+      let lang='en',t=title;const m=title.match(/^([a-z]{2,3}):(.+)$/);if(m){lang=m[1];t=m[2]}
+      const r=await fetch('https://'+lang+'.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(t.replace(/ /g,'_')));
+      if(r.ok){const j=await r.json();u=(j.thumbnail&&j.thumbnail.source)||null}
     }
     if(u){u=u.replace(/\/\d+px-/,'/640px-');cache[key]=u;LS.set('img',cache);return u}
     imgMem[key]=null;return null;
   }catch(e){return null}
 }
 function loadImages(root){
-  $$('[data-wiki],[data-wikiname]',root||document).forEach(el=>{
+  $$('[data-wiki]',root||document).forEach(el=>{
     if(el.dataset.done)return;el.dataset.done=1;
-    const title=el.dataset.wiki||'';
-    const name=el.dataset.wikiname||'';
-    if(!title&&!name)return;
-    wikiImg(title,name).then(u=>{if(u){el.style.backgroundImage="linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.35)),url('"+u+"')";const em=el.querySelector('.em');if(em)em.style.display='none'}});
+    wikiImg(el.dataset.wiki||'','').then(u=>{if(u){el.style.backgroundImage="linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.35)),url('"+u+"')";const em=el.querySelector('.em');if(em)em.style.display='none'}});
   });
 }
 const WX={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
@@ -4107,7 +4021,7 @@ async function getRate(cur,force){
 const SYM={EUR:'€',USD:'$',GBP:'£',CZK:'Kč',HUF:'Ft',PLN:'zł',CHF:'CHF',JPY:'¥',TRY:'₺',THB:'฿',AED:'AED',EGP:'E£'};
 
 /* ===== מפות ===== */
-function destroyMap(){if(S.map){try{S.map.stop();S.map.off();S.map.remove()}catch(e){}S.map=null;S.layers={};S.markers={}}
+function destroyMap(){if(S.map){try{S.map.stop();S.map.off();S.map.remove()}catch(e){}S.map=null;S.layers={};S.markers={}}}
 const TILES={
   esri:{n:'רחובות (Esri)',url:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',o:{maxZoom:19,attribution:'Tiles © Esri'}},
   carto:{n:'רגיל (Carto)',url:'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',o:{subdomains:'abcd',maxZoom:19,attribution:'© OpenStreetMap © CARTO'}},
@@ -4143,8 +4057,7 @@ const StyleCtl=L.Control.extend({options:{position:'topleft'},onAdd(m){
 }});
 function mkMap(el,center,zoom){
   destroyMap();
-  const node=typeof el==='string'?(document.getElementById(el)||el):el;
-  const m=L.map(node,{zoomControl:true,attributionControl:true,tap:true}).setView(center,zoom,{animate:false});
+  const m=L.map(el,{zoomControl:true,attributionControl:true,tap:true}).setView(center,zoom,{animate:false});
   setTiles(m,LS.get('tile','esri'),true);
   new StyleCtl().addTo(m);
   S.map=m;return m;
@@ -4158,11 +4071,9 @@ function renderHome(){
   destroyMap();S.cityId=null;
   const cs=allCities();
   $('#btnHome').style.display='none';$('#btnRef').style.display='none';
-  let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">מדריך למטייל — בחרו עיר לפרטים מלאים, או הוסיפו מקום חדש מכל מקום בעולם.</div></div>'
-   +'<div class="search-row"><input type="search" id="cityQ" placeholder="🔎 חיפוש עיר…" inputmode="search" autocomplete="off"></div><div class="grid" id="cityGrid">';
+  let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">בחרו עיר לפרטים מלאים — או הוסיפו מקום חדש מכל מקום בעולם.</div></div><div class="grid">';
   cs.forEach(c=>{
-    const img=c.custom?'':'city-img/'+c.id+'.jpg';
-    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+(img?'background-image:url(\''+img+'\')':'')+'"'+(c.custom?' data-wiki="'+esc(c.wiki||'')+'" data-wikiname="'+esc(c.en)+'"':'')+'>'
+    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+'" data-wikiname="'+esc(c.wiki?'':c.en)+'" data-wiki="'+esc(c.wiki||'')+'">'
      +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button><span class="fl">'+(c.flag||'📍')+'</span>'
      +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
   });
@@ -4170,7 +4081,10 @@ function renderHome(){
   if(S.deleted.length)h+='<p style="text-align:center;margin-top:14px"><button class="btn alt sm" data-act="restore">↩ שחזור ערים שנמחקו ('+S.deleted.length+')</button></p>';
   h+='<p class="muted" style="text-align:center;margin-top:18px">מומלץ להתקין את האפליקציה במסך הבית של הטלפון.</p>';
   $('#app').innerHTML=h;loadImages();
-  const q=$('#cityQ');if(q){q.oninput=()=>{const v=q.value.trim().toLowerCase();$$('.ccard',$('#cityGrid')||document).forEach(card=>{if(card.classList.contains('addc'))return;const t=(card.innerText||'').toLowerCase();card.style.display=!v||t.includes(v)?'':'none'})};}
+  $$('.ccard[data-id]').forEach(function(el){
+    var id=el.getAttribute('data-id');
+    if(id && el.getAttribute('data-wiki')===null){el.style.backgroundImage='url(city-img/'+id+'.jpg)';}
+  });
 }
 
 /* ===== מסך עיר ===== */
@@ -4238,7 +4152,7 @@ async function refreshAll(){
     }
     LS.set('upd.'+c.id,Date.now());
     renderCity();
-    toast(ok?'המידע עודכן: מזג אוויר, שער חליפין, תמונות'+(c.custom?' וכל נתוני המקום':'')+'. ריענון מושך נתונים חיים הזמינים ברשת.':'אין חיבור לאינטרנט — לא ניתן היה לעדכן הכול.');
+    toast(ok?'המידע עודכן: מזג אוויר, שער חליפין, תמונות'+(c.custom?' וכל נתוני המקום':'')+'.':'אין חיבור לאינטרנט — לא ניתן היה לעדכן הכול.');
   }finally{b.classList.remove('spin')}
 }
 function delCity(id){
@@ -4267,6 +4181,7 @@ document.addEventListener('click',e=>{
   if(a==='planday'){focusDay(+t.dataset.d);return}
   if(a==='route'){doGuide();return}
   if(a==='locate'){locateMe();return}
+  if(a==='placepick'){openPlacePicker();return}
   if(a==='heroP'){t.classList.toggle('open');return}
   if(a==='toggle'){toggleLayer(t.dataset.l,t);return}
   if(a==='star'||a==='hide'){const c=curCity(),cur=SEL.get(c.id)[t.dataset.id]||0,want=a==='star'?1:-1;SEL.set(c.id,t.dataset.id,cur===want?0:want);const y=window.scrollY;renderPane();window.scrollTo(0,y);return}
@@ -4274,8 +4189,6 @@ document.addEventListener('click',e=>{
   if(a==='driver'){showDriver(t.dataset.n,t.dataset.l,t.dataset.a);return}
   if(a==='gmap'){gmapSheet(t.dataset.q);return}
   if(a==='mapkind'){S.mapKind=t.dataset.k;S.gq=t.dataset.q||S.gq;renderPane();return}
-  if(a==='mapfocus'){mapFocus(t.dataset.layer,t.dataset.id);return}
-  if(a==='placepick'){openPlacePicker();return}
 });
 $('#btnHome').onclick=()=>{if(history.state&&history.state.c)history.back();else renderHome()};
 $('#btnRef').onclick=refreshAll;
@@ -4349,88 +4262,90 @@ function paneMap(c){
 function paneMapOwn(c){
   return '<div class="filters">'+LAYERS.map(l=>'<button class="chip on" data-act="toggle" data-l="'+l[0]+'">'+l[1]+' '+l[2]+'</button>').join('')+'</div>'
    +'<div class="map-toolbar"><button type="button" class="btn sm" data-act="placepick">📍 בחר מקום במפה</button></div>'
-   +'<div class="map-wrap"><button class="map-locate" data-act="locate" type="button">📍 המיקום שלי</button><div class="map" id="map"></div></div>'
-   +'<p class="muted">לחצו על סמן במפה לפרטים, או על «בחר מקום במפה» כדי לקפוץ למיקום.</p>';
+   +'<div class="map-wrap"><button type="button" class="map-locate" data-act="locate">📍 המיקום שלי</button><div class="map" id="map"></div></div>'
+   +'<p class="muted">לחצו על סמן במפה, או על «בחר מקום במפה» כדי לקפוץ למיקום.</p>';
 }
-function openPlacePicker(){
-  const c=curCity();if(!c)return;
-  const groups=[
-    ['sites','🏛️','אתרים',(c.sites||[]).map(s=>({id:s.id,name:s.en||s.name,sub:s.loc||''}))],
-    ['hotels','🏨','מלונות',(c.hotels||[]).map(s=>({id:s.id,name:s.name,sub:s.area||''}))],
-    ['rest','🍽️','מסעדות',(c.restaurants||[]).map(s=>({id:s.id,name:s.name,sub:s.type||''}))],
-    ['shop','🛍️','קניות',(c.shopping||[]).map(s=>({id:s.id||s.name,name:s.name,sub:s.desc||''}))],
-    ['markets','🧺','שווקים',(c.markets||[]).map(s=>({id:s.id||s.name,name:s.name,sub:s.days||''}))],
-    ['metro','🚇','תחנות מטרו',Object.entries(T0(c).stations||{}).map(([id,s])=>({id:id,name:s.n,sub:s.he||''}))]
-  ].filter(g=>g[3].length);
-  let body='<h3>📍 בחר מקום במפה</h3><p class="muted">בחרו קטגוריה ואז מקום — המפה תתמקד עליו.</p>';
-  body+='<div class="pick-cats">'+groups.map((g,i)=>'<button type="button" class="chip'+(i===0?' on':'')+'" data-pickcat="'+g[0]+'">'+g[1]+' '+g[2]+' ('+g[3].length+')</button>').join('')+'</div>';
-  body+='<div id="pickList" class="pick-list"></div>';
-  body+='<div class="acts"><button class="btn alt sm" id="pickX">סגירה</button></div>';
-  const o=sheet(body);
-  $('#pickX',o).onclick=closeSheet;
-  const data={};groups.forEach(g=>data[g[0]]=g);
-  function showCat(key){
-    $$('.pick-cats .chip',o).forEach(b=>b.classList.toggle('on',b.dataset.pickcat===key));
-    const g=data[key];if(!g)return;
-    const list=$('#pickList',o);
-    list.innerHTML=g[3].map(s=>'<button type="button" class="res" data-layer="'+key+'" data-id="'+esc(s.id)+'"><b>'+esc(s.name)+'</b>'+(s.sub?'<div class="muted">'+esc(s.sub)+'</div>':'')+'</button>').join('');
-    $$('.res',list).forEach(btn=>btn.onclick=()=>{closeSheet();mapFocus(btn.dataset.layer,btn.dataset.id)});
-  }
-  $$('.pick-cats .chip',o).forEach(b=>b.onclick=()=>showCat(b.dataset.pickcat));
-  showCat(groups[0][0]);
-}
-
 function initMainMap(c){
   const m=mkMap('map',c.center,c.zoom);const g=S.layers;S.markers={};
   LAYERS.forEach(l=>g[l[0]]=L.layerGroup().addTo(m));
-  const add=(layer,id,lat,lng,icon,pop)=>{
+  function add(layer,id,lat,lng,icon,pop){
     if(lat==null||lng==null)return;
-    const mk=L.marker([lat,lng],{icon}).bindPopup(pop).addTo(g[layer]);
+    const mk=L.marker([lat,lng],{icon:icon}).bindPopup(pop).addTo(g[layer]);
     S.markers[layer+':'+id]=mk;
-  };
+  }
   c.sites.forEach(s=>add('sites',s.id,s.lat,s.lng,pin('🏛️','#7c3aed'),popup(s.en,s.loc&&s.loc!==s.en?s.loc:'',s)));
   c.hotels.forEach(s=>add('hotels',s.id,s.lat,s.lng,pin('🏨','#d97706'),popup(s.name,'★'.repeat(s.stars)+' '+s.price,s)));
   c.restaurants.forEach(s=>add('rest',s.id,s.lat,s.lng,pin('🍽️','#dc2626'),popup(s.name,s.type+' · '+s.price,s)));
   c.shopping.forEach(s=>add('shop',s.id||s.name,s.lat,s.lng,pin('🛍️','#db2777'),popup(s.name,s.desc,s)));
   c.markets.forEach(s=>add('markets',s.id||s.name,s.lat,s.lng,pin('🧺','#059669'),popup(s.name,s.days,s)));
-  Object.entries(T0(c).stations).forEach(([id,s])=>add('metro',id,s.lat,s.lng,pin('🚇','#2563eb'),popup(s.n,s.he||'',s)));
-  // Leaflet needs size recalc after layout
-  setTimeout(()=>{try{S.map.invalidateSize(false)}catch(e){}},50);
-  setTimeout(()=>{try{S.map.invalidateSize(false)}catch(e){}},300);
+  Object.entries(T0(c).stations).forEach(function(pair){var id=pair[0],s=pair[1];add('metro',id,s.lat,s.lng,pin('🚇','#2563eb'),popup(s.n,s.he||'',s));});
+  setTimeout(function(){try{S.map.invalidateSize(false);}catch(e){}},60);
+  setTimeout(function(){try{S.map.invalidateSize(false);}catch(e){}},300);
 }
 function mapFocus(layer,id){
-  if(!S.map){toast('המפה עדיין נטענת');return}
-  if(!S.markers){toast('הסימונים עדיין נטענים');return}
-  let mk=S.markers[layer+':'+id];
-  // fallback: search by matching id string
+  if(!S.map||!S.markers){toast('המפה עדיין נטענת');return;}
+  var mk=S.markers[layer+':'+id];
   if(!mk){
-    const key=Object.keys(S.markers).find(k=>k===layer+':'+id||k.endsWith(':'+id));
-    if(key)mk=S.markers[key];
+    var keys=Object.keys(S.markers);
+    for(var i=0;i<keys.length;i++){if(keys[i].indexOf(':'+id)!==-1){mk=S.markers[keys[i]];break;}}
   }
-  if(!mk){toast('המיקום לא נמצא במפה ('+layer+')');return}
-  const g=S.layers[layer];
-  if(g&&!S.map.hasLayer(g)){S.map.addLayer(g);const chip=document.querySelector('.filters [data-l="'+layer+'"]');if(chip)chip.classList.add('on')}
-  try{S.map.invalidateSize(false)}catch(e){}
+  if(!mk){toast('המיקום לא נמצא במפה');return;}
+  var g=S.layers[layer];
+  if(g&&!S.map.hasLayer(g)){S.map.addLayer(g);var chip=document.querySelector('.filters [data-l="'+layer+'"]');if(chip)chip.classList.add('on');}
+  try{S.map.invalidateSize(false);}catch(e){}
   S.map.setView(mk.getLatLng(),16,{animate:true});
-  setTimeout(()=>{try{mk.openPopup()}catch(e){}},200);
+  setTimeout(function(){try{mk.openPopup();}catch(e){}},200);
 }
+function openPlacePicker(){
+  var c=curCity();if(!c)return;
+  var groups=[
+    ['sites','🏛️','אתרים',(c.sites||[]).map(function(s){return {id:s.id,name:s.en||s.name,sub:s.loc||''};})],
+    ['hotels','🏨','מלונות',(c.hotels||[]).map(function(s){return {id:s.id,name:s.name,sub:s.area||''};})],
+    ['rest','🍽️','מסעדות',(c.restaurants||[]).map(function(s){return {id:s.id,name:s.name,sub:s.type||''};})],
+    ['shop','🛍️','קניות',(c.shopping||[]).map(function(s){return {id:s.id||s.name,name:s.name,sub:''};})],
+    ['markets','🧺','שווקים',(c.markets||[]).map(function(s){return {id:s.id||s.name,name:s.name,sub:s.days||''};})],
+    ['metro','🚇','תחנות',Object.keys(T0(c).stations||{}).map(function(id){var s=T0(c).stations[id];return {id:id,name:s.n,sub:s.he||''};})]
+  ].filter(function(g){return g[3].length;});
+  var body='<h3>בחר מקום במפה</h3><p class="muted">בחרו קטגוריה ואז מקום</p>';
+  body+='<div class="pick-cats">';
+  for(var gi=0;gi<groups.length;gi++){
+    var g=groups[gi];
+    body+='<button type="button" class="chip'+(gi===0?' on':'')+'" data-pickcat="'+g[0]+'">'+g[1]+' '+g[2]+' ('+g[3].length+')</button>';
+  }
+  body+='</div><div id="pickList" class="pick-list"></div>';
+  body+='<div class="acts"><button class="btn alt sm" id="pickX">סגירה</button></div>';
+  var o=sheet(body);
+  $('#pickX',o).onclick=closeSheet;
+  var data={};for(var di=0;di<groups.length;di++) data[groups[di][0]]=groups[di];
+  function showCat(key){
+    $$('.pick-cats .chip',o).forEach(function(b){b.classList.toggle('on',b.dataset.pickcat===key);});
+    var g=data[key];if(!g)return;
+    var list=$('#pickList',o);
+    var html='';
+    for(var i=0;i<g[3].length;i++){
+      var s=g[3][i];
+      html+='<button type="button" class="res" data-layer="'+key+'" data-id="'+esc(s.id)+'"><b>'+esc(s.name)+'</b>'+(s.sub?'<div class="muted">'+esc(s.sub)+'</div>':'')+'</button>';
+    }
+    list.innerHTML=html;
+    $$('.res',list).forEach(function(btn){
+      btn.onclick=function(){closeSheet();mapFocus(btn.dataset.layer,btn.dataset.id);};
+    });
+  }
+  $$('.pick-cats .chip',o).forEach(function(b){b.onclick=function(){showCat(b.dataset.pickcat);};});
+  if(groups.length) showCat(groups[0][0]);
+}
+
 function toggleLayer(l,btn){
   const g=S.layers[l];if(!g||!S.map)return;
   if(S.map.hasLayer(g)){S.map.removeLayer(g);btn.classList.remove('on')}else{S.map.addLayer(g);btn.classList.add('on')}
 }
 function locateMe(){
-  if(!navigator.geolocation){toast('לא ניתן לאתר מיקום במכשיר זה');return}
-  toast('מאתר מיקום…');
+  if(!navigator.geolocation||!S.map){toast('לא ניתן לאתר מיקום במכשיר זה');return}
   navigator.geolocation.getCurrentPosition(p=>{
     const ll=[p.coords.latitude,p.coords.longitude];
-    S.myLoc=ll;
-    if(S.map){
-      L.circleMarker(ll,{radius:9,color:'#fff',weight:3,fillColor:'#2563eb',fillOpacity:1}).addTo(S.map).bindPopup('<div dir="rtl">אתם כאן</div>').openPopup();
-      S.map.setView(ll,15);
-    }
-    toast('המיקום עודכן — זמין גם במדריך ההגעה');
-    if(S.tab==='transport'&&S.sub==='guide')renderPane();
-  },()=>toast('לא התקבל אישור לגשת למיקום'),{enableHighAccuracy:true,timeout:12000});
+    L.circleMarker(ll,{radius:9,color:'#fff',weight:3,fillColor:'#2563eb',fillOpacity:1}).addTo(S.map).bindPopup('<div dir="rtl">אתם כאן</div>').openPopup();
+    S.map.setView(ll,15);
+  },()=>toast('לא התקבל אישור לגשת למיקום'),{enableHighAccuracy:true,timeout:9000});
 }
 
 /* ===== אתרים ===== */
@@ -4469,7 +4384,7 @@ function paneHotels(c){
   if(!c.hotels.length)return '<p class="muted">לא נמצאו מלונות 4–5 כוכבים במקורות הפתוחים. נסו בחיפוש באתרי הזמנות.</p>';
   const sel=S.hotel[c.id];
   return '<div class="note">'+(c.custom?'מחירי מלונות לא זמינים אוטומטית — לבדוק באתר ההזמנות לתאריכים שלכם.':'המחירים משוערים ללילה בחדר זוגי בעונה הרגילה, כולל ארוחת בוקר כשצוין. בתאריכים עמוסים המחיר גבוה יותר.')+'</div><div class="cards2">'
-   +c.hotels.map(h=>'<article class="card"><div class="ph" data-wikiname="'+esc(h.name+' '+c.en)+'" style="height:120px"><span class="em">🏨</span></div><div class="body"><h3>'+esc(h.name)+' '+stars(h.stars)+'</h3><div class="muted">📍 '+esc(h.area||'')+(h.addr?' · <span class="en">'+esc(h.addr)+'</span>':'')+'</div>'
+   +c.hotels.map(h=>'<article class="card"><div class="body"><h3>'+esc(h.name)+' '+stars(h.stars)+'</h3><div class="muted">📍 '+esc(h.area||'')+(h.addr?' · <span class="en">'+esc(h.addr)+'</span>':'')+'</div>'
     +'<div class="price" style="margin:6px 0">💰 '+esc(h.price)+'</div><p>'+esc(h.why)+'</p>'+(h.tel?'<div class="muted">📞 <a class="en" href="tel:'+esc(h.tel.replace(/[^+\d]/g,''))+'">'+esc(h.tel)+'</a></div>':'')+'<div class="acts">'
     +'<button class="btn sm'+(sel===h.id?' ok':'')+'" data-act="pickhotel" data-id="'+esc(h.id)+'">'+(sel===h.id?'✔ המלון שלי למסלול':'בחירה כמלון למסלול')+'</button>'
     +'<a class="btn alt sm" href="'+navUrl(h)+'" target="_blank" rel="noopener">📍 ניווט</a>'
@@ -4528,7 +4443,6 @@ const AIRPORTS={
 };
 function guidePoints(c){
   const P=[];
-  if(S.myLoc)P.push({k:'me',g:'📍 המיקום שלי',n:'המיקום הנוכחי שלי',lat:S.myLoc[0],lng:S.myLoc[1],me:1});
   (c.airports||AIRPORTS[c.id]||[]).forEach((a,i)=>P.push({k:'a:'+i,g:'✈️ שדה תעופה',n:a.n,lat:a.lat,lng:a.lng,air:a}));
   c.hotels.forEach(h=>P.push({k:'h:'+h.id,g:'🏨 מלונות',n:h.name,lat:h.lat,lng:h.lng}));
   c.sites.forEach(s=>P.push({k:'s:'+s.id,g:'🏛️ אתרים',n:s.en,lat:s.lat,lng:s.lng}));
@@ -4541,7 +4455,7 @@ function guideForm(c){
   const opts=sel=>groups.map(g=>'<optgroup label="'+g+'">'+P.filter(p=>p.g===g).map(p=>'<option value="'+esc(p.k)+'"'+(p.k===sel?' selected':'')+'>'+esc(p.n)+'</option>').join('')+'</optgroup>').join('');
   const hk=S.hotel[c.id]?'h:'+S.hotel[c.id]:(P.find(p=>p.k.startsWith('h:'))||P[0]).k;
   const first=(P.find(p=>p.k.startsWith('s:'))||P[0]).k;
-  return '<div class="card"><div class="body"><h3>🧭 מדריך הגעה ממקום למקום</h3><p class="muted">בחרו נקודת מוצא ויעד — כולל <b>המיקום שלי</b> (לחצו קודם על 📍 המיקום שלי במפה או כאן).</p><label>מאיפה?</label><select id="gFrom">'+opts(S.gFrom||hk)+'</select><label>לאן?</label><select id="gTo">'+opts(S.gTo||first)+'</select><div class="acts"><button class="btn" data-act="route">איך מגיעים?</button><button class="btn alt sm" data-act="locate">📍 עדכן מיקום נוכחי</button></div></div></div><div id="guideOut"></div>';
+  return '<div class="card"><div class="body"><h3>🧭 מדריך הגעה ממקום למקום</h3><label>מאיפה?</label><select id="gFrom">'+opts(S.gFrom||hk)+'</select><label>לאן?</label><select id="gTo">'+opts(S.gTo||first)+'</select><div class="acts"><button class="btn" data-act="route">איך מגיעים?</button></div></div></div><div id="guideOut"></div>';
 }
 const graphCache={};
 function getGraph(c){
@@ -4607,8 +4521,7 @@ function routeGuide(c,A,B){
   }else{
     out.push('<li>🚶 הליכה כ-'+walkAll+' דקות ('+(dd*1.25).toFixed(1)+' ק״מ בערך), או מונית/אפליקציה.</li>');total=walkAll;
   }
-  out.push('<li>🚕 <b>מונית / אפליקציה</b>: FreeNow, Bolt או Uber Taxi — נוח במיוחד עם מזוודות או בלילה. באתונה מחיר קבוע משדה התעופה ~50€ ביום.</li>');
-  return {html:'<div class="card"><div class="body"><h3>המסלול המומלץ'+(total?' · כ-'+total+' דקות':'')+'</h3><ul class="tl" style="--c:#7c3aed">'+out.join('')+'</ul><div class="note">זמנים משוערים ללא המתנה. מבוסס על התחנות העיקריות; לפרטים מדויקים בדקו באפליקציית התחבורה המקומית. קישורים ישירים: <a href="https://www.google.com/maps/dir/?api=1&origin='+A.lat+','+A.lng+'&destination='+B.lat+','+B.lng+'&travelmode=transit" target="_blank" rel="noopener">Google Maps תחבורה</a> · <a href="https://www.google.com/maps/dir/?api=1&origin='+A.lat+','+A.lng+'&destination='+B.lat+','+B.lng+'&travelmode=walking" target="_blank" rel="noopener">הליכה</a> · <a href="https://www.google.com/maps/dir/?api=1&origin='+A.lat+','+A.lng+'&destination='+B.lat+','+B.lng+'&travelmode=driving" target="_blank" rel="noopener">מונית/רכב</a>.</div></div></div>'};
+  return {html:'<div class="card"><div class="body"><h3>המסלול המומלץ'+(total?' · כ-'+total+' דקות':'')+'</h3><ul class="tl" style="--c:#7c3aed">'+out.join('')+'</ul><div class="note">זמנים משוערים ללא המתנה. מבוסס על התחנות העיקריות במפה; לפרטים מדויקים בדקו באפליקציית התחבורה. אפשרות נוספת: מונית/אפליקציה — <a href="https://www.google.com/maps/dir/?api=1&origin='+A.lat+','+A.lng+'&destination='+B.lat+','+B.lng+'&travelmode=transit" target="_blank" rel="noopener">מסלול ב-Google Maps</a>.</div></div></div>'};
 }
 function doGuide(){
   const c=curCity(),P=guidePoints(c);
@@ -4622,7 +4535,7 @@ function doGuide(){
 const isKosher=r=>/כשר|kosher/i.test((r.type||'')+(r.note||''));
 function paneRest(c){
   if(!c.restaurants.length)return '<p class="muted">לא נמצאו מסעדות מומלצות במקורות הפתוחים.</p>';
-  return '<div class="note">מחירים לאדם, ללא יין. מסעדות עם תור מומלץ להזמין שולחן מראש.</div><div class="cards2">'+c.restaurants.map(r=>'<article class="card"><div class="ph" data-wikiname="'+esc(r.name+' '+c.en)+'" style="height:110px"><span class="em">🍽️</span></div><div class="body"><h3>'+esc(r.name)+(isKosher(r)?' <span class="b g">✡️ כשר</span>':'')+'</h3><div class="muted">'+esc(r.type||'')+'</div><div class="price" style="margin:5px 0">💰 '+esc(r.price||'לבדוק')+'</div><p>'+esc(r.note||'')+'</p>'+(r.hours?'<div class="muted">🕐 '+esc(r.hours)+'</div>':'')+(r.tel?'<div class="muted">📞 <a class="en" href="tel:'+esc(r.tel.replace(/[^+\d]/g,''))+'">'+esc(r.tel)+'</a></div>':'')+(r.book?'<div class="muted">📝 '+esc(r.book)+'</div>':'')+'<div class="muted en">'+esc(r.addr||'')+'</div><div class="acts"><a class="btn sm" href="'+navUrl(r)+'" target="_blank" rel="noopener">📍 ניווט</a><a class="btn alt sm" href="'+(r.web||searchUrl(r.name+' '+c.en))+'" target="_blank" rel="noopener">🔎 חיפוש</a></div></div></article>').join('')+'</div>';
+  return '<div class="note">מחירים לאדם, ללא יין. מסעדות עם תור מומלץ להזמין שולחן מראש.</div><div class="cards2">'+c.restaurants.map(r=>'<article class="card"><div class="body"><h3>'+esc(r.name)+(isKosher(r)?' <span class="b g">✡️ כשר</span>':'')+'</h3><div class="muted">'+esc(r.type||'')+'</div><div class="price" style="margin:5px 0">💰 '+esc(r.price||'לבדוק')+'</div><p>'+esc(r.note||'')+'</p>'+(r.hours?'<div class="muted">🕐 '+esc(r.hours)+'</div>':'')+(r.tel?'<div class="muted">📞 <a class="en" href="tel:'+esc(r.tel.replace(/[^+\d]/g,''))+'">'+esc(r.tel)+'</a></div>':'')+(r.book?'<div class="muted">📝 '+esc(r.book)+'</div>':'')+'<div class="muted en">'+esc(r.addr||'')+'</div><div class="acts"><a class="btn sm" href="'+navUrl(r)+'" target="_blank" rel="noopener">📍 ניווט</a><a class="btn alt sm" href="'+(r.web||searchUrl(r.name+' '+c.en))+'" target="_blank" rel="noopener">🔎 חיפוש</a></div></div></article>').join('')+'</div>';
 }
 function paneFood(c){
   if(!c.food||!c.food.length)return '<p class="muted">לא הוגדרו מאכלים מקומיים עבור מקום זה.</p>';
@@ -4646,23 +4559,6 @@ function paneInfo(c){
 }
 
 /* ===== אחרי רינדור ===== */
-
-function setupTabArrows(){
-  const tabs=$('#tabs'), L=$('#tabL'), R=$('#tabR');
-  if(!tabs||!L||!R)return;
-  const sync=()=>{
-    const max=Math.max(0,tabs.scrollWidth-tabs.clientWidth);
-    L.style.visibility=(tabs.scrollLeft>8||Math.abs(tabs.scrollLeft)>8)?'visible':'hidden';
-    R.style.visibility=(max>8 && Math.abs(tabs.scrollLeft)<max-8)?'visible':'hidden';
-  };
-  // RTL: visual "right" arrow (› on the right in LTR terms of buttons) scrolls content
-  L.onclick=()=>{tabs.scrollBy({left:-160,behavior:'smooth'});setTimeout(sync,280)};
-  R.onclick=()=>{tabs.scrollBy({left:160,behavior:'smooth'});setTimeout(sync,280)};
-  tabs.addEventListener('scroll',sync,{passive:true});
-  window.addEventListener('resize',sync);
-  setTimeout(sync,80);
-}
-
 function afterPane(c){
   if(S.tab==='map'){if($('#map'))initMainMap(c)}
   else if(S.tab==='transport'&&S.sub==='map')initMetroMap(c);
@@ -4994,9 +4890,6 @@ async function buildCity(pl,prog){
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)&&document.querySelector('link[rel=manifest]')){
     navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
-  if(!navigator.onLine)toast('אין חיבור לאינטרנט — חלק מהמידע החי לא ייטען',3500);
-  window.addEventListener('offline',()=>toast('החיבור נותק — מצב לא מקוון',2800));
-  window.addEventListener('online',()=>toast('החיבור חזר ✓',2200));
 })();
 
 
