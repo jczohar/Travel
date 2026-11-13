@@ -6,7 +6,18 @@ const PRECACHE = [
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
-  './apple-touch-icon.png'
+  './apple-touch-icon.png',
+  './city-img/paris.jpg',
+  './city-img/rome.jpg',
+  './city-img/prague.jpg',
+  './city-img/newyork.jpg',
+  './city-img/athens.jpg',
+  './city-img/tbilisi.jpg',
+  './city-img/moscow.jpg',
+  './city-img/baku.jpg',
+  './city-img/budapest.jpg',
+  './city-img/vienna.jpg',
+  './city-img/tokyo.jpg'
 ];
 
 self.addEventListener('install', (event) => {

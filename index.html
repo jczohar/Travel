@@ -1,9 +1,9 @@
-<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>מדריך המטייל</title><meta name="theme-color" content="#1e1b4b">
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>מדריך למטייל</title><meta name="theme-color" content="#1e1b4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="מדריך המטייל">
-<meta name="application-name" content="מדריך המטייל">
+<meta name="apple-mobile-web-app-title" content="מדריך למטייל">
+<meta name="application-name" content="מדריך למטייל">
 <meta name="description" content="מדריך טיולים מקיף — מפות, אתרים, תחבורה, מסלולים ומזג אוויר">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
@@ -701,7 +701,10 @@ h3{margin:0 0 4px;font-size:16px;color:var(--ink)}
 .addc{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:170px;border:2px dashed #a78bfa;border-radius:20px;color:var(--p1);background:rgba(255,255,255,.7);font-weight:700;gap:6px;cursor:pointer}
 .addc span{font-size:36px;line-height:1}
 .hello{padding:14px;border-radius:18px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:var(--sh);margin-bottom:14px}
-.hello h2{color:#fff;margin:0 0 2px}
+.hello h2{color:#fff;margin:0 0 2px}.search-row{margin:0 0 12px}
+.search-row input{width:100%;padding:11px 14px;border:1.5px solid #ddd6fe;border-radius:14px;font:inherit;background:#fff;text-align:right;box-shadow:var(--sh)}
+.search-row input:focus{outline:2px solid #7c3aed;border-color:#7c3aed}
+
 /* hero */
 .hero{border-radius:18px;color:#fff;padding:9px 12px;margin-bottom:8px;box-shadow:var(--sh);background:linear-gradient(135deg,var(--a),var(--b));position:relative;overflow:hidden}
 .hero h2{color:#fff;margin:0;font-size:21px}
@@ -721,7 +724,7 @@ bdi{unicode-bidi:isolate}
 /* cards */
 .card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:12px;overflow:hidden}
 .card .body{padding:10px 12px 12px}
-.ph{height:150px;background:linear-gradient(135deg,#c4b5fd,#f9a8d4);background-size:cover;background-position:center;position:relative;display:flex;align-items:center;justify-content:center;font-size:44px}
+.ph{height:150px;background:linear-gradient(135deg,#c4b5fd,#f9a8d4);background-size:cover;background-position:center;background-repeat:no-repeat;position:relative;display:flex;align-items:center;justify-content:center;font-size:44px}
 .ph .bd{position:absolute;inset:auto 6px 6px 6px;display:flex;flex-wrap:wrap;gap:4px}
 .b{font-size:11.5px;font-weight:700;border-radius:99px;padding:2px 8px;background:rgba(255,255,255,.92);color:var(--ink)}
 .b.g{background:#d1fae5;color:#047857}.b.r{background:#fee2e2;color:#b91c1c}.b.y{background:#fef3c7;color:#b45309}.b.p{background:#ede9fe;color:#6d28d9}.b.s{background:#e0f2fe;color:#0369a1}
@@ -796,17 +799,31 @@ input.ltr{direction:ltr;text-align:left}
 .wx div{flex:none;background:rgba(255,255,255,.2);border-radius:10px;padding:2px 7px;text-align:center;font-size:11.5px;line-height:1.3}
 @media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}.cards2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cards2 .card{margin:0}}
 
-.tabs-wrap{position:sticky;top:34px;z-index:900;display:flex;align-items:center;margin:0 -10px 8px;background:rgba(244,241,255,.93);backdrop-filter:blur(6px)}
-.tabs-wrap .tabs{position:static;flex:1;margin:0;padding:6px 2px;padding-inline:10px}
-.tab-arr{display:none;flex:none;width:34px;height:34px;border:0;border-radius:50%;background:#fff;color:var(--p1);box-shadow:0 1px 4px rgba(0,0,0,.15);font-size:18px;line-height:1;cursor:pointer;z-index:2}
-.tab-arr:active{background:#ede9fe}
-@media(min-width:700px){
-  .tab-arr{display:flex;align-items:center;justify-content:center}
-  .tabs-wrap .tabs{padding-inline:4px}
+.tabs{scrollbar-width:thin;scrollbar-color:#a78bfa transparent}
+.tabs::-webkit-scrollbar{display:block;height:6px}
+.tabs::-webkit-scrollbar-track{background:transparent}
+.tabs::-webkit-scrollbar-thumb{background:#a78bfa;border-radius:99px}
+.tabs::-webkit-scrollbar-thumb:hover{background:#7c3aed}
+@media(max-width:699px){
+  .tabs{scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
 }
 .map-wrap{position:relative}
 .map-locate{position:absolute;top:10px;left:10px;z-index:800;border:0;border-radius:12px;padding:8px 12px;font-weight:700;background:#fff;color:var(--p1);box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:13px;cursor:pointer}
 .map-locate:active{background:#ede9fe}
+.maplist{margin:10px 0 4px}
+.maplist details.mlg{background:#fff;border-radius:14px;box-shadow:var(--sh);margin-bottom:8px;overflow:hidden}
+.maplist details.mlg summary{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;cursor:pointer;font-weight:700;color:var(--ink);list-style:none}
+.maplist details.mlg summary::-webkit-details-marker{display:none}
+.maplist details.mlg summary::after{content:'▾';color:var(--p1);font-size:12px;margin-inline-start:8px}
+.maplist details.mlg[open] summary::after{content:'▴'}
+.maplist .mln{background:#ede9fe;color:#5b21b6;border-radius:99px;padding:2px 8px;font-size:12px;font-weight:700}
+.maplist ul{list-style:none;margin:0;padding:0 8px 8px}
+.maplist .mlp{width:100%;text-align:right;border:0;background:#faf5ff;border-radius:10px;padding:8px 10px;margin:4px 0;cursor:pointer;display:flex;flex-direction:column;gap:2px;font:inherit}
+.maplist .mlp:active,.maplist .mlp.on{background:#ede9fe;outline:2px solid #7c3aed}
+.maplist .mlp-name{font-weight:700;color:var(--ink);font-size:14px}
+.maplist .mlp-sub{font-size:12px;color:var(--muted)}
+
 .leaflet-top.leaflet-left{margin-top:48px}
 .ccard .city-img{position:absolute;inset:0;background-size:cover;background-position:center;z-index:0}
 @media print{#hdr,.tabs,.acts{display:none}}
@@ -859,7 +876,7 @@ input.ltr{direction:ltr;text-align:left}
 <!-- location pin -->
 <path d="M404 96 c-26 0 -42 18 -42 40 c0 30 42 66 42 66 s42 -36 42 -66 c0 -22 -16 -40 -42 -40 z" fill="#fff"/>
 <circle cx="404" cy="136" r="15" fill="#d946ef"/>
-</svg><span class="ttl">מדריך המטייל</span><span class="by">יוצר: <span class="gold">יעקב זוהר</span></span><button id="btnRef" title="ריענון מידע" aria-label="ריענון מידע">↻</button><button id="btnHome" title="לרשימת הערים" aria-label="לרשימת הערים">🏠</button></header><main id="app"></main><div id="toast" role="status"></div><script>/* @preserve
+</svg><span class="ttl">מדריך למטייל</span><span class="by">יוצר: <span class="gold">יעקב זוהר</span></span><button id="btnRef" title="ריענון מידע" aria-label="ריענון מידע">↻</button><button id="btnHome" title="לרשימת הערים" aria-label="לרשימת הערים">🏠</button></header><main id="app"></main><div id="toast" role="status"></div><script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
@@ -2280,7 +2297,47 @@ tips:[
 ],
 
 info:{
- 'שפה ותקשורת':['שפה: יוונית (אנגלית נפוצה בתיירות)','חיוג מישראל: +30 (00-30)','Γεια σου (יָאסוּ) = שלום · Καλημέρα (קאלימֵרה) = בוקר טוב · Ευχαριστώ (אֶפְחָרִיסְטוֹ) = תודה · Παρακαλώ (פּאראקאלוֹ) = בבקשה · Συγγνώμη (סיגנוֹמי) = סליחה · Ναι / Όχι = כן / לא','Θέλω νερό (ת׳לו נרוֹ) = אני רוצה מים · Τον λογαριασμό (טון לוגאריאסמוֹ) = החשבון','Πού είναι η τουαλέτα; (פו אינהי טוּאלֵטה) = איפה השירותים?'],
+ 'שפה ותקשורת':[
+'שפה: יוונית · אנגלית נפוצה בתיירות',
+'חיוג מישראל: +30 (00-30)',
+'— ברכות ונימוסים —',
+'Γεια σου · יָאסוּ · שלום (לא רשמי)',
+'Γεια σας · Ya sas · שלום / להתראות',
+'Καλημέρα · Kaliméra · בוקר טוב',
+'Καλησπέρα · Kalispéra · ערב טוב',
+'Καλό μεσημέρι · Kaló mesiméri · צהריים טובים',
+'Καληνύχτα · Kaliníchta · לילה טוב',
+'Συγγνώμη · Signómi · סליחה',
+'Παρακαλώ · Parakaló · בבקשה',
+'Ευχαριστώ · Efcharistó · תודה',
+'Ευχαριστώ πολύ · אֶפְחָרִיסְטוֹ פּוֹלִי · תודה רבה',
+'Ναι · Ne · כן',
+'Όχι · Óchi · לא',
+'— שיחה קצרה —',
+'Τι κάνεις; · טִי קָנִיס · מה שלומך?',
+'Καλά, ευχαριστώ · קָלָה, אֶפְחָרִיסְטוֹ · טוב, תודה',
+'Δεν μιλάω ελληνικά · דֶן מִילָאוֹ אֶלִינִיקָה · אני לא מדבר יוונית',
+'Δεν καταλαβαίνω · Den katalavéno · אני לא מבין/ה',
+'Μιλάτε αγγλικά; · Miláte angliká? · אתה מדבר אנגלית?',
+'Πού είναι η τουαλέτα; · Pu íne i tualéta? · איפה השירותים?',
+'Πού είναι το ξενοδοχείο; · Pu íne to xenodochío? · איפה המלון?',
+'Βοήθεια! · Voíthia · עזרה!',
+'— במסעדה —',
+'Θέλω γύρο · תֶ\'לוֹ גִירוֹ · אני רוצה גירוס',
+'Θέλω νερό · תֶ\'לוֹ נֶרוֹ · אני רוצה מים',
+'Νερό παρακαλώ · Neró parakaló · מים בבקשה',
+'Τον λογαριασμό, παρακαλώ · Ton logariasmó, parakaló · החשבון בבקשה',
+'Πόσο κοστίζει; · Póso kostízi? · כמה זה עולה?',
+'Νόστιμο · נוֹסְטִימוֹ · טעים',
+'Στην υγειά σας! · Stin yiá sas! · לחיים!',
+'— מאכלים —',
+'Μουσακάς · מוּסָקָאס · מוסקה',
+'Γύρος · גִירוֹס · גירוס',
+'Σουβλάκι · סוּבְלָאקִי · סופלאקי',
+'Χωριάτικη σαλάτα · חוֹרְיָאטִיקִי סָלָאטָה · סלט יווני',
+'Σπανακόπιτα · סְפָּנָקוֹפִּיטָה · מאפה תרד',
+'Μπακλαβάς · מְבַּקְלָבָאס · בקלאווה'
+],
  'כסף':['מטבע: יורו (€ / EUR)','כרטיסי אשראי מקובלים כמעט בכל מקום; בטברנות קטנות כדאי מזומן','החזר מע״מ (Tax Free) לבדוק בחנויות מוכרות'],
  'חשמל ושעון':['מתח 230V, שקעים אירופאיים (C/F)','הפרש שעות: אין הפרש משעון ישראל (שניהם UTC+2 בחורף)','טיסה מישראל: כ-2 שעות וחצי (לבדוק)'],
  'כניסה למדינה':['ישראלים: כניסה ללא ויזה עד 90 יום באזור שנגן','לבדוק לפני הטיסה אם נדרש אישור ETIAS ובדיקות EES באתרים הרשמיים'],
@@ -4094,9 +4151,11 @@ function renderHome(){
   destroyMap();S.cityId=null;
   const cs=allCities();
   $('#btnHome').style.display='none';$('#btnRef').style.display='none';
-  let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">בחרו עיר לפרטים מלאים — או הוסיפו מקום חדש מכל מקום בעולם.</div></div><div class="grid">';
+  let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">מדריך למטייל — בחרו עיר לפרטים מלאים, או הוסיפו מקום חדש מכל מקום בעולם.</div></div>'
+   +'<div class="search-row"><input type="search" id="cityQ" placeholder="🔎 חיפוש עיר…" inputmode="search" autocomplete="off"></div><div class="grid" id="cityGrid">';
   cs.forEach(c=>{
-    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+'" data-wikiname="'+esc(c.wiki?'':c.en)+'" data-wiki="'+esc(c.wiki||'')+'">'
+    const img=c.custom?'':'city-img/'+c.id+'.jpg';
+    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+(img?'background-image:url(\''+img+'\')':'')+'"'+(c.custom?' data-wiki="'+esc(c.wiki||'')+'" data-wikiname="'+esc(c.en)+'"':'')+'>'
      +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button><span class="fl">'+(c.flag||'📍')+'</span>'
      +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
   });
@@ -4104,6 +4163,7 @@ function renderHome(){
   if(S.deleted.length)h+='<p style="text-align:center;margin-top:14px"><button class="btn alt sm" data-act="restore">↩ שחזור ערים שנמחקו ('+S.deleted.length+')</button></p>';
   h+='<p class="muted" style="text-align:center;margin-top:18px">מומלץ להתקין את האפליקציה במסך הבית של הטלפון.</p>';
   $('#app').innerHTML=h;loadImages();
+  const q=$('#cityQ');if(q){q.oninput=()=>{const v=q.value.trim().toLowerCase();$$('.ccard',$('#cityGrid')||document).forEach(card=>{const t=(card.innerText||'').toLowerCase();card.style.display=!v||t.includes(v)?'':'none'})};}
 }
 
 /* ===== מסך עיר ===== */
@@ -4119,8 +4179,7 @@ function renderCity(){
   const tabs=TABS.map(t=>'<button class="tab'+(S.tab===t[0]?' on':'')+'" data-act="tab" data-t="'+t[0]+'">'+t[1]+' '+t[2]+'</button>').join('');
   $('#app').innerHTML='<div class="hero" style="--a:'+c.color[0]+';--b:'+c.color[1]+'"><h2>'+(c.flag||'')+' '+esc(c.name)+' <span style="font-size:14px;font-weight:400;opacity:.9">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</span></h2>'
     +'<div class="meta" id="heroMeta"><span class="pill">'+esc(c.country||'')+'</span></div><div class="wx" id="heroWx"></div>'
-    +'<p id="heroP" data-act="heroP">'+esc(c.intro||'')+'</p></div><div class="tabs-wrap"><button class="tab-arr" id="tabL" aria-label="גלילה ימינה">›</button><div class="tabs" id="tabs">'+tabs+'</div><button class="tab-arr" id="tabR" aria-label="גלילה שמאלה">‹</button></div><div id="pane"></div>';
-  setupTabArrows();
+    +'<p id="heroP" data-act="heroP">'+esc(c.intro||'')+'</p></div><div class="tabs" id="tabs">'+tabs+'</div><div id="pane"></div>';
   renderPane();fillHero(c,false);
 }
 async function fillHero(c,force){
@@ -4208,6 +4267,7 @@ document.addEventListener('click',e=>{
   if(a==='driver'){showDriver(t.dataset.n,t.dataset.l,t.dataset.a);return}
   if(a==='gmap'){gmapSheet(t.dataset.q);return}
   if(a==='mapkind'){S.mapKind=t.dataset.k;S.gq=t.dataset.q||S.gq;renderPane();return}
+  if(a==='mapfocus'){mapFocus(t.dataset.layer,t.dataset.id);return}
 });
 $('#btnHome').onclick=()=>{if(history.state&&history.state.c)history.back();else renderHome()};
 $('#btnRef').onclick=refreshAll;
@@ -4279,19 +4339,64 @@ function paneMap(c){
   return '<div class="selview"><button class="on" data-act="mapkind" data-k="own">מפה עם הסימונים שלי</button><button data-act="mapkind" data-k="google">מפת גוגל</button></div>'+paneMapOwn(c);
 }
 function paneMapOwn(c){
+  const groups=[
+    ['sites','🏛️','אתרים',c.sites||[],s=>s.en||s.name],
+    ['hotels','🏨','מלונות',c.hotels||[],s=>s.name],
+    ['rest','🍽️','מסעדות',c.restaurants||[],s=>s.name],
+    ['shop','🛍️','קניות',c.shopping||[],s=>s.name],
+    ['markets','🧺','שווקים',c.markets||[],s=>s.name],
+    ['metro','🚇','תחנות מטרו',Object.values(T0(c).stations||{}),s=>s.n+(s.he?' · '+s.he:'')]
+  ];
+  let list='<div class="maplist">';
+  groups.forEach(([key,em,title,items,lab])=>{
+    if(!items||!items.length)return;
+    const arr=Array.isArray(items)?items:Object.values(items);
+    list+='<details class="mlg" data-layer="'+key+'"'+(key==='sites'?' open':'')+'>'
+      +'<summary><span>'+em+' '+title+'</span><span class="mln">'+arr.length+'</span></summary><ul>';
+    arr.forEach((s,i)=>{
+      const id=s.id||s.n||('x'+i);
+      const name=lab(s);
+      list+='<li><button type="button" class="mlp" data-act="mapfocus" data-layer="'+key+'" data-id="'+esc(id)+'">'
+        +'<span class="mlp-name">'+esc(name)+'</span>'
+        +(s.area||s.type||s.days?'<span class="mlp-sub">'+esc(s.area||s.type||s.days||'')+'</span>':'')
+        +'</button></li>';
+    });
+    list+='</ul></details>';
+  });
+  list+='</div>';
   return '<div class="filters">'+LAYERS.map(l=>'<button class="chip on" data-act="toggle" data-l="'+l[0]+'">'+l[1]+' '+l[2]+'</button>').join('')+'</div>'
    +'<div class="map-wrap"><button class="map-locate" data-act="locate" type="button">📍 המיקום שלי</button><div class="map" id="map"></div></div>'
-   +'<p class="muted">לחצו על סמן במפה לפרטים ולניווט. המפה צריכה חיבור לאינטרנט.</p>';
+   +'<p class="muted">לחצו על סמן במפה או על מקום ברשימה למטה — המפה תתמקד ותראה פרטים.</p>'
+   +list;
 }
 function initMainMap(c){
-  const m=mkMap('map',c.center,c.zoom);const g=S.layers;
+  const m=mkMap('map',c.center,c.zoom);const g=S.layers;S.markers={};
   LAYERS.forEach(l=>g[l[0]]=L.layerGroup().addTo(m));
-  c.sites.forEach(s=>L.marker([s.lat,s.lng],{icon:pin('🏛️','#7c3aed')}).bindPopup(popup(s.en,s.loc&&s.loc!==s.en?s.loc:'',s)).addTo(g.sites));
-  c.hotels.forEach(s=>L.marker([s.lat,s.lng],{icon:pin('🏨','#d97706')}).bindPopup(popup(s.name,'★'.repeat(s.stars)+' '+s.price,s)).addTo(g.hotels));
-  c.restaurants.forEach(s=>L.marker([s.lat,s.lng],{icon:pin('🍽️','#dc2626')}).bindPopup(popup(s.name,s.type+' · '+s.price,s)).addTo(g.rest));
-  c.shopping.forEach(s=>L.marker([s.lat,s.lng],{icon:pin('🛍️','#db2777')}).bindPopup(popup(s.name,s.desc,s)).addTo(g.shop));
-  c.markets.forEach(s=>L.marker([s.lat,s.lng],{icon:pin('🧺','#059669')}).bindPopup(popup(s.name,s.days,s)).addTo(g.markets));
-  Object.values(T0(c).stations).forEach(s=>L.marker([s.lat,s.lng],{icon:pin('🚇','#2563eb')}).bindPopup(popup(s.n,s.he||'',s)).addTo(g.metro));
+  const add=(layer,id,lat,lng,icon,pop)=>{
+    if(lat==null||lng==null)return;
+    const mk=L.marker([lat,lng],{icon}).bindPopup(pop).addTo(g[layer]);
+    S.markers[layer+':'+id]=mk;
+  };
+  c.sites.forEach(s=>add('sites',s.id,s.lat,s.lng,pin('🏛️','#7c3aed'),popup(s.en,s.loc&&s.loc!==s.en?s.loc:'',s)));
+  c.hotels.forEach(s=>add('hotels',s.id,s.lat,s.lng,pin('🏨','#d97706'),popup(s.name,'★'.repeat(s.stars)+' '+s.price,s)));
+  c.restaurants.forEach(s=>add('rest',s.id,s.lat,s.lng,pin('🍽️','#dc2626'),popup(s.name,s.type+' · '+s.price,s)));
+  c.shopping.forEach(s=>add('shop',s.id||s.name,s.lat,s.lng,pin('🛍️','#db2777'),popup(s.name,s.desc,s)));
+  c.markets.forEach(s=>add('markets',s.id||s.name,s.lat,s.lng,pin('🧺','#059669'),popup(s.name,s.days,s)));
+  Object.entries(T0(c).stations).forEach(([id,s])=>add('metro',id,s.lat,s.lng,pin('🚇','#2563eb'),popup(s.n,s.he||'',s)));
+}
+function mapFocus(layer,id){
+  if(!S.map||!S.markers)return;
+  const mk=S.markers[layer+':'+id];
+  if(!mk){toast('המיקום לא נמצא במפה');return}
+  // ensure layer visible
+  const g=S.layers[layer];
+  if(g&&!S.map.hasLayer(g)){S.map.addLayer(g);const chip=document.querySelector('.filters [data-l="'+layer+'"]');if(chip)chip.classList.add('on')}
+  S.map.setView(mk.getLatLng(),16,{animate:true});
+  mk.openPopup();
+  // highlight list item briefly
+  $$('.mlp').forEach(b=>b.classList.remove('on'));
+  const btn=document.querySelector('.mlp[data-layer="'+layer+'"][data-id="'+id.replace(/"/g,'')+'"]');
+  if(btn){btn.classList.add('on');btn.scrollIntoView({block:'nearest',behavior:'smooth'})}
 }
 function toggleLayer(l,btn){
   const g=S.layers[l];if(!g||!S.map)return;
@@ -4873,6 +4978,9 @@ async function buildCity(pl,prog){
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)&&document.querySelector('link[rel=manifest]')){
     navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
+  if(!navigator.onLine)toast('אין חיבור לאינטרנט — חלק מהמידע החי לא ייטען',3500);
+  window.addEventListener('offline',()=>toast('החיבור נותק — מצב לא מקוון',2800));
+  window.addEventListener('online',()=>toast('החיבור חזר ✓',2200));
 })();
 
 
