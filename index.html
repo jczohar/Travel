@@ -688,7 +688,7 @@ h3{margin:0 0 4px;font-size:16px;color:var(--ink)}
 .muted{color:var(--muted);font-size:13px}
 /* home */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.ccard{position:relative;border-radius:20px;min-height:170px;color:#fff;overflow:hidden;box-shadow:var(--sh);cursor:pointer;background:linear-gradient(135deg,var(--a),var(--b));background-size:cover;background-position:center}
+.ccard{position:relative;border-radius:20px;min-height:170px;color:#fff;overflow:hidden;box-shadow:var(--sh);cursor:pointer;background-color:var(--a);background-image:linear-gradient(135deg,var(--a),var(--b));background-size:cover;background-position:center;background-repeat:no-repeat}
 .ccard::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.65))}
 .ccard .in{position:absolute;inset:auto 0 0 0;padding:12px;z-index:2}
 .ccard .fl{position:absolute;top:8px;inset-inline-end:10px;font-size:26px;z-index:2}
@@ -4073,7 +4073,8 @@ function renderHome(){
   $('#btnHome').style.display='none';$('#btnRef').style.display='none';
   let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">בחרו עיר לפרטים מלאים — או הוסיפו מקום חדש מכל מקום בעולם.</div></div><div class="grid">';
   cs.forEach(c=>{
-    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+'" data-wikiname="'+esc(c.wiki?'':c.en)+'" data-wiki="'+esc(c.wiki||'')+'">'
+    var bg=c.custom?'':('background-image:url(city-img/'+c.id+'.jpg);background-size:cover;background-position:center');
+    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+bg+'"'+(c.custom?' data-wiki="'+esc(c.wiki||'')+'" data-wikiname="'+esc(c.en)+'"':'')+'>'
      +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button><span class="fl">'+(c.flag||'📍')+'</span>'
      +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
   });
@@ -4081,10 +4082,6 @@ function renderHome(){
   if(S.deleted.length)h+='<p style="text-align:center;margin-top:14px"><button class="btn alt sm" data-act="restore">↩ שחזור ערים שנמחקו ('+S.deleted.length+')</button></p>';
   h+='<p class="muted" style="text-align:center;margin-top:18px">מומלץ להתקין את האפליקציה במסך הבית של הטלפון.</p>';
   $('#app').innerHTML=h;loadImages();
-  $$('.ccard[data-id]').forEach(function(el){
-    var id=el.getAttribute('data-id');
-    if(id && el.getAttribute('data-wiki')===null){el.style.backgroundImage='url(city-img/'+id+'.jpg)';}
-  });
 }
 
 /* ===== מסך עיר ===== */
