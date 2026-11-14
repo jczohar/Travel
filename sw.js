@@ -1,4 +1,4 @@
-const CACHE = 'travel-info-v1';
+const CACHE = 'travel-info-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -21,15 +21,13 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
-  // Network-first for API calls
   if (url.hostname.includes('open-meteo') || url.hostname.includes('wikipedia') ||
-      url.hostname.includes('frankfurter') || url.hostname.includes('nominatim') ||
-      url.hostname.includes('restcountries') || url.hostname.includes('tile') ||
-      url.hostname.includes('openstreetmap')) {
+      url.hostname.includes('wikimedia') || url.hostname.includes('frankfurter') ||
+      url.hostname.includes('nominatim') || url.hostname.includes('restcountries') ||
+      url.hostname.includes('tile') || url.hostname.includes('openstreetmap')) {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
-  // Cache-first for app shell
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
       const clone = resp.clone();
@@ -39,4 +37,15 @@ self.addEventListener('fetch', e => {
       return resp;
     }).catch(() => caches.match('./index.html')))
   );
+});
+
+// מיקוד חלון קיים כשפותחים שוב את ה-PWA
+self.addEventListener('message', async (event) => {
+  if (!event.data || event.data.type !== 'FOCUS_EXISTING') return;
+  const all = await clients.matchAll({ type: 'window', includeUncontrolled: true });
+  for (const c of all) {
+    if (c.url && 'focus' in c) {
+      try { await c.focus(); } catch (e) {}
+    }
+  }
 });
