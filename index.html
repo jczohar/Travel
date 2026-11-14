@@ -4481,6 +4481,29 @@ const S={
   citySort:LS.get('citySort','default')
 };
 const saveCustom=()=>LS.set('custom',S.custom);
+
+/* תמונות סמל לערים – Wikimedia (יציב) */
+const CITY_PHOTO={
+paris:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/640px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg',
+rome:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Colosseo_2020.jpg/640px-Colosseo_2020.jpg',
+prague:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Prague_Charles_Bridge_01.jpg/640px-Prague_Charles_Bridge_01.jpg',
+newyork:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg/640px-View_of_Empire_State_Building_from_Rockefeller_Center_New_York_City_dllu_%28cropped%29.jpg',
+athens:'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/The_Parthenon_in_Athens.jpg/640px-The_Parthenon_in_Athens.jpg',
+tbilisi:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Tbilisi%2C_Georgia%2C_Old_Town_at_dusk.jpg/640px-Tbilisi%2C_Georgia%2C_Old_Town_at_dusk.jpg',
+moscow:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg/640px-Saint_Basil%27s_Cathedral_and_the_Red_Square.jpg',
+baku:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Baku_boulevard.jpg/640px-Baku_boulevard.jpg',
+budapest:'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Budapest_Parliament_Building_from_across_the_Danube.jpg/640px-Budapest_Parliament_Building_from_across_the_Danube.jpg',
+vienna:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Wien_-_Stephansdom_%281%29.JPG/640px-Wien_-_Stephansdom_%281%29.JPG',
+tokyo:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Tokyo_Skytree_2012_%E2%85%A2.jpg/640px-Tokyo_Skytree_2012_%E2%85%A2.jpg',
+barcelona:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Sagrada_Familia_01.jpg/640px-Sagrada_Familia_01.jpg',
+berlin:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Brandenburger_Tor_abends.jpg/640px-Brandenburger_Tor_abends.jpg',
+bucharest:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Palace_of_the_Parliament_in_Bucharest_1.jpg/640px-Palace_of_the_Parliament_in_Bucharest_1.jpg',
+madrid:'https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Palacio_de_Cibeles_%28Madrid%29_16.jpg/640px-Palacio_de_Cibeles_%28Madrid%29_16.jpg',
+lisbon:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Lisbon_trams_28_and_12.jpg/640px-Lisbon_trams_28_and_12.jpg',
+amsterdam:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Canal_in_Amsterdam.jpg/640px-Canal_in_Amsterdam.jpg',
+spb:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Winter_Palace_Panorama_3.jpg/640px-Winter_Palace_Panorama_3.jpg'
+};
+
 function allCities(){
   let list=[...window.CITIES.filter(c=>!S.deleted.includes(c.id)),...S.custom];
   const sort=S.citySort||'default';
@@ -4514,18 +4537,27 @@ async function wikiImg(title,name){
       const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(String(name).replace(/ /g,'_')));
       if(r.ok){const j=await r.json();u=(j.thumbnail&&j.thumbnail.source)||null}
     }
-    if(u){u=u.replace(/\/\d+px-/,'/640px-');cache[key]=u;LS.set('img',cache);return u}
+    if(u){
+      u=u.replace(/\/\d+px-/,'/640px-');
+      cache[key]=u;LS.set('img',cache);return u;
+    }
     imgMem[key]=null;return null;
   }catch(e){return null}
 }
 function loadImages(root){
-  $$('[data-wiki]',root||document).forEach(el=>{
+  $$('[data-wiki]', root||document).forEach(el=>{
     if(el.dataset.done)return;el.dataset.done=1;
     const title=el.dataset.wiki||'';
     const name=el.dataset.wikiname||'';
+    // Prefer explicit data-img if present
+    const fixed=el.dataset.img;
+    if(fixed){
+      el.style.backgroundImage="linear-gradient(180deg,rgba(0,0,0,.08) 35%,rgba(0,0,0,.6)),url('"+fixed+"')";
+      return;
+    }
     wikiImg(title,name).then(u=>{
       if(u){
-        el.style.backgroundImage="linear-gradient(180deg,rgba(0,0,0,.05) 40%,rgba(0,0,0,.55)),url('"+u+"')";
+        el.style.backgroundImage="linear-gradient(180deg,rgba(0,0,0,.08) 35%,rgba(0,0,0,.6)),url('"+u+"')";
         const em=el.querySelector('.em');if(em)em.style.display='none';
       }
     });
@@ -4607,9 +4639,11 @@ function renderHome(){
   h+='<div class="sortbar"><span class="lbl">מיון:</span>'+sorts.map(s=>'<button type="button" class="'+(sort===s[0]?'on':'')+'" data-act="sortcities" data-s="'+s[0]+'">'+s[1]+'</button>').join('')+'</div>';
   h+='<div class="grid">';
   cs.forEach(c=>{
-    // Use Wikipedia image for every city that has wiki title
+    const photo=CITY_PHOTO[c.id]||c.photo||'';
     const wikiAttr=c.wiki?(' data-wiki="'+esc(c.wiki)+'"'):(c.en?(' data-wiki="" data-wikiname="'+esc(c.en)+'"'):'');
-    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+'"'+wikiAttr+'>'
+    const imgAttr=photo?(' data-img="'+esc(photo)+'"'):'';
+    const bg=photo?('background-image:linear-gradient(180deg,rgba(0,0,0,.08) 35%,rgba(0,0,0,.6)),url(\''+photo+'\');background-size:cover;background-position:center;'):'';
+    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+bg+'"'+wikiAttr+imgAttr+'>'
      +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button><span class="fl">'+(c.flag||'📍')+'</span>'
      +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
   });
