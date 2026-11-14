@@ -1,63 +1,42 @@
-/* מדריך למטייל — Service Worker */
-const CACHE = 'traveler-guide-v1';
-const PRECACHE = [
+const CACHE = 'travel-info-v1';
+const ASSETS = [
   './',
   './index.html',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
-  './apple-touch-icon.png',
-  './city-img/paris.jpg',
-  './city-img/rome.jpg',
-  './city-img/prague.jpg',
-  './city-img/newyork.jpg',
-  './city-img/athens.jpg',
-  './city-img/tbilisi.jpg',
-  './city-img/moscow.jpg',
-  './city-img/baku.jpg',
-  './city-img/budapest.jpg',
-  './city-img/vienna.jpg',
-  './city-img/tokyo.jpg'
+  './apple-touch-icon.png'
 ];
 
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE)
-      .then((cache) => cache.addAll(PRECACHE))
-      .then(() => self.skipWaiting())
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(keys => Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k))))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', (event) => {
-  const req = event.request;
-  if (req.method !== 'GET') return;
-
-  const url = new URL(req.url);
-
-  // App shell: network-first with cache fallback (keeps app fresh)
-  if (url.origin === self.location.origin) {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
-          return res;
-        })
-        .catch(() => caches.match(req).then((r) => r || caches.match('./index.html')))
-    );
+self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+  // Network-first for API calls
+  if (url.hostname.includes('open-meteo') || url.hostname.includes('wikipedia') ||
+      url.hostname.includes('frankfurter') || url.hostname.includes('nominatim') ||
+      url.hostname.includes('restcountries') || url.hostname.includes('tile') ||
+      url.hostname.includes('openstreetmap')) {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
-
-  // External APIs / tiles / images: network-first, no hard fail offline
-  event.respondWith(
-    fetch(req).catch(() => caches.match(req))
+  // Cache-first for app shell
+  e.respondWith(
+    caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
+      const clone = resp.clone();
+      if (e.request.method === 'GET' && resp.status === 200) {
+        caches.open(CACHE).then(c => c.put(e.request, clone));
+      }
+      return resp;
+    }).catch(() => caches.match('./index.html')))
   );
 });

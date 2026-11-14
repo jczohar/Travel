@@ -1,9 +1,10 @@
-<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>מדריך למטייל</title><meta name="theme-color" content="#1e1b4b">
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>מידע למטייל</title><meta name="theme-color" content="#1e1b4b">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="מדריך למטייל">
-<meta name="application-name" content="מדריך למטייל">
+<meta name="apple-mobile-web-app-title" content="מידע למטייל">
+<meta name="application-name" content="מידע למטייל">
 <link rel="manifest" href="./manifest.webmanifest">
+<meta name="description" content="מידע למטייל – מדריך תיירות אינטראקטיבי עם מפות, מסלולים ומזג אוויר">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png"><style>/* required styles */
 
@@ -21,6 +22,8 @@
 	left: 0;
 	top: 0;
 	}
+
+
 .leaflet-container {
 	overflow: hidden;
 	}
@@ -810,6 +813,24 @@ input.ltr{direction:ltr;text-align:left}
 .search-row input{width:100%;padding:11px 14px;border:1.5px solid #ddd6fe;border-radius:14px;font:inherit;background:#fff;text-align:right;box-shadow:var(--sh)}
 @media print{#hdr,.tabs,.acts{display:none}}
 
+.do-today{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.do-today .btn{font-size:13px;padding:7px 12px}
+.phrases{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
+.phrases th{background:#f5f3ff;color:var(--ink);padding:8px;text-align:right}
+.phrases td{padding:8px;border-bottom:1px solid #eee;vertical-align:top}
+.phrases .he{font-weight:700}
+.phrases .loc{direction:ltr;unicode-bidi:plaintext}
+.phrases .pron{direction:ltr;color:#6b7280;font-size:12.5px}
+.phrases button.say{border:0;background:#ede9fe;color:#5b21b6;border-radius:8px;padding:4px 8px;font-size:14px;cursor:pointer}
+.phrases button.say:active{background:#ddd6fe}
+.map-fs-btn{position:absolute;top:10px;right:10px;z-index:800;border:0;border-radius:12px;padding:8px 12px;font-weight:700;background:#fff;color:var(--p1);box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:13px;cursor:pointer}
+.map-wrap:fullscreen,.map-wrap:-webkit-full-screen{background:#fff}
+.map-wrap:fullscreen .map,.map-wrap:-webkit-full-screen .map{height:100vh;min-height:100vh;border-radius:0}
+.hero .wx{margin-top:6px}
+.today-sheet .rec{background:#faf5ff;border:1.5px solid #ddd6fe;border-radius:14px;padding:10px 12px;margin:8px 0}
+.today-sheet .rec h4{margin:0 0 4px;color:var(--ink)}
+
+
 .leaflet-container.nomap{background-color:#e8eefc;background-image:linear-gradient(rgba(124,58,237,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(124,58,237,.10) 1px,transparent 1px);background-size:44px 44px}
 .mapstyle{width:34px;height:34px;border:2px solid rgba(0,0,0,.2);border-radius:4px;background:#fff;font-size:17px;line-height:1;padding:0;cursor:pointer;box-shadow:none}
 
@@ -858,7 +879,7 @@ input.ltr{direction:ltr;text-align:left}
 <!-- location pin -->
 <path d="M404 96 c-26 0 -42 18 -42 40 c0 30 42 66 42 66 s42 -36 42 -66 c0 -22 -16 -40 -42 -40 z" fill="#fff"/>
 <circle cx="404" cy="136" r="15" fill="#d946ef"/>
-</svg><span class="ttl">מדריך למטייל</span><span class="by">יוצר: <span class="gold">יעקב זוהר</span></span><button id="btnRef" title="ריענון מידע" aria-label="ריענון מידע">↻</button><button id="btnHome" title="לרשימת הערים" aria-label="לרשימת הערים">🏠</button></header><main id="app"></main><div id="toast" role="status"></div><script>/* @preserve
+</svg><span class="ttl">מידע למטייל</span><span class="by">יוצר: <span class="gold">יעקב זוהר</span></span><button id="btnRef" title="ריענון מידע" aria-label="ריענון מידע">↻</button><button id="btnHome" title="לרשימת הערים" aria-label="לרשימת הערים">🏠</button></header><main id="app"></main><div id="toast" role="status"></div><script>/* @preserve
  * Leaflet 1.9.4, a JS library for interactive maps. https://leafletjs.com
  * (c) 2010-2023 Vladimir Agafonkin, (c) 2010-2011 CloudMade
  */
@@ -1216,7 +1237,7 @@ window.CITIES.push({
 id:'rome',name:'רומא',en:'Rome',local:'Roma',country:'איטליה',flag:'🇮🇹',
 color:['#f97316','#dc2626'],center:[41.9028,12.4964],zoom:13,wiki:'Rome',
 cur:'EUR',sym:'€',tz:'Europe/Rome',
-phrase:'Può portarmi a questo indirizzo, per favore?',phraseLang:'🇮🇹 Italiano',
+phrase:'Può portarmi a questo indirizzo, per favore?',phraseLang:'🇮🇹 Italiano',speechLang:'it-IT',phrases:[['שלום','Buongiorno / Ciao','bwon-JOR-no / chow'],['תודה','Grazie','GRA-tsee-eh'],['בבקשה','Per favore','per fa-VO-reh'],['כמה זה עולה?','Quanto costa?','KWAN-to KOS-ta'],['איפה השירותים?','Dov\'è il bagno?','do-VEH eel BAN-yo'],['אני לא מדבר איטלקית','Non parlo italiano','non PAR-lo ee-ta-LYA-no'],['עזרה!','Aiuto!','a-YOO-to'],['חשבון בבקשה','Il conto, per favore','eel KON-to per fa-VO-reh'],['מים / יין','Acqua / Vino','AK-wa / VEE-no'],['תחנת מטרו','Stazione della metro','sta-TSYO-neh DEL-la MEH-tro'],['קחו אותי לכתובת הזו','Può portarmi a questo indirizzo?','pwo por-TAR-mee a KWES-to in-dee-REET-tso'],['כשר / ללא חזיר','Kosher / Senza maiale','KO-sher / SEN-tsa ma-YA-leh']],speechLang:'fr-FR',phrases:[['שלום / Bonjour','Bonjour','bon-ZHOOR'],['תודה','Merci','mer-SEE'],['בבקשה / Please','S\'il vous plaît','seel voo PLAY'],['כמה זה עולה?','Combien ça coûte ?','kom-BYAN sa KOOT'],['איפה השירותים?','Où sont les toilettes ?','oo son lay twa-LET'],['אני לא מדבר צרפתית','Je ne parle pas français','zhuh nuh parl pah fran-SAY'],['עזרה!','Au secours !','oh suh-KOOR'],['חשבון בבקשה','L\'addition, s\'il vous plaît','la-dee-SYON seel voo PLAY'],['מים / יין','De l\'eau / Du vin','duh LO / dyu VAN'],['תחנת מטרו','Station de métro','sta-SYON duh may-TRO'],['קחו אותי לכתובת הזו','Pouvez-vous m\'emmener à cette adresse ?','poo-vay voo mah-mnay a set a-DRESS'],['כשר / ללא חזיר','Casher / Sans porc','ka-SHER / san POR']],
 intro:'העיר הנצחית: קולוסיאום ופורום, מזרקות ופיאצות, הוותיקן ואוכל איטלקי מעולה. הכול ליד הכול, והרבה מהאתרים בהליכה — אבל יש גבעות ומדרגות.',
 updated:'נאסף ב-13/11/2026. מאומתים מול מקורות רשמיים: Colosseo (Full Experience €24, שעות חורף), Pantheon (דף הרשות הרשמית), Castel Sant\'Angelo (צו רשמי מ-1/7/2026), Terme di Caracalla, מזרקת טרווי (הודעת העירייה), שגרירות ישראל. שאר המחירים והשעות — מקורות משניים או ידע כללי ומסומנים; יש לוודא באתר הרשמי לפני ביקור.',
 eventsNote:'נכון ל-13/11/2026. מקורות: Romewise (דצמבר 2026), Romeing (נובמבר 2026), אתרי המוזיאונים. תאריכים ומחירים — לבדוק באתר כל אירוע.',
@@ -1485,7 +1506,7 @@ window.CITIES.push({
 id:'prague',name:'פראג',en:'Prague',local:'Praha',country:'צ׳כיה',flag:'🇨🇿',
 color:['#10b981','#0ea5e9'],center:[50.0875,14.4213],zoom:13,wiki:'Prague',
 cur:'CZK',sym:'Kč',tz:'Europe/Prague',
-phrase:'Mohl byste mě prosím odvézt na tuto adresu?',phraseLang:'🇨🇿 Čeština',
+phrase:'Mohl byste mě prosím odvézt na tuto adresu?',phraseLang:'🇨🇿 Čeština',speechLang:'cs-CZ',phrases:[['שלום','Dobrý den','DOB-ree den'],['תודה','Děkuji','DYE-koo-yi'],['בבקשה','Prosím','PRO-seem'],['כמה זה עולה?','Kolik to stojí?','KO-lik to STO-yee'],['איפה השירותים?','Kde jsou toalety?','kdeh ysou to-a-LE-ti'],['אני לא מדבר צ׳כית','Nemluvím česky','NEH-mloo-veem CHES-ki'],['עזרה!','Pomoc!','PO-mots'],['חשבון בבקשה','Účet, prosím','OO-chet PRO-seem'],['בירה / מים','Pivo / Voda','PEE-vo / VO-da'],['תחנת מטרו','Stanice metra','STA-nyi-tseh MET-ra'],['קחו אותי לכתובת הזו','Mohl byste mě odvézt na tuto adresu?','mohl BIS-teh mneh od-VEST na TOO-to a-DRE-su'],['כשר','Košer','KO-sher']],
 intro:'עיר הסיפורים: טירה מעל הנהר, גשר קארל, כיכר עתיקה עם שעון אסטרונומי, רובע יהודי היסטורי, בירה מעולה ומחירים נוחים. המרכז קומפקטי, אבל יש גבעות (טירה ופטרשין).',
 updated:'המידע נאסף ב-13/11/2026 מאתרים רשמיים (PID, המוזיאון היהודי, Prague City Tourism, Strahov, Karlštejn, Rudolfinum, שגרירות ישראל) ומאתרי תיירות. פריטים שלא אומתו מסומנים "לבדוק". יש לוודא שעות ומחירים באתר הרשמי לפני ביקור.',
 eventsNote:'נכון ל-13/11/2026. מקורות: expats.cz (שווקי חג המולד 2026), rudolfinum.cz (קונצרטי השנה החדשה), מסורת סנט ניקולאס. מחירי הקונצרטים לא פורסמו בדף — לבדוק באתר. לוודא תאריכים ושעות אצל המארגנים.',
@@ -1755,7 +1776,7 @@ window.CITIES.push({
 id:'newyork',name:'ניו יורק',en:'New York City',local:'New York',country:'ארצות הברית',flag:'🇺🇸',
 color:['#6366f1','#f59e0b'],center:[40.7580,-73.9855],zoom:12,wiki:'New_York_City',
 cur:'USD',sym:'$',tz:'America/New_York',
-phrase:'Could you please take me to this address?',phraseLang:'🇺🇸 English',
+phrase:'Could you please take me to this address?',phraseLang:'🇺🇸 English',speechLang:'en-US',phrases:[['שלום','Hello / Hi','heh-LOH / hai'],['תודה','Thank you','THANK yoo'],['בבקשה','Please','pleez'],['כמה זה עולה?','How much is it?','how much iz it'],['איפה השירותים?','Where is the restroom?','wair iz the REST-room'],['עזרה!','Help!','help'],['חשבון בבקשה','The check, please','the check pleez'],['מים','Water','WA-ter'],['תחנת מטרו','Subway station','SUB-way STAY-shun'],['קחו אותי לכתובת הזו','Could you take me to this address?','kood yoo tayk mee too this a-DRESS'],['כשר','Kosher','KO-sher']],
 intro:'העיר שלא ישנה: גורדי שחקים, סנטרל פארק, מוזיאונים ברמה עולמית, אוכל מכל העולם, ברודווי ורשת סאבוויי שמגיעה לכל מקום. מנהטן קומפקטית וקל לטייל בה ברגל ובסאבוויי; שווה לצאת גם לברוקלין. בנובמבר–דצמבר העיר מתמלאת באורות חג, שווקים ומגרשי החלקה.',
 updated:'המידע נאסף ב-11/11/2026. תעריפי הסאבוויי ומחירי כניסה מרכזיים נבדקו במקורות באינטרנט; חלק מהמחירים והשעות הגיעו ממקורות משניים וסומנו. לפני ביקור כדאי לוודא באתר הרשמי של המקום.',
 eventsNote:'נכון ל-11/11/2026. מקורות: NYC Tourism (nyctourism.com), Time Out, amNY. פרטים ומחירים באתרי האירועים.',
@@ -2037,7 +2058,7 @@ window.CITIES.push({
 id:'athens',name:'אתונה',en:'Athens',local:'Αθήνα',country:'יוון',flag:'🇬🇷',
 color:['#0ea5e9','#6366f1'],center:[37.9755,23.7275],zoom:14,wiki:'Athens',
 cur:'EUR',sym:'€',tz:'Europe/Athens',
-phrase:'Μπορείτε παρακαλώ να με πάτε σε αυτή τη διεύθυνση;',phraseLang:'🇬🇷 Ελληνικά',
+phrase:'Μπορείτε παρακαλώ να με πάτε σε αυτή τη διεύθυνση;',phraseLang:'🇬🇷 Ελληνικά',speechLang:'el-GR',phrases:[['שלום','Γεια σας (Ya sas)','ya sas'],['תודה','Ευχαριστώ (Efharistó)','ef-ha-ris-TO'],['בבקשה','Παρακαλώ (Parakaló)','pa-ra-ka-LO'],['כמה זה עולה?','Πόσο κάνει; (Póso káni?)','PO-so KA-ni'],['איפה השירותים?','Πού είναι η τουαλέτα;','poo EE-neh ee too-a-LE-ta'],['עזרה!','Βοήθεια! (Voítheia!)','vo-EE-thya'],['חשבון בבקשה','Τον λογαριασμό, παρακαλώ','ton lo-gar-yas-MO pa-ra-ka-LO'],['מים','Νερό (Neró)','ne-RO'],['תחנת מטרו','Σταθμός μετρό','stath-MOS me-TRO'],['כשר','Κόσερ','KO-ser']],
 intro:'עיר עתיקה וחיה: אקרופוליס ופרתנון מעל הרובע הציורי פלאקה, מוזיאון מודרני לרגלי הגבעה, שווקים, טברנות ותצפיות. המרכז ההיסטורי קומפקטי וכמעט כל האתרים בהליכה או במטרו. טיולי יום נוחים לסוניון ולדלפי.',
 updated:'המידע נאסף ב-12/11/2026 ממקורות אתרי-התיירות ומשרד התרבות היווני (hh.gr) ומאתרי מידע. חלק מהפרטים מסומנים "לבדוק" ולא אומתו. יש לוודא שעות ומחירים באתר הרשמי לפני הביקור.',
 eventsNote:'נכון ל-12/11/2026. מקור: אתרי תזמורת המדינה של אתונה (koa.gr), Megaron ו-travel.gr. מומלץ לוודא תאריכים ומחירים באתרי האירועים.',
@@ -2289,7 +2310,7 @@ window.CITIES.push({
 id:'tbilisi',name:'טביליסי',en:'Tbilisi',local:'თბილისი',country:'גאורגיה',flag:'🇬🇪',
 color:['#dc2626','#f59e0b'],center:[41.6938,44.8015],zoom:14,wiki:'Tbilisi',
 cur:'GEL',sym:'₾',tz:'Asia/Tbilisi',
-phrase:'შეგიძლიათ ამ მისამართზე წამიყვანოთ, გთხოვთ?',phraseLang:'🇬🇪 ქართული',
+phrase:'შეგიძლიათ ამ მისამართზე წამიყვანოთ, გთხოვთ?',phraseLang:'🇬🇪 ქართული',speechLang:'ka-GE',phrases:[['שלום','გამარჯობა (Gamarjoba)','ga-mar-JO-ba'],['תודה','მადლობა (Madloba)','mad-LO-ba'],['בבקשה','გთხოვთ (Gthkhovt)','gt-KHOVT'],['כמה זה עולה?','რა ღირს? (Ra ghirs?)','ra gheers'],['איפה השירותים?','სად არის ტუალეტი?','sad a-ris tua-LE-ti'],['עזרה!','დახმარება! (Dakhmareba!)','dakh-ma-RE-ba'],['מים','წყალი (Tskali)','tska-li'],['כשר','კოშერი','ko-she-ri']],
 intro:'בירת גאורגיה: עיר עתיקה על נהר הקורא (Mtkvari) עם מרפסות עץ, מרחצאות גופרית חמים, מצודת נריקלה מעל העיר, כנסיות עתיקות, יין ביתי ואוכל מעולה (חינקלי, חצ׳פורי). מחירים נוחים, טיסה ישירה קצרה מישראל, וקהילה יהודית עתיקה. העיר הרבה גבעות ומדרגות; המרכז ניתן לטיול ברגל. כניסה לישראלים ללא ויזה עד שנה.',
 updated:'נאסף ב-10/11/2026 ממקורות באינטרנט (אתרי תיירות ומדריכי נסיעות; חלקם משנת 2025). חלק מהמחירים והשעות סומנו כ"לבדוק". קואורדינטות של תחנות מטרו, מסעדות ומלונות נרשמו מהזיכרון ברמת שכונה, ולא נבדקו מול מפה. לפני ביקור כדאי לוודא שעות ומחירים.',
 eventsNote:'נכון ל-10/11/2026. מקורות: Georgia Today (מדריך פסטיבלים, פורסם 23/02/2026) ו-Wander-lush (מדריך חגים). התאריכים צפויים לפי מועדי השנים הקודמות ולא אושרו רשמית; לבדוק באתר עיריית טביליסי.',
@@ -2526,7 +2547,7 @@ window.CITIES.push({
 id:'moscow',name:'מוסקבה',en:'Moscow',local:'Москва',country:'רוסיה',flag:'🇷🇺',
 color:['#dc2626','#1d4ed8'],center:[55.7539,37.6208],zoom:12,wiki:'Moscow',
 cur:'RUB',sym:'₽',tz:'Europe/Moscow',
-phrase:'Можете, пожалуйста, отвезти меня по этому адресу?',phraseLang:'🇷🇺 Русский',
+phrase:'Можете, пожалуйста, отвезти меня по этому адресу?',phraseLang:'🇷🇺 Русский',speechLang:'ru-RU',phrases:[['שלום','Здравствуйте (Zdravstvuyte)','ZDRA-stvooy-tye'],['תודה','Спасибо (Spasibo)','spa-SEE-ba'],['בבקשה','Пожалуйста (Pozhaluysta)','pa-ZHAL-sta'],['כמה זה עולה?','Сколько стоит? (Skolko stoit?)','SKOL-ka STO-it'],['איפה השירותים?','Где туалет? (Gde tualet?)','gdye too-a-LYET'],['עזרה!','Помогите! (Pomogite!)','pa-ma-GEE-tye'],['חשבון בבקשה','Счёт, пожалуйста','schyot pa-ZHAL-sta'],['מים','Вода (Voda)','va-DA'],['תחנת מטרו','Станция метро','STAN-tsi-ya met-RO'],['כשר','Кошерный','ka-SHER-niy']],
 intro:'בירת רוסיה: הכיכר האדומה, הקרמלין וקתדרלת סנט בזיל, מטרו מפורסם בתחנותיו, מוזיאונים גדולים ופארקים. בחורף העיר קרה ושלגית. לפני כל תכנון חובה לקרוא את פרק "אזהרת מסע ומצב" ב-info: תשלום בכרטיסי אשראי זרים לא עובד, וישנם הסדרי טיסה וכניסה מיוחדים לישראלים.',
 updated:'המידע נאסף ב-12/11/2026 מאתרים רשמיים ומקורות נסיעות. חלק מהמחירים והשעות הגיעו ממקורות משניים וסומנו ״לבדוק״. לפני ביקור יש לוודא שעות, מחירים וסטטוס טיסות באתרים הרשמיים.',
 eventsNote:'נכון ל-12/11/2026. מקור: otello.ru (״מה לעשות במוסקבה בנובמבר 2026״) ולוחות המוזיאונים. תאריכי פסטיבל ״מסע לחג המולד״ (Journey to Christmas) של 2026/27 טרם נמצאו; בעונה הקודמת הוא נערך 12/12/2025–11/01/2026 עם כניסה חופשית, לבדוק באתר discover.moscow או mos.ru.',
@@ -2858,7 +2879,7 @@ window.CITIES.push({
 id:'baku',name:'באקו',en:'Baku',local:'Bakı',country:'אזרבייג׳ן',flag:'🇦🇿',
 color:['#0ea5e9','#f59e0b'],center:[40.3656,49.8349],zoom:13,wiki:'Baku',
 cur:'AZN',sym:'₼',tz:'Asia/Baku',
-phrase:'Zəhmət olmasa, məni bu ünvana apara bilərsiniz?',phraseLang:'🇦🇿 Azərbaycanca',
+phrase:'Zəhmət olmasa, məni bu ünvana apara bilərsiniz?',phraseLang:'🇦🇿 Azərbaycanca',speechLang:'az-AZ',phrases:[['שלום','Salam','sa-LAM'],['תודה','Təşəkkür','te-shek-KYUR'],['בבקשה','Zəhmət olmasa','zeh-MET ol-ma-sa'],['כמה זה עולה?','Bu neçəyədir?','bu ne-che-ye-DIR'],['איפה השירותים?','Tualet haradadır?','too-a-LET ha-ra-da-DIR'],['עזרה!','Kömək!','ko-MEK'],['מים','Su','soo'],['כשר','koşer','ko-sher']],
 intro:'בירת אזרבייג׳ן על חוף הים הכספי: עיר עתיקה מוקפת חומה (איצ׳רי שהר, אתר אונסק"ו), מגדלי הלהבה, בניין מרכז חיידר אלייב של זהה חדיד וטיילת ימית רחבה. בסביבה: ציורי סלע בגובוסטן, הר אש וטירת אש. אזהרה חשובה: המל"ל פרסם בעבר אזהרת מסע לאזרבייג׳ן (ראו מידע ← כניסה ואזהרה). לפני כל תכנון יש לבדוק את המצב העדכני.',
 updated:'נאסף ב-12/11/2026 ממקורות באינטרנט (אתרי תיירות, ידיעות חדשות, אתר משרד החוץ). מחירים ושעות רבים סומנו "לבדוק". קואורדינטות של תחנות מטרו, מסעדות, מלונות, שווקים וחלק מהאתרים נרשמו מהזיכרון ברמת שכונה ולא אומתו מול מפה. לפני ביקור יש לוודא שעות, מחירים ואת אזהרת המל"ל.',
 eventsNote:'נכון ל-12/11/2026. מקורות: iticket.az (קונצרטים), designboom (תערוכות במרכז חיידר אלייב). שעות ומחירי כרטיסים לא פורסמו בדפים שנקראו; לבדוק ב-iticket.az ובאתר המרכז.',
@@ -3081,7 +3102,7 @@ window.CITIES.push({
 id:'budapest',name:'בודפשט',en:'Budapest',local:'Budapest',country:'הונגריה',flag:'🇭🇺',
 color:['#dc2626','#0ea5e9'],center:[47.4979,19.0402],zoom:13,wiki:'Budapest',
 cur:'HUF',sym:'Ft',tz:'Europe/Budapest',
-phrase:'Elvinne kérem ide, erre a címre?',phraseLang:'🇭🇺 Magyar',
+phrase:'Elvinne kérem ide, erre a címre?',phraseLang:'🇭🇺 Magyar',speechLang:'hu-HU',phrases:[['שלום','Jó napot','YO NA-pot'],['תודה','Köszönöm','KU-su-num'],['בבקשה','Kérem','KEH-rem'],['כמה זה עולה?','Mennyibe kerül?','MEN-nyi-be KE-rul'],['איפה השירותים?','Hol van a mosdó?','hol van a MOSH-do'],['עזרה!','Segítség!','SHE-geet-sheg'],['חשבון בבקשה','A számlát, kérem','a SAM-lat KEH-rem'],['מים','Víz','veez'],['תחנת מטרו','Metróállomás','ME-tro-al-lo-mash'],['כשר','Kóser','KO-sher']],
 intro:'פנינת הדנובה: בודה ההררית עם הטירה וצריח הדייגים, פשט השוקקת עם הפרלמנט המפואר, מרחצאות תרמיים, רובע יהודי חי עם בית הכנסת הגדול באירופה ואוכל נהדר במחירים סבירים. העיר נעה בקלות במטרו ובחשמלית, וכדאי לעלות לגבעות עם אוטובוס או פוניקולר.',
 updated:'המידע נאסף ב-11/11/2026 ממקורות אינטרנט (בעיקר מדריכים עדכניים ואתרי מפעילים). מחירים ושעות משתנים — יש לוודא באתר הרשמי לפני ביקור.',
 eventsNote:'נכון ל-11/11/2026. מקורות: hungaryunlocked.com (קונצרטים ושווקי חג), mupa.hu. מחירים משתנים (תמחור דינמי) — לבדוק בקופה/באתר המקום.',
@@ -3353,7 +3374,7 @@ window.CITIES.push({
 id:'vienna',name:'וינה',en:'Vienna',local:'Wien',country:'אוסטריה',flag:'🇦🇹',
 color:['#b91c1c','#f59e0b'],center:[48.2082,16.3738],zoom:13,wiki:'Vienna',
 cur:'EUR',sym:'€',tz:'Europe/Vienna',
-phrase:'Könnten Sie mich bitte zu dieser Adresse bringen?',phraseLang:'🇦🇹 Deutsch',
+phrase:'Könnten Sie mich bitte zu dieser Adresse bringen?',phraseLang:'🇦🇹 Deutsch',speechLang:'de-AT',phrases:[['שלום','Guten Tag / Grüß Gott','GOO-ten tahk / gruss got'],['תודה','Danke','DAN-keh'],['בבקשה','Bitte','BIT-teh'],['כמה זה עולה?','Wie viel kostet das?','vee feel KOS-tet das'],['איפה השירותים?','Wo ist die Toilette?','vo ist dee to-a-LE-teh'],['עזרה!','Hilfe!','HIL-feh'],['חשבון בבקשה','Die Rechnung, bitte','dee REKH-noong BIT-teh'],['מים / קפה','Wasser / Kaffee','VA-ser / ka-FEH'],['תחנת מטרו','U-Bahn Station','oo-bahn shta-tsyon'],['כשר','Koscher','KO-sher']],
 intro:'בירת הקיסרות לשעבר: ארמונות הבסבורג, קתדרלת שטפן, בתי קפה וינאיים, אופרה ומוזיקה קלאסית, מוזיאונים ברמה עולמית ורובע יהודי עם היסטוריה עמוקה. המרכז (הרינג הפנימי) קומפקטי ונוח להליכה, התחבורה הציבורית מצוינת, והעיר נקייה ובטוחה.',
 updated:'המידע נאסף ב-11/11/2026 מאתרים רשמיים ומקורות מכובדים. מחירים, שעות ועבודות תחזוקה משתנים — יש לוודא באתר הרשמי של כל מקום לפני הביקור. פרטים שלא אומתו מסומנים "לבדוק".',
 eventsNote:'נכון ל-11/11/2026. מקורות: vienna.at (שווקי חג המולד), אתרי Spanish Riding School, Albertina, Staatsoper ו-Wiener Philharmoniker; יש לוודא תאריכים ומחירים באתרי המארגנים.',
@@ -3641,7 +3662,7 @@ window.CITIES.push({
 id:'tokyo',name:'טוקיו',en:'Tokyo',local:'東京',country:'יפן',flag:'🇯🇵',
 color:['#e11d48','#7c3aed'],center:[35.6812,139.7671],zoom:11,wiki:'Tokyo',
 cur:'JPY',sym:'¥',tz:'Asia/Tokyo',
-phrase:'この住所まで連れて行っていただけますか？',phraseLang:'🇯🇵 日本語',
+phrase:'この住所まで連れて行っていただけますか？',phraseLang:'🇯🇵 日本語',speechLang:'ja-JP',phrases:[['שלום','こんにちは (Konnichiwa)','kon-nee-chee-wa'],['תודה','ありがとうございます (Arigatō gozaimasu)','a-ri-ga-toh go-zai-mas'],['בבקשה','お願いします (Onegaishimasu)','o-ne-gai-shi-mas'],['כמה זה עולה?','いくらですか？ (Ikura desu ka?)','ee-koo-ra des-ka'],['איפה השירותים?','トイレはどこですか？','toy-leh wa do-ko des-ka'],['עזרה!','助けて！ (Tasukete!)','ta-soo-ke-teh'],['חשבון בבקשה','お会計をお願いします','o-kai-keh o o-ne-gai-shi-mas'],['מים','水 (Mizu)','mee-zoo'],['תחנת רכבת/מטרו','駅 (Eki)','eh-kee'],['כשר','コーシャー','ko-sha']],
 intro:'מטרופולין ענק שמשלב מקדשים עתיקים, גורדי שחקים, אוכל מהטובים בעולם ותחבורה ציבורית מדויקת להפליא. העיר מורכבת מרבעים שונים לגמרי (אסקוסה, שיבויה, שינג׳וקו, גינזה, אקיהברה), ולכן כדאי לתכנן יום לפי אזור. שימו לב: רוב הנסיעות הן ברכבת ובמטרו, והתחנות הגדולות ענקיות ומבלבלות.',
 updated:'המידע נאסף ב-11/11/2026 מאתרים רשמיים ומקורות תיירות (GO TOKYO, Tokyo Metro, אתרי המקומות). קואורדינטות, מחירי מסעדות/מלונות וחלק מהשעות לא אומתו מול מקור — מסומנים "לבדוק". לפני ביקור יש לוודא שעות ומחירים באתר הרשמי.',
 eventsNote:'נכון ל-11/11/2026. מקורות: Real Japan Guide, Metropolis Japan, Japan Travel, Roppongi Hills (באמצעות אתר מידע). תאריכים עשויים להשתנות — לוודא באתר כל אירוע.',
@@ -3933,6 +3954,274 @@ info:{
 }
 });
 
+window.CITIES.push({id:'barcelona',name:'ברצלונה',en:'Barcelona',local:'Barcelona',country:'ספרד',flag:'🇪🇸',
+color:['#c2410c','#ea580c'],center:[41.3874,2.1686],zoom:13,wiki:'Barcelona',
+cur:'EUR',sym:'€',tz:'Europe/Madrid',
+phrase:'¿Puede llevarme a esta dirección, por favor?',phraseLang:'🇪🇸 Español',speechLang:'es-ES',
+phrases:[['שלום','Hola','O-la'],['תודה','Gracias','GRA-thyas'],['בבקשה','Por favor','por fa-VOR'],['כמה זה עולה?','¿Cuánto cuesta?','KWAN-to KWES-ta'],['איפה השירותים?','¿Dónde está el baño?','DON-de es-TA el BA-nyo'],['אני לא מדבר ספרדית','No hablo español','no A-blo es-pa-NYOL'],['עזרה!','¡Ayuda!','a-YOO-da'],['חשבון בבקשה','La cuenta, por favor','la KWEN-ta por fa-VOR'],['מים / יין','Agua / Vino','A-gwa / BEE-no'],['תחנת מטרו','Estación de metro','es-ta-THYON de ME-tro'],['קחו אותי לכתובת הזו','¿Puede llevarme a esta dirección?','PWE-de ye-VAR-me a ES-ta di-rek-THYON'],['כשר / ללא חזיר','Kosher / Sin cerdo','KO-sher / sin THER-do']],
+intro:'ברצלונה משלבת אדריכלות של גאודי, חוף ים, אוכל קטלאני ואווירה ים-תיכונית. מומלץ לשלב את הרובע הגותי, האלמפלה ופארק גוול.',
+sites:[
+{id:'sagrada',en:'Sagrada Família',loc:'Basílica de la Sagrada Família',lat:41.4036,lng:2.1744,wiki:'Sagrada_Família',tags:['history','views','family'],desc:'הכנסייה המפורסמת של גאודי, עדיין בבנייה. חובה להזמין כרטיסים מראש.',hist:'גאודי לקח את הפרויקט ב-1883. מורשת עולמית.',tips:'הזמינו כרטיס עם מגדל. הגיעו מוקדם.',price:'מ-€26',free:0,book:'required',bookNote:'חובה באתר הרשמי',museum:0,kids:3,addr:'Carrer de Mallorca 401',tel:'+34 932 08 04 14',how:'מטרו L2/L5 Sagrada Família',hours:'~9:00–18:00/20:00',web:'https://sagradafamilia.org'},
+{id:'parkguell',en:'Park Güell',loc:'Park Güell',lat:41.4145,lng:2.1527,wiki:'Park_Güell',tags:['views','nature','family','history'],desc:'פארק צבעוני של גאודי עם תצפית וספסל קרמיקה.',hist:'מורשת אונסק״ו.',tips:'אזור מונומנטלי בתשלום – הזמינו.',price:'כ-€10',free:0,book:'required',museum:0,hill:1,kids:4,addr:'Carrer d\'Olot',how:'מטרו L3 Lesseps',hours:'~9:30–19:30',web:'https://parkguell.barcelona'},
+{id:'gotic',en:'Gothic Quarter',loc:'Barri Gòtic',lat:41.3839,lng:2.1763,wiki:'Gothic_Quarter,_Barcelona',tags:['history','vibe','jewish'],desc:'סמטאות ימי-ביניים, קתדרלה ורובע יהודי עתיק (El Call).',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Barri Gòtic',how:'מטרו L4 Jaume I',hours:'תמיד'},
+{id:'ramblas',en:'La Rambla & Boqueria',loc:'La Rambla',lat:41.3797,lng:2.1741,wiki:'La_Rambla,_Barcelona',tags:['vibe','food','family'],desc:'השדרה המפורסמת ושוק הבוקריה.',tips:'זהירות מכייסים.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'La Rambla',how:'מטרו L3 Liceu',hours:'תמיד'},
+{id:'casa',en:'Casa Batlló',loc:'Casa Batlló',lat:41.3917,lng:2.1649,wiki:'Casa_Batlló',tags:['history','art','views'],desc:'בית גאודי בחזית דרקון.',price:'מ-€35',free:0,book:'required',museum:0,kids:2,addr:'Passeig de Gràcia 43',how:'מטרו Passeig de Gràcia',hours:'~9:00–21:00',web:'https://www.casabatllo.es'},
+{id:'barceloneta',en:'Barceloneta Beach',loc:'Platja de la Barceloneta',lat:41.3784,lng:2.1925,wiki:'La_Barceloneta,_Barcelona',tags:['nature','family','vibe'],desc:'החוף העירוני המרכזי.',price:'חופשי',free:1,book:'no',museum:0,kids:5,addr:'Barceloneta',how:'מטרו L4 Barceloneta',hours:'תמיד'},
+{id:'montjuic',en:'Montjuïc',loc:'Montjuïc',lat:41.3640,lng:2.1650,wiki:'Montjuïc',tags:['views','family','nature'],desc:'גבעה, טירה ומזרקת הקסם.',price:'חופשי לרוב',free:1,book:'no',museum:0,hill:1,kids:4,addr:'Montjuïc',how:'מטרו Parallel + פוניקולר',hours:'גנים תמיד'},
+{id:'born',en:'El Born & Picasso Museum',loc:'El Born',lat:41.3850,lng:2.1830,wiki:'El_Born',tags:['vibe','art','history'],desc:'רובע טרנדי ומוזיאון פיקאסו.',price:'מוזיאון כ-€14',free:0,book:'recommended',museum:1,kids:2,addr:'Carrer de Montcada',how:'מטרו Jaume I',hours:'מוזיאון ~10:00–19:00'}
+],
+hotels:[
+{id:'majestic',name:'Hotel Majestic',stars:5,lat:41.3945,lng:2.1612,area:'Eixample',addr:'Passeig de Gràcia 68',price:'מ-€280 ללילה (משוער)',why:'על השדרה, קרוב לגאודי, בריכת גג.',tel:'+34 934 88 17 17'},
+{id:'cotton',name:'Cotton House Hotel',stars:5,lat:41.3912,lng:2.1710,area:'Eixample',addr:'Gran Via 670',price:'מ-€250 ללילה (משוער)',why:'בניין היסטורי ומיקום מרכזי.'},
+{id:'wbarcelona',name:'W Barcelona',stars:5,lat:41.3683,lng:2.1900,area:'Barceloneta',addr:'Plaça de la Rosa dels Vents 1',price:'מ-€320 ללילה (משוער)',why:'אייקון על החוף.'}
+],
+restaurants:[
+{id:'calpep',name:'Cal Pep',lat:41.3838,lng:2.1835,addr:'Plaça de les Olles 8',type:'טייפס ופירות ים',price:'€40–70',note:'דלפק מפורסם – הגיעו מוקדם.'},
+{id:'canete',name:'Bar Cañete',lat:41.3795,lng:2.1720,addr:'Carrer de la Unió 17',type:'טייפס',price:'€35–55',note:'קרוב לרמבלה. מומלץ להזמין.'},
+{id:'kosherbcn',name:'מסעדה כשרה (לאמת)',lat:41.3920,lng:2.1600,addr:'Eixample',type:'כשר',price:'לבדוק',note:'מעט מסעדות כשרות – אמתו מראש.',kosher:1}
+],
+food:[
+{name:'פאמבטומט',en:'Pa amb tomàquet',emoji:'🍅',desc:'לחם עם עגבנייה ושמן זית.',price:'€2–5'},
+{name:'פטאיאס בראבאס',en:'Patatas bravas',emoji:'🥔',desc:'תפוחי אדמה עם רוטב חריף.',price:'€5–8'},
+{name:'קרם קטלאן',en:'Crema catalana',emoji:'🍮',desc:'קינוח עם קרום מסוכר.',price:'€5–8'},
+{name:'פאייה / פידאואה',en:'Paella / Fideuà',emoji:'🍤',desc:'אורז או נודלס עם פירות ים.',price:'€15–25'}
+],
+shopping:[{name:'Passeig de Gràcia',lat:41.3930,lng:2.1630,desc:'מותגי יוקרה ומודרניזם.',hours:'~10:00–20:00'},{name:'El Corte Inglés',lat:41.3870,lng:2.1700,desc:'כלבו ב-Catalunya.',hours:'~9:30–21:00'}],
+markets:[{name:'La Boqueria',lat:41.3816,lng:2.1719,addr:'La Rambla 91',days:'שני–שבת',desc:'שוק האוכל האייקוני.'}],
+transport:{intro:'מטרו TMB. כרטיס T-Casual או Hola Barcelona משתלם. רכבת לשדה התעופה.',
+prices:[['נסיעה בודדת','€2.40',''],['T-Casual (10)','~€12',''],['Hola 48ש׳','מ-€16','']],
+tickets:['מכונות בתחנות / אפליקציית TMB'],extra:['Aerobus מהיר אך יקר יותר'],
+lines:[{id:'L3',name:'L3',color:'#27ae60',from:'Zona Universitària',to:'Trinitat Nova',stations:['espanya','liceu','catalunya','passeig','lesseps']},{id:'L4',name:'L4',color:'#f1c40f',from:'Trinitat Nova',to:'La Pau',stations:['jaume','barceloneta']},{id:'L5',name:'L5',color:'#8e44ad',from:'Cornellà',to:'Vall d\'Hebron',stations:['sagrada']}],
+stations:{espanya:{n:'Espanya',he:'מונטז׳ואיק',lat:41.3750,lng:2.1490,note:'',poi:['montjuic']},catalunya:{n:'Catalunya',he:'מרכז',lat:41.3870,lng:2.1700,note:'',poi:['ramblas','gotic']},liceu:{n:'Liceu',he:'רמבלה',lat:41.3805,lng:2.1735,note:'',poi:['ramblas']},passeig:{n:'Passeig de Gràcia',he:'',lat:41.3915,lng:2.1645,note:'',poi:['casa']},sagrada:{n:'Sagrada Família',he:'',lat:41.4040,lng:2.1745,note:'',poi:['sagrada']},barceloneta:{n:'Barceloneta',he:'חוף',lat:41.3820,lng:2.1855,note:'',poi:['barceloneta']},jaume:{n:'Jaume I',he:'גותי',lat:41.3838,lng:2.1785,note:'',poi:['gotic','born']},lesseps:{n:'Lesseps',he:'פארק גוול',lat:41.4065,lng:2.1495,note:'',poi:['parkguell']}}},
+airports:[{n:'אל פראט (BCN)',lat:41.2971,lng:2.0785,via:'catalunya',how:'רכבת R2 Nord ל-Catalunya (~30 דק׳) או Aerobus.'}],
+tips:[['🛡️','כייסים','ברמבלה ובמטרו – תיק צמוד.'],['🎫','סגרדה וגוול','הזמינו מראש.'],['☀️','קיץ','חם – התחילו מוקדם.'],['✡️','כשרות','מעט אפשרויות – תכננו.']],
+info:{'כסף':['אירו (€)'],'שפה':['קטלאנית וספרדית'],'חירום':['112']},
+events:[],updated:'אמתו מחירים ושעות באתרים הרשמיים.'
+});
+
+window.CITIES.push({id:'berlin',name:'ברלין',en:'Berlin',local:'Berlin',country:'גרמניה',flag:'🇩🇪',
+color:['#1e3a8a','#dc2626'],center:[52.5200,13.4050],zoom:12,wiki:'Berlin',
+cur:'EUR',sym:'€',tz:'Europe/Berlin',
+phrase:'Könnten Sie mich bitte zu dieser Adresse bringen?',phraseLang:'🇩🇪 Deutsch',speechLang:'de-DE',
+phrases:[['שלום','Guten Tag','GOO-ten tahk'],['תודה','Danke','DAN-keh'],['בבקשה','Bitte','BIT-teh'],['כמה זה עולה?','Wie viel kostet das?','vee feel KOS-tet das'],['איפה השירותים?','Wo ist die Toilette?','vo ist dee to-a-LE-teh'],['עזרה!','Hilfe!','HIL-feh'],['חשבון בבקשה','Die Rechnung, bitte','dee REKH-noong BIT-teh'],['מים / בירה','Wasser / Bier','VA-ser / beer'],['תחנת רכבת','U-Bahn / Bahnhof','oo-bahn / BAHN-hof'],['קחו אותי לכתובת הזו','Könnten Sie mich zu dieser Adresse bringen?','KURN-ten zee mikh tsoo DEE-zer a-DRE-se'],['כשר','Koscher','KO-sher']],
+intro:'ברלין – היסטוריה דרמטית, מוזיאונים, אמנות רחוב וחיי לילה. משער ברנדנבורג ואי המוזיאונים עד החומה והמזרח הטרנדי.',
+sites:[
+{id:'brandenburg',en:'Brandenburg Gate',loc:'Brandenburger Tor',lat:52.5163,lng:13.3777,wiki:'Brandenburg_Gate',tags:['history','views','family'],desc:'סמל העיר והאיחוד מחדש.',price:'חופשי',free:1,book:'no',museum:0,kids:4,addr:'Pariser Platz',how:'U5 Brandenburger Tor',hours:'תמיד'},
+{id:'wall',en:'Berlin Wall Memorial',loc:'Gedenkstätte Berliner Mauer',lat:52.5351,lng:13.3902,wiki:'Berlin_Wall_Memorial',tags:['history'],desc:'קטע חומה, מגדל שמירה ותערוכה.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Bernauer Straße',how:'S Nordbahnhof',hours:'שטח פתוח תמיד'},
+{id:'museuminsel',en:'Museum Island',loc:'Museumsinsel',lat:52.5169,lng:13.3989,wiki:'Museum_Island',tags:['history','art','family'],desc:'מתחם אונסק״ו של מוזיאונים.',price:'מ-€12; כרטיס יום ~€24',free:0,book:'recommended',museum:1,kids:3,addr:'Museumsinsel',how:'U6 Friedrichstraße',hours:'~10:00–18:00',web:'https://www.smb.museum'},
+{id:'reichstag',en:'Reichstag Dome',loc:'Reichstagsgebäude',lat:52.5186,lng:13.3761,wiki:'Reichstag_building',tags:['history','views'],desc:'כיפת זכוכית – חינם עם הרשמה מראש.',price:'חופשי',free:1,book:'required',bookNote:'הרשמה ב-bundestag.de',museum:0,kids:3,addr:'Platz der Republik',how:'U/S Brandenburger Tor',hours:'לפי הרשמה'},
+{id:'holocaust',en:'Holocaust Memorial',loc:'Denkmal für die ermordeten Juden Europas',lat:52.5139,lng:13.3787,wiki:'Memorial_to_the_Murdered_Jews_of_Europe',tags:['jewish','history'],desc:'שדה הבלוקים ומרכז מידע.',price:'חופשי',free:1,book:'no',museum:0,kids:2,addr:'Cora-Berliner-Straße',how:'U2 Potsdamer Platz',hours:'מרכז מידע ~10:00–19:00'},
+{id:'eastside',en:'East Side Gallery',loc:'East Side Gallery',lat:52.5055,lng:13.4397,wiki:'East_Side_Gallery',tags:['art','history','vibe'],desc:'הקטע הארוך ביותר של החומה המצויר.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Mühlenstraße',how:'S/U Warschauer Straße',hours:'תמיד'},
+{id:'checkpoint',en:'Checkpoint Charlie',loc:'Checkpoint Charlie',lat:52.5075,lng:13.3904,wiki:'Checkpoint_Charlie',tags:['history'],desc:'מעבר הגבול המפורסם.',price:'כיכר חופשית',free:1,book:'no',museum:0,kids:3,addr:'Friedrichstraße',how:'U6 Kochstraße',hours:'תמיד'},
+{id:'tvtower',en:'TV Tower',loc:'Fernsehturm',lat:52.5208,lng:13.4094,wiki:'Fernsehturm_Berlin',tags:['views','family'],desc:'מגדל הטלוויזיה – תצפית 360°.',price:'מ-€20',free:0,book:'recommended',museum:0,kids:4,addr:'Panoramastraße 1A',how:'U/S Alexanderplatz',hours:'~9:00–23:00',web:'https://www.tv-turm.de'}
+],
+hotels:[
+{id:'adlon',name:'Hotel Adlon Kempinski',stars:5,lat:52.5161,lng:13.3802,area:'שער ברנדנבורג',addr:'Unter den Linden 77',price:'מ-€350 ללילה (משוער)',why:'מלון היסטורי ליד השער.',tel:'+49 30 2261 0'},
+{id:'sofitel',name:'Sofitel Berlin Kurfürstendamm',stars:5,lat:52.5035,lng:13.3305,area:'Ku\'damm',addr:'Augsburger Straße 41',price:'מ-€200 ללילה (משוער)',why:'מיקום מצוין לקניות.'}
+],
+restaurants:[
+{id:'curry',name:'Curry 36',lat:52.4990,lng:13.4240,addr:'Mehringdamm 36',type:'אוכל רחוב',price:'€3–6',note:'קוריוורסט קלאסי.'},
+{id:'mustafa',name:'Mustafa\'s Gemüse Kebap',lat:52.4935,lng:13.3870,addr:'Mehringdamm 32',type:'קבב',price:'€5–9',note:'תור מפורסם.'},
+{id:'kosherber',name:'מסעדה כשרה (לאמת)',lat:52.5230,lng:13.3950,addr:'מיטה',type:'כשר',price:'לבדוק',note:'יש אפשרויות כשרות – אמתו.',kosher:1}
+],
+food:[
+{name:'קוריוורסט',en:'Currywurst',emoji:'🌭',desc:'נקניקייה עם רוטב קארי.',price:'€3–5'},
+{name:'דנר',en:'Döner',emoji:'🥙',desc:'ברלין בירת הדנר.',price:'€5–8'},
+{name:'פרצל',en:'Brezel',emoji:'🥨',desc:'פרצל מלוח טרי.',price:'€2–4'}
+],
+shopping:[{name:'Kurfürstendamm',lat:52.5030,lng:13.3300,desc:'שדרת קניות במערב.',hours:'~10:00–20:00'},{name:'Alexanderplatz',lat:52.5210,lng:13.4130,desc:'קניון ומרכז במזרח.',hours:'~10:00–21:00'}],
+markets:[{name:'Markthalle Neun',lat:52.5020,lng:13.4320,addr:'Eisenbahnstraße 98',days:'יומיומי; Street Food ה׳',desc:'שוק אוכל בקרויצברג.'},{name:'Mauerpark Flohmarkt',lat:52.5430,lng:13.4030,addr:'Mauerpark',days:'ראשון',desc:'שוק פשפשים.'}],
+transport:{intro:'U-Bahn ו-S-Bahn. כרטיס יומי AB משתלם. שדה התעופה BER באזור C.',
+prices:[['נסיעה AB','~€3.50',''],['יומי AB','~€9.90',''],['שבועי AB','~€41','']],
+tickets:['מכונות / אפליקציית BVG – חובה להחתים'],extra:['ביקורת כרטיסים תכופה'],
+lines:[{id:'U2',name:'U2',color:'#e74c3c',from:'Pankow',to:'Ruhleben',stations:['alexander','potsdamer']},{id:'U5',name:'U5',color:'#8e44ad',from:'Hönow',to:'Hauptbahnhof',stations:['alexander','brand']},{id:'U6',name:'U6',color:'#7f8c8d',from:'Alt-Tegel',to:'Alt-Mariendorf',stations:['friedrich','checkpoint_st']}],
+stations:{alexander:{n:'Alexanderplatz',he:'',lat:52.5219,lng:13.4133,note:'',poi:['tvtower']},brand:{n:'Brandenburger Tor',he:'',lat:52.5163,lng:13.3780,note:'',poi:['brandenburg','reichstag','holocaust']},potsdamer:{n:'Potsdamer Platz',he:'',lat:52.5095,lng:13.3765,note:'',poi:['holocaust']},friedrich:{n:'Friedrichstraße',he:'',lat:52.5200,lng:13.3870,note:'',poi:['museuminsel']},checkpoint_st:{n:'Kochstraße',he:'צ׳קפוינט',lat:52.5065,lng:13.3905,note:'',poi:['checkpoint']}}},
+airports:[{n:'BER ברנדנבורג',lat:52.3667,lng:13.5033,via:'alexander',how:'Airport Express / S-Bahn למרכז (~30–40 דק׳). כרטיס ABC.'}],
+tips:[['🎫','החתימו כרטיס','ביקורת תכופה.'],['🧱','היסטוריה','אנדרטת השואה ואתר החומה.'],['✡️','יהדות','קהילה גדולה; מסעדות כשרות קיימות.']],
+info:{'כסף':['אירו'],'שפה':['גרמנית; אנגלית נפוצה'],'חירום':['112']},
+events:[],updated:'אמתו מחירים ושעות לפני הביקור.'
+});
+
+window.CITIES.push({id:'bucharest',name:'בוקרשט',en:'Bucharest',local:'București',country:'רומניה',flag:'🇷🇴',
+color:['#b91c1c','#fbbf24'],center:[44.4268,26.1025],zoom:13,wiki:'Bucharest',
+cur:'RON',sym:'lei',tz:'Europe/Bucharest',
+phrase:'Mă puteți duce vă rog la această adresă?',phraseLang:'🇷🇴 Română',speechLang:'ro-RO',
+phrases:[['שלום','Bună ziua','BOO-na zee-wa'],['תודה','Mulțumesc','mool-tsoo-MESK'],['בבקשה','Vă rog','vuh ROG'],['כמה זה עולה?','Cât costă?','kut KOS-ta'],['איפה השירותים?','Unde este toaleta?','OON-de YES-te to-a-LE-ta'],['עזרה!','Ajutor!','a-zhoo-TOR'],['חשבון בבקשה','Nota de plată, vă rog','NO-ta de PLA-ta'],['מים','Apă','A-puh'],['תחנת מטרו','Stație de metrou','STA-tsi-e de MET-ro'],['קחו אותי לכתובת הזו','Mă puteți duce la această adresă?','muh poo-TETS DOO-che'],['כשר','Cuşer','koo-SHER']],
+intro:'בוקרשט – "פריז של הבלקן": ארמון הפרלמנט, הרובע העתיק ליפצקאן, כנסיות וחיי לילה. זולה יחסית עם ניגודים חזקים.',
+sites:[
+{id:'parliament',en:'Palace of the Parliament',loc:'Palatul Parlamentului',lat:44.4275,lng:26.0873,wiki:'Palace_of_the_Parliament',tags:['history','views'],desc:'הבניין האזרחי הכבד בעולם. סיור מודרך עם תעודה.',hist:'נבנה בימי צ׳אושסקו.',tips:'הזמינו מראש + דרכון.',price:'מ-~40 ליי',free:0,book:'required',museum:0,kids:2,addr:'Strada Izvor 2-4',how:'מטרו Izvor',hours:'סיורים ביום',web:'https://www.cic.cdep.ro'},
+{id:'oldtown',en:'Old Town (Lipscani)',loc:'Centrul Vechi',lat:44.4319,lng:26.1025,wiki:'Lipscani',tags:['vibe','food','history','family'],desc:'רובע עתיק עם ברים, מסעדות וכנסיות.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Lipscani',how:'מטרו Universitate / Unirii',hours:'תמיד'},
+{id:'athanase',en:'Romanian Athenaeum',loc:'Ateneul Român',lat:44.4412,lng:26.0970,wiki:'Romanian_Athenaeum',tags:['art','history'],desc:'אולם קונצרטים מרהיב.',price:'לפי אירוע',free:0,book:'recommended',museum:0,kids:2,addr:'Strada Benjamin Franklin 1',how:'מטרו Piața Romană',hours:'לפי קונצרטים'},
+{id:'revolution',en:'Revolution Square',loc:'Piața Revoluției',lat:44.4390,lng:26.0975,wiki:'Revolution_Square',tags:['history'],desc:'כיכר המהפכה של 1989.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Piața Revoluției',how:'הליכה ממרכז',hours:'תמיד'},
+{id:'herastrau',en:'Herăstrău Park',loc:'Parcul Național',lat:44.4700,lng:26.0820,wiki:'Herăstrău_Park',tags:['nature','family'],desc:'פארק גדול סביב אגם.',price:'חופשי',free:1,book:'no',museum:0,kids:5,addr:'Șoseaua Nordului',how:'מטרו Aviatorilor',hours:'תמיד'},
+{id:'stavropoleos',en:'Stavropoleos Monastery',loc:'Mănăstirea Stavropoleos',lat:44.4317,lng:26.0989,wiki:'Stavropoleos_Monastery',tags:['history','vibe'],desc:'כנסייה קטנה ומעוטרת ברובע העתיק.',price:'תרומה',free:1,book:'no',museum:0,kids:2,addr:'Strada Stavropoleos 4',how:'הליכה ב-Lipscani',hours:'~8:00–18:00'},
+{id:'village',en:'Village Museum',loc:'Muzeul Satului',lat:44.4725,lng:26.0765,wiki:'Dimitrie_Gusti_National_Village_Museum',tags:['history','family','nature'],desc:'מוזיאון פתוח של בתי כפר רומניים.',price:'~15–30 ליי',free:0,book:'no',museum:1,kids:4,addr:'Șoseaua Kiseleff 28–30',how:'מטרו Aviatorilor',hours:'~9:00–17:00'}
+],
+hotels:[
+{id:'intercontinental',name:'InterContinental Athénée Palace',stars:5,lat:44.4415,lng:26.0965,area:'Piața Revoluției',addr:'Strada Episcopiei 1-3',price:'מ-€150 ללילה (משוער)',why:'מיקום היסטורי במרכז.'},
+{id:'marriott',name:'JW Marriott Bucharest',stars:5,lat:44.4290,lng:26.0750,area:'ליד הפרלמנט',addr:'Calea 13 Septembrie 90',price:'מ-€140 ללילה (משוער)',why:'מודרני וקרוב לפרלמנט.'}
+],
+restaurants:[
+{id:'caru',name:'Caru\' cu Bere',lat:44.4315,lng:26.0980,addr:'Strada Stavropoleos 5',type:'רומני מסורתי',price:'60–120 ליי',note:'אולם מ-1879 – תיירותי אך שווה.'},
+{id:'hanul',name:'Hanul lui Manuc',lat:44.4295,lng:26.1040,addr:'Strada Franceză 62–64',type:'חאן היסטורי',price:'60–110 ליי',note:'חצר עתיקה ואווירה.'},
+{id:'kosherbu',name:'מסעדה כשרה (לאמת)',lat:44.4350,lng:26.1000,addr:'לאמת',type:'כשר',price:'לבדוק',note:'קהילה קטנה – בדקו מראש.',kosher:1}
+],
+food:[
+{name:'סארמה',en:'Sarmale',emoji:'🥬',desc:'כרוב ממולא בשר ואורז.',price:'25–40 ליי'},
+{name:'מיטיטיי',en:'Mici',emoji:'🍖',desc:'נקניקיות גריל עם חרדל.',price:'15–30 ליי'},
+{name:'צ׳ורבה',en:'Ciorbă',emoji:'🥣',desc:'מרק חמוץ רומני.',price:'15–25 ליי'},
+{name:'פאפנש',en:'Papanași',emoji:'🍩',desc:'דונאטס גבינה עם שמנת וריבה.',price:'20–30 ליי'}
+],
+shopping:[{name:'AFI / Băneasa',lat:44.4350,lng:26.0520,desc:'קניונים גדולים.',hours:'~10:00–22:00'},{name:'Calea Victoriei',lat:44.4400,lng:26.0960,desc:'שדרה מרכזית.',hours:'~10:00–20:00'}],
+markets:[{name:'Piața Obor',lat:44.4500,lng:26.1300,addr:'Obor',days:'יומיומי',desc:'שוק מקומי גדול.'}],
+transport:{intro:'מטרו (4 קווים) ואוטובוסים. Bolt/Uber נוחים וזולים.',
+prices:[['מטרו','~3 ליי',''],['יומי','~8–14 ליי','']],
+tickets:['מכונות בתחנות / אפליקציה'],extra:['העדיפו אפליקציית מוניות'],
+lines:[{id:'M1',name:'M1',color:'#e74c3c',from:'Dristor',to:'Pantelimon',stations:['unirii','universitate']},{id:'M2',name:'M2',color:'#27ae60',from:'Pipera',to:'Berceni',stations:['universitate','unirii']}],
+stations:{unirii:{n:'Piața Unirii',he:'',lat:44.4270,lng:26.1035,note:'',poi:['oldtown','stavropoleos']},universitate:{n:'Universitate',he:'',lat:44.4355,lng:26.1020,note:'',poi:['oldtown','revolution']},izvor:{n:'Izvor',he:'פרלמנט',lat:44.4300,lng:26.0900,note:'',poi:['parliament']}}},
+airports:[{n:'אנרי קואנדה (OTP)',lat:44.5711,lng:26.0850,via:'universitate',how:'אוטובוס 783 / רכבת + מטרו, או Bolt.'}],
+tips:[['💰','זול יחסית','מזומן (ליי) עדיין שימושי.'],['🚕','Bolt/Uber','נוחים יותר ממוניות רחוב.'],['🏛️','פרלמנט','הזמינו סיור + תעודה.']],
+info:{'כסף':['לאו רומני (RON)'],'שפה':['רומנית; אנגלית בתיירות'],'חירום':['112']},
+events:[],updated:'אמתו מחירים ושעות לפני הביקור.'
+});
+
+window.CITIES.push({id:'madrid',name:'מדריד',en:'Madrid',local:'Madrid',country:'ספרד',flag:'🇪🇸',
+color:['#b45309','#dc2626'],center:[40.4168,-3.7038],zoom:13,wiki:'Madrid',
+cur:'EUR',sym:'€',tz:'Europe/Madrid',
+phrase:'¿Puede llevarme a esta dirección, por favor?',phraseLang:'🇪🇸 Español',speechLang:'es-ES',
+phrases:[['שלום','Hola','O-la'],['תודה','Gracias','GRA-thyas'],['בבקשה','Por favor','por fa-VOR'],['כמה זה עולה?','¿Cuánto cuesta?','KWAN-to KWES-ta'],['איפה השירותים?','¿Dónde está el baño?','DON-de es-TA el BA-nyo'],['עזרה!','¡Ayuda!','a-YOO-da'],['חשבון בבקשה','La cuenta, por favor','la KWEN-ta por fa-VOR'],['מים / יין','Agua / Vino','A-gwa / BEE-no'],['תחנת מטרו','Estación de metro','es-ta-THYON de ME-tro'],['קחו אותי לכתובת הזו','¿Puede llevarme a esta dirección?','PWE-de ye-VAR-me a ES-ta di-rek-THYON'],['כשר','Kosher','KO-sher']],
+intro:'מדריד – בירת ספרד: מוזיאונים ברמה עולמית (פראדו, ריינה סופיה), כיכרות תוססות, פארק רטירו וחיי לילה עד השעות הקטנות.',
+sites:[
+{id:'prado',en:'Prado Museum',loc:'Museo del Prado',lat:40.4138,lng:-3.6921,wiki:'Museo_del_Prado',tags:['art','history','family'],desc:'אחד ממוזיאוני האמנות החשובים בעולם – ולאסקס, גויה, אל גרקו.',tips:'הזמינו מראש. כניסה חינם בחלק משעות הערב – בדקו.',price:'~€15',free:0,book:'recommended',museum:1,kids:2,addr:'Calle de Ruiz de Alarcón 23',how:'מטרו Banco de España / Atocha',hours:'~10:00–20:00',freeDays:'לעיתים אחה״צ – לבדוק',web:'https://www.museodelprado.es'},
+{id:'retiro',en:'Retiro Park',loc:'Parque del Buen Retiro',lat:40.4153,lng:-3.6846,wiki:'Buen_Retiro_Park',tags:['nature','family','vibe'],desc:'הפארק המרכזי – אגם, ארמון הזכוכית וגנים.',price:'חופשי',free:1,book:'no',museum:0,kids:5,addr:'Plaza de la Independencia',how:'מטרו Retiro / Ibiza',hours:'~6:00–22:00 לפי עונה'},
+{id:'plaza_mayor',en:'Plaza Mayor',loc:'Plaza Mayor',lat:40.4155,lng:-3.7074,wiki:'Plaza_Mayor,_Madrid',tags:['history','vibe','family'],desc:'הכיכר הראשית ההיסטורית – ארקדות, בתי קפה ואווירה.',price:'חופשי',free:1,book:'no',museum:0,kids:4,addr:'Plaza Mayor',how:'מטרו Sol / Ópera',hours:'תמיד'},
+{id:'royal',en:'Royal Palace',loc:'Palacio Real',lat:40.4180,lng:-3.7143,wiki:'Royal_Palace_of_Madrid',tags:['history','views','family'],desc:'הארמון המלכותי הגדול באירופה המערבית (לפי מספר חדרים).',price:'~€13',free:0,book:'recommended',museum:0,kids:3,addr:'Calle de Bailén',how:'מטרו Ópera',hours:'~10:00–18:00',web:'https://www.patrimonionacional.es'},
+{id:'sofia',en:'Reina Sofía',loc:'Museo Reina Sofía',lat:40.4086,lng:-3.6944,wiki:'Museo_Nacional_Centro_de_Arte_Reina_Sofía',tags:['art','history'],desc:'אמנות מודרנית – גרניקה של פיקאסו ועוד.',price:'~€12',free:0,book:'recommended',museum:1,kids:2,addr:'Calle de Santa Isabel 52',how:'מטרו Atocha',hours:'~10:00–21:00',freeDays:'שעות מסוימות – לבדוק',web:'https://www.museoreinasofia.es'},
+{id:'sol',en:'Puerta del Sol',loc:'Puerta del Sol',lat:40.4169,lng:-3.7033,wiki:'Puerta_del_Sol',tags:['vibe','family'],desc:'לב העיר – נקודת הקילומטר 0, שעונים וחנויות.',price:'חופשי',free:1,book:'no',museum:0,kids:4,addr:'Puerta del Sol',how:'מטרו Sol',hours:'תמיד'},
+{id:'temple',en:'Temple of Debod',loc:'Templo de Debod',lat:40.4240,lng:-3.7178,wiki:'Temple_of_Debod',tags:['history','views','family'],desc:'מקדש מצרי שהועבר למדריד – תצפית שקיעה מצוינת.',price:'חופשי',free:1,book:'no',museum:0,kids:4,addr:'Calle de Ferraz 1',how:'מטרו Plaza de España / Ventura Rodríguez',hours:'פארק תמיד; מקדש לפי שעות'},
+{id:'granvia',en:'Gran Vía',loc:'Gran Vía',lat:40.4203,lng:-3.7059,wiki:'Gran_Vía,_Madrid',tags:['vibe','shopping','family'],desc:'השדרה הגדולה – תיאטראות, קניות ותאורה בערב.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Gran Vía',how:'מטרו Gran Vía / Callao',hours:'תמיד'}
+],
+hotels:[
+{id:'ritz',name:'The Ritz Madrid',stars:5,lat:40.4157,lng:-3.6928,area:'ליד הפראדו',addr:'Plaza de la Lealtad 5',price:'מ-€400 ללילה (משוער)',why:'מלון היסטורי יוקרתי ליד מוזיאון הפראדו.'},
+{id:'westin',name:'The Westin Palace',stars:5,lat:40.4155,lng:-3.6965,area:'מרכז / אמנות',addr:'Plaza de las Cortes 7',price:'מ-€250 ללילה (משוער)',why:'מיקום מצוין בין הפראדו לסוף.'},
+{id:'onlyyou',name:'Only You Hotel Atocha',stars:4,lat:40.4080,lng:-3.6920,area:'Atocha',addr:'Paseo de la Infanta Isabel 13',price:'מ-€150 ללילה (משוער)',why:'עיצוב מודרני וקרוב לתחנה ולמוזיאונים.'}
+],
+restaurants:[
+{id:'botin',name:'Sobrino de Botín',lat:40.4142,lng:-3.7080,addr:'Calle de los Cuchilleros 17',type:'ספרדי מסורתי',price:'€40–70',note:'נחשב למסעדה הוותיקה בעולם (1725). חזרזיר וקוצ׳ינילו.'},
+{id:'sanmiguel',name:'Mercado de San Miguel',lat:40.4154,lng:-3.7089,addr:'Plaza de San Miguel',type:'שוק גורמה / טייפס',price:'€15–40',note:'דוכני אוכל איכותיים ליד פלאסה מאיור.'},
+{id:'koshermad',name:'מסעדה כשרה (לאמת)',lat:40.4200,lng:-3.7000,addr:'לאמת',type:'כשר',price:'לבדוק',note:'יש אפשרויות כשרות במדריד – אמתו תעודה.',kosher:1}
+],
+food:[
+{name:'טוסטה / טייפס',en:'Tapas / Tostas',emoji:'🥖',desc:'מנות קטנות לשיתוף – חייב לנסות.',price:'€3–12'},
+{name:'חומון איבריקו',en:'Jamón ibérico',emoji:'🍖',desc:'המעדן הספרדי המפורסם (לא כשר).',price:'€15–40'},
+{name:'צ׳ורוס קונ שוקולט',en:'Churros con chocolate',emoji:'🍫',desc:'צ׳ורוס עם שוקולד סמיך – במיוחד בבוקר או אחרי בילוי.',price:'€4–8'},
+{name:'קוקסינילו / קורדרו',en:'Cochinillo / Cordero',emoji:'🐷',desc:'חזרזיר או טלה צלוי בסגנון סגוביה.',price:'€20–35'}
+],
+shopping:[{name:'Gran Vía / Preciados',lat:40.4200,lng:-3.7050,desc:'קניות מרכזיות.',hours:'~10:00–21:00'},{name:'El Rastro (שוק)',lat:40.4080,lng:-3.7080,desc:'שוק פשפשים בראשון.',hours:'ראשון בוקר–צהריים'}],
+markets:[{name:'Mercado de San Miguel',lat:40.4154,lng:-3.7089,addr:'Plaza de San Miguel',days:'יומיומי',desc:'שוק גורמה מקורה.'},{name:'El Rastro',lat:40.4080,lng:-3.7080,addr:'Calle de la Ribera de Curtidores',days:'ראשון',desc:'שוק פשפשים ענק.'}],
+transport:{intro:'מטרו מדריד מהיר ויעיל. כרטיס 10 נסיעות או Tourist Travel Pass משתלם.',
+prices:[['נסיעה בודדת','~€1.50–2',''],['מטרובוס 10 נסיעות','~€12',''],['Tourist Pass 1–7 ימים','מ-€8.4','']],
+tickets:['מכונות בתחנות / כרטיסייה'],extra:['רכבת Cercanías לשדה התעופה'],
+lines:[{id:'L1',name:'L1',color:'#00a0e3',from:'Pinar de Chamartín',to:'Valdecarros',stations:['sol','atocha']},{id:'L2',name:'L2',color:'#ed1c24',from:'Las Rosas',to:'Cuatro Caminos',stations:['sol','opera']},{id:'L3',name:'L3',color:'#ffd200',from:'Villaverde Alto',to:'Moncloa',stations:['sol','callao']}],
+stations:{sol:{n:'Sol',he:'לב העיר',lat:40.4169,lng:-3.7033,note:'',poi:['sol','plaza_mayor']},opera:{n:'Ópera',he:'ארמון',lat:40.4182,lng:-3.7093,note:'',poi:['royal','plaza_mayor']},atocha:{n:'Atocha',he:'תחנה/מוזיאונים',lat:40.4070,lng:-3.6910,note:'',poi:['prado','sofia']},callao:{n:'Callao',he:'גרן ויה',lat:40.4202,lng:-3.7057,note:'',poi:['granvia']}}},
+airports:[{n:'מדריד-בראחס (MAD)',lat:40.4983,lng:-3.5676,via:'sol',how:'מטרו קו 8 ל-Nuevos Ministerios + החלפה, או Cercanías, או Express bus.'}],
+tips:[['🍽️','שעות אוכל','ארוחת צהריים מאוחרת (14:00) וערב מאוחר (21:00+).'],['🎫','מוזיאונים','פראדו וריינה סופיה – הזמינו והגיעו מוקדם.'],['🌙','לילה','העיר לא נרדמת מוקדם – תכננו בהתאם.']],
+info:{'כסף':['אירו'],'שפה':['ספרדית'],'חירום':['112']},
+events:[],updated:'אמתו מחירים ושעות באתרים הרשמיים.'
+});
+
+window.CITIES.push({id:'lisbon',name:'ליסבון',en:'Lisbon',local:'Lisboa',country:'פורטוגל',flag:'🇵🇹',
+color:['#0e7490','#f59e0b'],center:[38.7223,-9.1393],zoom:13,wiki:'Lisbon',
+cur:'EUR',sym:'€',tz:'Europe/Lisbon',
+phrase:'Pode levar-me a este endereço, por favor?',phraseLang:'🇵🇹 Português',speechLang:'pt-PT',
+phrases:[['שלום','Olá','o-LA'],['תודה','Obrigado / Obrigada','o-bri-GA-do'],['בבקשה','Por favor','por fa-VOR'],['כמה זה עולה?','Quanto custa?','KWAN-to KOOSH-ta'],['איפה השירותים?','Onde é a casa de banho?','ON-de eh a KA-za de BAN-yo'],['עזרה!','Socorro!','so-KO-ro'],['חשבון בבקשה','A conta, por favor','a KON-ta por fa-VOR'],['מים / יין','Água / Vinho','A-gwa / VEEN-yo'],['טראם / מטרו','Eléctrico / Metro','e-LETR-ico / ME-tro'],['קחו אותי לכתובת הזו','Pode levar-me a este endereço?','PO-de le-VAR-me a ESH-te en-de-RE-so'],['כשר','Kosher','KO-sher']],
+intro:'ליסבון – עיר של גבעות, טראם צהוב, פסטל דה נאטה ונופים על הנהר. אלפמה, ביישה ובלן הם חובה.',
+sites:[
+{id:'alfama',en:'Alfama',loc:'Alfama',lat:38.7117,lng:-9.1307,wiki:'Alfama',tags:['history','vibe','family'],desc:'הרובע העתיק – סמטאות, פאדו ותצפיות (miradouros).',tips:'הלכו ברגל והלכו לאיבוד בכוונה. נעליים נוחות.',price:'חופשי',free:1,book:'no',museum:0,hill:1,kids:3,addr:'Alfama',how:'טראם 12/28 או מטרו Santa Apolónia',hours:'תמיד'},
+{id:'belem',en:'Belém – Tower & Jerónimos',loc:'Belém',lat:38.6970,lng:-9.2060,wiki:'Belém,_Lisbon',tags:['history','views','family'],desc:'מגדל בלן, מנזר ז\'רונימוש (אונסק״ו) ומאפיית הפסטל דה נאטה המקורית.',hist:'עידן התגליות הפורטוגזי.',tips:'הזמינו למנזר. תור ארוך למאפייה – שווה.',price:'מגדל/מנזר ~€6–10',free:0,book:'recommended',museum:0,kids:4,addr:'Belém',how:'טראם 15 / רכבת Belém',hours:'~10:00–17:00/18:00'},
+{id:'tram28',en:'Tram 28',loc:'Eléctrico 28',lat:38.7139,lng:-9.1335,wiki:'Trams_in_Lisbon',tags:['vibe','family','views'],desc:'הטראם התיירותי הקלאסי שחוצה רובעים היסטוריים.',tips:'הגיעו לסוף הקו כדי לתפוס מקום. זהירות מכייסים.',price:'~€3 (או כרטיס יומי)',free:0,book:'no',museum:0,kids:4,addr:'מסלול בין Martim Moniz ל-Campo Ourique',how:'נקודות לאורך המסלול',hours:'בשעות היום'},
+{id:'baixa',en:'Baixa & Commerce Square',loc:'Baixa / Praça do Comércio',lat:38.7075,lng:-9.1364,wiki:'Praça_do_Comércio',tags:['history','vibe','family'],desc:'המרכז המתוכנן אחרי הרעש, הכיכר הגדולה על הנהר וקשת Rua Augusta.',price:'חופשי',free:1,book:'no',museum:0,kids:4,addr:'Praça do Comércio',how:'מטרו Terreiro do Paço / Baixa-Chiado',hours:'תמיד'},
+{id:'sintra',en:'Sintra (day trip)',loc:'Sintra',lat:38.8029,lng:-9.3817,wiki:'Sintra',tags:['history','nature','family','views'],desc:'ארמונות צבעוניים והרים – טיול יום קלאסי מליסבון.',tips:'רכבת מ-Rossio. התחילו מוקדם – עמוס.',price:'ארמונות ~€10–20 כל אחד',free:0,book:'recommended',museum:0,trip:1,hill:1,kids:4,addr:'Sintra',how:'רכבת מ-Rossio (~40 דק׳)',hours:'ארמונות ~9:30–18:00'},
+{id:'lxfactory',en:'LX Factory',loc:'LX Factory',lat:38.7035,lng:-9.1785,wiki:'LX_Factory',tags:['vibe','shopping','food'],desc:'מתחם תעשייתי שהפך לגלריות, חנויות ובתי קפה.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Rua Rodrigues de Faria 103',how:'טראם 15 / הליכה מאלקנטרה',hours:'חנויות ~11:00–19:00'},
+{id:'santa',en:'Santa Justa Lift & Carmo',loc:'Elevador de Santa Justa',lat:38.7120,lng:-9.1394,wiki:'Santa_Justa_Lift',tags:['views','history'],desc:'מעלית נאו-גותית לתצפית ושמורות כנסיית כרמו.',price:'מעלית ~€5',free:0,book:'no',museum:0,kids:3,addr:'Rua do Ouro',how:'מטרו Baixa-Chiado',hours:'~9:00–20:00 לפי עונה'}
+],
+hotels:[
+{id:'altis',name:'Altis Avenida Hotel',stars:5,lat:38.7165,lng:-9.1420,area:'Avenida',addr:'Rua 1º de Dezembro 80',price:'מ-€180 ללילה (משוער)',why:'מיקום מרכזי ליד רוסיו וביישה.'},
+{id:'pestana',name:'Pestana Palace',stars:5,lat:38.7015,lng:-9.1850,area:'אלקנטרה',addr:'Rua Jau 54',price:'מ-€250 ללילה (משוער)',why:'ארמון מפואר עם גנים – חוויה מיוחדת.'},
+{id:'memmo',name:'Memmo Alfama',stars:4,lat:38.7105,lng:-9.1285,area:'Alfama',addr:'Travessa das Merceeiras 27',price:'מ-€160 ללילה (משוער)',why:'בוטיק עם נוף באלפמה.'}
+],
+restaurants:[
+{id:'timeoutd',name:'Time Out Market',lat:38.7070,lng:-9.1457,addr:'Av. 24 de Julho 49',type:'שוק אוכל',price:'€15–40',note:'עשרות דוכנים של שפים – בחירה מגוונת.'},
+{id:'pasteis',name:'Pastéis de Belém',lat:38.6976,lng:-9.2034,addr:'Rua de Belém 84–92',type:'מאפייה',price:'€1.5–3 ליחידה',note:'הפסטל דה נאטה המקורי מאז 1837. תור ארוך.'},
+{id:'cervejaria',name:'Cervejaria Ramiro',lat:38.7205,lng:-9.1350,addr:'Av. Almirante Reis 1',type:'פירות ים',price:'€40–70',note:'פירות ים מפורסמים – הגיעו מוקדם או התכוננו לתור.'},
+{id:'kosherlis',name:'מסעדה כשרה (לאמת)',lat:38.7200,lng:-9.1400,addr:'לאמת',type:'כשר',price:'לבדוק',note:'אפשרויות מוגבלות – בדקו מראש.',kosher:1}
+],
+food:[
+{name:'פסטל דה נאטה',en:'Pastel de nata',emoji:'🥚',desc:'מאפה קרם הכי מפורסם של פורטוגל.',price:'€1–2.5'},
+{name:'בקלאו',en:'Bacalhau',emoji:'🐟',desc:'בקלה במאות מתכונים – המנה הלאומית.',price:'€12–20'},
+{name:'סארדינים',en:'Sardinhas assadas',emoji:'🐟',desc:'סארדינים על האש – במיוחד ביוני (סנטו אנטוניו).',price:'€10–18'},
+{name:'ג׳ירינגה / בירה',en:'Imperial / Cerveja',emoji:'🍺',desc:'בירה קטנה ("imperial") בכל רובע.',price:'€1.5–3'}
+],
+shopping:[{name:'Chiado / Baixa',lat:38.7110,lng:-9.1400,desc:'חנויות ובתי קפה היסטוריים.',hours:'~10:00–20:00'},{name:'LX Factory',lat:38.7035,lng:-9.1785,desc:'עיצוב, ספרים ובוטיקים.',hours:'~11:00–19:00'}],
+markets:[{name:'Time Out Market',lat:38.7070,lng:-9.1457,addr:'Mercado da Ribeira',days:'יומיומי',desc:'שוק אוכל מודרני.'},{name:'Feira da Ladra',lat:38.7150,lng:-9.1250,addr:'Campo de Santa Clara',days:'שלישי ושבת',desc:'שוק פשפשים באלפמה.'}],
+transport:{intro:'מטרו, טראם ואוטובוסים. כרטיס Viva Viagem / 24h משתלם. טראם 28 חוויה בפני עצמה.',
+prices:[['נסיעה','~€1.80',''],['כרטיס 24 שעות','~€6.40',''],['טראם בודד','~€3','']],
+tickets:['כרטיס Viva Viagem נטען במכונות'],extra:['היזהרו מכייסים בטראם 28'],
+lines:[{id:'B',name:'קו כחול',color:'#0054a6',from:'Reboleira',to:'Santa Apolónia',stations:['baixa','marques']},{id:'G',name:'קו ירוק',color:'#00a13a',from:'Telheiras',to:'Cais do Sodré',stations:['baixa']}],
+stations:{baixa:{n:'Baixa-Chiado',he:'מרכז',lat:38.7106,lng:-9.1397,note:'',poi:['baixa','santa']},marques:{n:'Marquês de Pombal',he:'',lat:38.7250,lng:-9.1500,note:'',poi:[]}}},
+airports:[{n:'נמל התעופה ליסבון (LIS)',lat:38.7742,lng:-9.1342,via:'baixa',how:'מטרו קו אדום ל-Saldanha/Baixa (~30 דק׳) או Aerobus.'}],
+tips:[['🚋','טראם 28','חוויה שווה אך עמוס וכייסים – שמרו על תיק.'],['🍰','פסטל דה נאטה','בבלן המקור; גם מאפיות טובות בעיר.'],['⛰️','גבעות','העיר תלולה – נעליים טובות וסבלנות.']],
+info:{'כסף':['אירו'],'שפה':['פורטוגזית; אנגלית נפוצה בתיירות'],'חירום':['112']},
+events:[],updated:'אמתו מחירים ושעות לפני הביקור.'
+});
+
+window.CITIES.push({id:'amsterdam',name:'אמסטרדם',en:'Amsterdam',local:'Amsterdam',country:'הולנד',flag:'🇳🇱',
+color:['#ea580c','#dc2626'],center:[52.3676,4.9041],zoom:13,wiki:'Amsterdam',
+cur:'EUR',sym:'€',tz:'Europe/Amsterdam',
+phrase:'Kunt u mij alstublieft naar dit adres brengen?',phraseLang:'🇳🇱 Nederlands',speechLang:'nl-NL',
+phrases:[['שלום','Hallo / Goedendag','HA-lo / KHOO-den-dakh'],['תודה','Dank je wel / Dank u','dank ye vel / dank u'],['בבקשה','Alstublieft','AL-stu-bleeft'],['כמה זה עולה?','Hoeveel kost dit?','HOO-veyl kost dit'],['איפה השירותים?','Waar is het toilet?','var is het twa-LET'],['עזרה!','Help!','help'],['חשבון בבקשה','De rekening, alstublieft','de RAY-ke-ning'],['מים / בירה','Water / Bier','VA-ter / beer'],['תחנת רכבת','Station','sta-SHON'],['קחו אותי לכתובת הזו','Kunt u mij naar dit adres brengen?','kunt u may naar dit a-DRES BRENG-en'],['כשר','Kosjer','KO-sher']],
+intro:'אמסטרדם – תעלות, אופניים, מוזיאונים ברמה עולמית ורובעים היסטוריים. עיר קומפקטית שמתאימה להליכה ורכיבה.',
+sites:[
+{id:'rijks',en:'Rijksmuseum',loc:'Rijksmuseum',lat:52.3600,lng:4.8852,wiki:'Rijksmuseum',tags:['art','history','family'],desc:'המוזיאון הלאומי – רמברנדט, ורמיר ואמנות הולנדית.',tips:'הזמינו כרטיס מראש. הכניסו גם את הגן.',price:'~€22',free:0,book:'required',museum:1,kids:3,addr:'Museumstraat 1',how:'טראם 2/5 / מטרו Vijzelgracht',hours:'~9:00–17:00',web:'https://www.rijksmuseum.nl'},
+{id:'vangogh',en:'Van Gogh Museum',loc:'Van Gogh Museum',lat:52.3584,lng:4.8811,wiki:'Van_Gogh_Museum',tags:['art','history'],desc:'האוסף הגדול בעולם של ואן גוך.',tips:'חובה להזמין זמן כניסה מראש.',price:'~€20',free:0,book:'required',museum:1,kids:2,addr:'Museumplein 6',how:'טראם 2/5 / מטרו Vijzelgracht',hours:'~9:00–17:00/19:00',web:'https://www.vangoghmuseum.nl'},
+{id:'annefrank',en:'Anne Frank House',loc:'Anne Frank Huis',lat:52.3752,lng:4.8840,wiki:'Anne_Frank_House',tags:['jewish','history'],desc:'הבית שבו הסתתרה אנה פרנק – ביקור מרגש וחשוב.',tips:'כרטיסים נמכרים רק אונליין ולתאריך מדויק – הזמינו מוקדם מאוד.',price:'~€16',free:0,book:'required',bookNote:'רק באתר הרשמי',museum:1,kids:3,addr:'Westermarkt 20',how:'טראם 13/17 Westermarkt',hours:'לפי הזמנה',web:'https://www.annefrank.org'},
+{id:'canals',en:'Canal Belt (Grachtengordel)',loc:'Grachtengordel',lat:52.3700,lng:4.8850,wiki:'Grachtengordel',tags:['history','vibe','views','family'],desc:'טבעת התעלות – מורשת אונסק״ו. שייט או הליכה.',price:'הליכה חופשית; שייט ~€15–25',free:1,book:'no',museum:0,kids:5,addr:'מרכז העיר',how:'הליכה מכל מרכז',hours:'תמיד'},
+{id:'dam',en:'Dam Square & Royal Palace',loc:'Dam',lat:52.3731,lng:4.8926,wiki:'Dam_Square',tags:['history','vibe','family'],desc:'הכיכר המרכזית, הארמון המלכותי ואתר הזיכרון.',price:'כיכר חופשית; ארמון בתשלום',free:1,book:'no',museum:0,kids:4,addr:'Dam',how:'מטרו/חשמלית Centraal / רחובות הולכי רגל',hours:'תמיד'},
+{id:'vondel',en:'Vondelpark',loc:'Vondelpark',lat:52.3579,lng:4.8686,wiki:'Vondelpark',tags:['nature','family','vibe'],desc:'הפארק האהוב על התושבים – פיקניק, אופניים ותרבות.',price:'חופשי',free:1,book:'no',museum:0,kids:5,addr:'Vondelpark',how:'טראם 2/5',hours:'תמיד'},
+{id:'jordaan',en:'Jordaan',loc:'Jordaan',lat:52.3738,lng:4.8795,wiki:'Jordaan',tags:['vibe','food','shopping'],desc:'רובע ציורי עם חנויות קטנות, בתי קפה וחצרות.',price:'חופשי',free:1,book:'no',museum:0,kids:3,addr:'Jordaan',how:'הליכה מ-Anne Frank / Westerkerk',hours:'תמיד'},
+{id:'heineken',en:'Heineken Experience',loc:'Heineken Experience',lat:52.3578,lng:4.8918,wiki:'Heineken_Experience',tags:['vibe','family'],desc:'סיור אינטראקטיבי בבירה (למשפחות עם בני נוער/מבוגרים).',price:'~€21',free:0,book:'recommended',museum:0,kids:2,addr:'Stadhouderskade 78',how:'טראם 16/24',hours:'~10:30–19:00'}
+],
+hotels:[
+{id:'de_lurope',name:'Hotel de l\'Europe',stars:5,lat:52.3677,lng:4.8945,area:'ליד הנהר',addr:'Nieuwe Doelenstraat 2-14',price:'מ-€400 ללילה (משוער)',why:'יוקרה קלאסית בלב העיר.'},
+{id:'pulitzer',name:'Hotel Pulitzer',stars:5,lat:52.3730,lng:4.8845,area:'תעלות',addr:'Prinsengracht 315-331',price:'מ-€280 ללילה (משוער)',why:'בתים היסטוריים מחוברים על התעלה.'},
+{id:'conservatorium',name:'Conservatorium Hotel',stars:5,lat:52.3605,lng:4.8815,area:'Museumplein',addr:'Van Baerlestraat 27',price:'מ-€300 ללילה (משוער)',why:'עיצוב עכשווי ליד הרייקסמוזיאום.'}
+],
+restaurants:[
+{id:'foodhallen',name:'Foodhallen',lat:52.3655,lng:4.8700,addr:'Bellamyplein 51',type:'שוק אוכל',price:'€10–25',note:'דוכנים מגוונים ברובע המערבי.'},
+{id:'feenix',name:'מסעדות ב-Jordaan',lat:52.3738,lng:4.8795,addr:'Jordaan',type:'מגוון',price:'€20–50',note:'בתי קפה ומסעדות קטנות – מתאים לערב.'},
+{id:'kosherams',name:'מסעדה כשרה (לאמת)',lat:52.3700,lng:4.9000,addr:'לאמת',type:'כשר',price:'לבדוק',note:'יש מסעדות וחנויות כשרות – אמתו תעודה.',kosher:1}
+],
+food:[
+{name:'סטרופ וופל',en:'Stroopwafel',emoji:'🍪',desc:'וופל עם קרמל באמצע – חובה עם קפה.',price:'€1–3'},
+{name:'הרינג',en:'Haring',emoji:'🐟',desc:'הרינג טרי עם בצל ומלפפון – אוכל רחוב הולנדי.',price:'€3–5'},
+{name:'פריטס',en:'Friets / Patat',emoji:'🍟',desc:'צ׳יפס עם רטבים (מאיו, סאטן).',price:'€3–6'},
+{name:'פנקייק הולנדי',en:'Pannenkoek',emoji:'🥞',desc:'פנקייק גדול מלוח או מתוק.',price:'€8–14'}
+],
+shopping:[{name:'Kalverstraat / Dam',lat:52.3705,lng:4.8910,desc:'רחוב קניות ראשי.',hours:'~10:00–18:00'},{name:'Nine Streets (Negen Straatjes)',lat:52.3695,lng:4.8855,desc:'בוטיקים ועיצוב בין התעלות.',hours:'~11:00–18:00'}],
+markets:[{name:'Albert Cuyp Market',lat:52.3560,lng:4.8955,addr:'Albert Cuypstraat',days:'שני–שבת',desc:'שוק רחוב תוסס בדפליין.'},{name:'Floating Flower Market',lat:52.3668,lng:4.8910,addr:'Singel',days:'יומיומי',desc:'שוק הפרחים הצף.'}],
+transport:{intro:'GVB – חשמלית, מטרו ואוטובוס. כרטיס יומי משתלם. אופניים הם דרך החיים – זהירות.',
+prices:[['שעה','~€3.20',''],['יומי','~€9',''],['נסיעה בודדת','משתנה','']],
+tickets:['כרטיס OV-chipkaart / אפליקציה / כרטיס יומי GVB'],extra:['לא כדאי להשאיר אופניים בלי נעילה כפולה'],
+lines:[{id:'T2',name:'טראם 2',color:'#e74c3c',from:'Centraal',to:'Nieuw Sloten',stations:['centraal','dam','museumplein']},{id:'M52',name:'מטרו 52',color:'#27ae60',from:'Noord',to:'Zuid',stations:['centraal','vijzel']}],
+stations:{centraal:{n:'Centraal Station',he:'תחנה מרכזית',lat:52.3791,lng:4.9003,note:'',poi:['dam','canals']},dam:{n:'Dam',he:'',lat:52.3731,lng:4.8926,note:'',poi:['dam']},museumplein:{n:'Museumplein area',he:'',lat:52.3590,lng:4.8830,note:'',poi:['rijks','vangogh']},vijzel:{n:'Vijzelgracht',he:'',lat:52.3605,lng:4.8915,note:'',poi:['rijks']}}},
+airports:[{n:'נמל התעופה סכיפהול (AMS)',lat:52.3105,lng:4.7683,via:'centraal',how:'רכבת ישירה ל-Amsterdam Centraal כל ~10 דק׳ (כ-15–20 דק׳).'}],
+tips:[['🎫','אנה פרנק וואן גוך','הזמינו שבועות מראש בעונה.'],['🚲','אופניים','לכו בזהירות – שבילי אופניים קדושים.'],['🌧️','גשם','תמיד אפשרי – קחו שכבה ומטרייה.'],['✡️','יהדות','בית אנה פרנק חובה; יש גם מוזיאון היסטוריה יהודית.']],
+info:{'כסף':['אירו'],'שפה':['הולנדית; אנגלית ברמה גבוהה'],'חירום':['112']},
+events:[],updated:'אמתו מחירים ושעות באתרים הרשמיים.'
+});
+
+
+
 </script><script>(function(){'use strict';
 /* ===== כלים כלליים ===== */
 const $=(s,r=document)=>r.querySelector(s);
@@ -4097,6 +4386,7 @@ function renderCity(){
   const tabs=TABS.map(t=>'<button class="tab'+(S.tab===t[0]?' on':'')+'" data-act="tab" data-t="'+t[0]+'">'+t[1]+' '+t[2]+'</button>').join('');
   $('#app').innerHTML='<div class="hero" style="--a:'+c.color[0]+';--b:'+c.color[1]+'"><h2>'+(c.flag||'')+' '+esc(c.name)+' <span style="font-size:14px;font-weight:400;opacity:.9">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</span></h2>'
     +'<div class="meta" id="heroMeta"><span class="pill">'+esc(c.country||'')+'</span></div><div class="wx" id="heroWx"></div>'
+    +'<div class="do-today"><button class="btn sm" data-act="dotoday">☀️ מה עושים היום?</button></div>'
     +'<p id="heroP" data-act="heroP">'+esc(c.intro||'')+'</p></div><div class="tabs" id="tabs">'+tabs+'</div><div id="pane"></div>';
   renderPane();fillHero(c,false);
 }
@@ -4186,6 +4476,9 @@ document.addEventListener('click',e=>{
   if(a==='driver'){showDriver(t.dataset.n,t.dataset.l,t.dataset.a);return}
   if(a==='gmap'){gmapSheet(t.dataset.q);return}
   if(a==='mapkind'){S.mapKind=t.dataset.k;S.gq=t.dataset.q||S.gq;renderPane();return}
+  if(a==='dotoday'){showDoToday();return}
+  if(a==='mapfs'){const w=$('#mapWrap');if(!w)return;if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{(w.requestFullscreen||w.webkitRequestFullscreen).call(w);setTimeout(()=>{try{S.map&&S.map.invalidateSize(false)}catch(e){}},300)}return}
+  if(a==='say'){const txt=t.dataset.say||'';const lang=t.dataset.lang||'en';if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(txt);u.lang=lang;u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}else toast('השמעה לא נתמכת במכשיר זה');return}
 });
 $('#btnHome').onclick=()=>{if(history.state&&history.state.c)history.back();else renderHome()};
 $('#btnRef').onclick=refreshAll;
@@ -4259,7 +4552,7 @@ function paneMap(c){
 function paneMapOwn(c){
   return '<div class="filters">'+LAYERS.map(l=>'<button class="chip on" data-act="toggle" data-l="'+l[0]+'">'+l[1]+' '+l[2]+'</button>').join('')+'</div>'
    +'<div class="map-toolbar"><button type="button" class="btn sm" data-act="placepick">📍 בחר מקום במפה</button></div>'
-   +'<div class="map-wrap"><button type="button" class="map-locate" data-act="locate">📍 המיקום שלי</button><div class="map" id="map"></div></div>'
+   +'<div class="map-wrap" id="mapWrap"><button type="button" class="map-locate" data-act="locate">📍 המיקום שלי</button><button type="button" class="map-fs-btn" data-act="mapfs">⛶ מסך מלא</button><div class="map" id="map"></div></div>'
    +'<p class="muted">לחצו על סמן במפה, או על «בחר מקום במפה» כדי לקפוץ למיקום.</p>';
 }
 function initMainMap(c){
@@ -4402,7 +4695,7 @@ function paneTransport(c){
      +(t.tickets.length?'<div class="card"><div class="body"><h3>🎫 איך רוכשים כרטיס</h3><ul>'+t.tickets.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></div>':'')
      +(t.extra&&t.extra.length?'<div class="card"><div class="body"><h3>ℹ️ מידע נוסף</h3><ul>'+t.extra.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></div>':'');
   }else if(S.sub==='map'){
-    h+=t.lines.length?'<div class="map" id="map"></div><div class="legend">'+t.lines.map(l=>'<span class="lg"><i style="background:'+l.color+'"></i>'+esc(l.name)+'</span>').join('')+'</div><p class="muted">המפה מציגה את התחנות העיקריות בלבד (מפה סכמטית, לא כל תחנה). לחצו על תחנה לפרטים.</p>':'<p class="muted">אין נתוני מטרו למקום זה.</p>';
+    h+=t.lines.length?'<div class="map-wrap" id="mapWrap"><button type="button" class="map-fs-btn" data-act="mapfs">⛶ מסך מלא</button><div class="map" id="map"></div></div><div class="legend">'+t.lines.map(l=>'<span class="lg"><i style="background:'+l.color+'"></i>'+esc(l.name)+'</span>').join('')+'</div><p class="muted">המפה מציגה את התחנות העיקריות בלבד (מפה סכמטית, לא כל תחנה). לחצו על תחנה לפרטים.</p>':'<p class="muted">אין נתוני מטרו למקום זה.</p>';
   }else if(S.sub==='lines'){
     h+=t.lines.length?t.lines.map(l=>'<div class="card"><div class="body"><h3>'+lnb(l)+' '+esc(l.name)+'</h3><p>🏁 תחנות סופיות: <b class="en" style="direction:ltr;display:inline-block">'+esc(l.from)+'</b> ⇄ <b class="en" style="direction:ltr;display:inline-block">'+esc(l.to)+'</b></p><div class="chips">'+l.stations.map(id=>t.stations[id]).filter(Boolean).map(s=>'<span class="b p" style="direction:ltr">'+esc(s.n)+'</span>').join('')+'</div><div class="muted">מוצגות התחנות העיקריות בלבד.</div></div></div>').join(''):'<p class="muted">אין נתוני קווים.</p>';
   }else if(S.sub==='stations'){
@@ -4547,8 +4840,88 @@ function paneMarkets(c){
   return '<div class="cards2">'+c.markets.map(s=>'<article class="card"><div class="body"><h3>🧺 '+esc(s.name)+'</h3><div class="muted en">'+esc(s.addr||'')+'</div><div class="b y" style="display:inline-block;margin:6px 0">📅 '+esc(s.days||'לבדוק ימי פעילות')+'</div><p>'+esc(s.desc||'')+'</p><div class="acts"><a class="btn sm" href="'+navUrl(s)+'" target="_blank" rel="noopener">📍 ניווט</a></div></div></article>').join('')+'</div>';
 }
 function paneTips(c){
-  return '<ul class="tiplist">'+(c.tips||[]).map(t=>'<li><span class="em">'+t[0]+'</span><div><b>'+esc(t[1])+'</b><div>'+esc(t[2])+'</div></div></li>').join('')+'</ul>';
+  let h='<ul class="tiplist">'+(c.tips||[]).map(t=>'<li><span class="em">'+t[0]+'</span><div><b>'+esc(t[1])+'</b><div>'+esc(t[2])+'</div></div></li>').join('')+'</ul>';
+  const ph=c.phrases||[];
+  if(ph.length){
+    const lang=c.speechLang||'en';
+    h+='<div class="card"><div class="body"><h3>🗣️ ביטויים שימושיים</h3><p class="muted">לחצו על 🔊 להשמעה. ההגייה באותיות לטיניות.</p><table class="phrases"><tr><th>עברית</th><th>בשפת המקום</th><th>הגייה</th><th></th></tr>'
+     +ph.map(p=>'<tr><td class="he">'+esc(p[0])+'</td><td class="loc">'+esc(p[1])+'</td><td class="pron">'+esc(p[2])+'</td><td><button type="button" class="say" data-act="say" data-say="'+esc(p[1])+'" data-lang="'+esc(lang)+'">🔊</button></td></tr>').join('')
+     +'</table></div></div>';
+  }
+  // airport tips if present
+  if(c.airports&&c.airports.length){
+    h+='<div class="card"><div class="body"><h3>✈️ הגעה משדה התעופה</h3><ul style="margin:6px 0 0;padding-inline-start:20px">'
+     +c.airports.map(a=>'<li><b>'+esc(a.n)+'</b><div class="muted">'+esc(a.how||'')+'</div></li>').join('')
+     +'</ul></div></div>';
+  }
+  return h;
 }
+function showDoToday(){
+  const c=curCity();if(!c)return;
+  const now=new Date();
+  const wd=now.getDay();
+  const dayNames=['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+  let recs=[];
+  // weather based
+  const wx=LS.get('wx.'+c.id,null);
+  const code=wx?wx.code:1;
+  const rainy=[51,53,55,61,63,65,80,81,82,95,96,99].includes(code);
+  const cold=wx&&wx.now<8;
+  const hot=wx&&wx.now>30;
+  if(rainy){
+    recs.push({t:'🌧️ יום גשום',d:'כדאי לתעדף מוזיאונים, קניונים, בתי קפה ופעילויות מקורות. קחו מטרייה.'});
+  }else if(hot){
+    recs.push({t:'☀️ יום חם',d:'התחילו מוקדם, הפסיקו בצהריים במקום מוצל/ממוזג, וחזרו אחר הצהריים. שתו הרבה מים.'});
+  }else if(cold){
+    recs.push({t:'🧥 יום קר',d:'לבשו שכבות, התחילו באתרים מקורים בבוקר ושמרו תצפיות חיצוניות לשעות החמות יותר.'});
+  }else{
+    recs.push({t:'🌤️ מזג אוויר נוח',d:'יום מצוין לטיול רגלי, גנים ותצפיות. נצלו את האור.'});
+  }
+  // day of week
+  if(wd===5){ // Friday
+    recs.push({t:'✡️ ערב שבת',d:'חנויות ואתרים יהודיים עלולים להיסגר מוקדם. תכננו קניות וביקורים עד הצהריים/אחה״צ.'});
+  }else if(wd===6){
+    recs.push({t:'✡️ שבת',d:'חלק מהאתרים והחנויות סגורים (במיוחד יהודיים). בדקו שעות פתיחה מראש. תחבורה ציבורית עשויה להיות מוגבלת במקומות מסוימים.'});
+  }else if(wd===0){
+    recs.push({t:'🆓 יום ראשון',d:'בחלק מהערים יש כניסה חינם למוזיאונים ביום ראשון הראשון בחודש — בדקו. צפו לצפיפות גבוהה יותר באתרים מרכזיים.'});
+  }
+  // from plan if exists
+  if(S.plan&&S.plan.cityId===c.id&&S.plan.days&&S.plan.days.length){
+    const todayStr=fmtDate(now);
+    const match=S.plan.days.find(d=>fmtDate(d.date)===todayStr);
+    if(match&&match.stops.length){
+      recs.push({t:'🧭 מהמסלול שבניתם להיום',d:match.stops.map((st,i)=>(i+1)+'. '+st.s.en).join(' · ')});
+    }else{
+      recs.push({t:'🧭 יש לכם מסלול מוכן',d:'עברו ללשונית «מסלולים» כדי לראות את התוכנית המלאה או להתאים אותה.'});
+    }
+  }
+  // top free / outdoor sites
+  const free=(c.sites||[]).filter(s=>s.free&&!(s.closed||[]).includes(wd)).slice(0,3);
+  if(free.length){
+    recs.push({t:'🆓 אתרים חינמיים היום',d:free.map(s=>s.en+(s.loc&&s.loc!==s.en?' ('+s.loc+')':'')).join(' · ')});
+  }
+  const outdoor=(c.sites||[]).filter(s=>!s.museum&&!(s.closed||[]).includes(wd)&&(s.tags||[]).some(t=>['views','nature','vibe'].includes(t))).slice(0,4);
+  if(outdoor.length&&!rainy){
+    recs.push({t:'🌳 מומלץ בחוץ',d:outdoor.map(s=>s.en).join(' · ')});
+  }
+  const indoor=(c.sites||[]).filter(s=>s.museum&&!(s.closed||[]).includes(wd)).slice(0,3);
+  if(indoor.length&&rainy){
+    recs.push({t:'🏛️ מומלץ בפנים',d:indoor.map(s=>s.en).join(' · ')});
+  }
+  // restaurants nearby tip
+  if((c.restaurants||[]).length){
+    const kos=(c.restaurants||[]).filter(r=>/כשר|kosher/i.test((r.type||'')+(r.note||''))).slice(0,2);
+    if(kos.length) recs.push({t:'✡️ מסעדות כשרות',d:kos.map(r=>r.name).join(' · ')});
+  }
+  let body='<div class="today-sheet"><h3>☀️ מה עושים היום ב'+esc(c.name)+'?</h3>';
+  body+='<p class="muted">'+dayNames[wd]+', '+fmtDate(now)+(wx?' · '+wx.now+'°C · '+(WX[wx.code]||''):'')+'</p>';
+  body+=recs.map(r=>'<div class="rec"><h4>'+r.t+'</h4><div>'+esc(r.d)+'</div></div>').join('');
+  body+='<div class="acts"><button class="btn alt sm" id="tdClose">סגירה</button><button class="btn sm" data-act="tab" data-t="routes" id="tdRoutes">🧭 למסלולים</button></div></div>';
+  const o=sheet(body);
+  $('#tdClose',o).onclick=closeSheet;
+  $('#tdRoutes',o).onclick=()=>{closeSheet();S.tab='routes';renderPane();window.scrollTo({top:0})};
+}
+
 function paneInfo(c){
   const info=c.info||{};
   const ev=(c.events&&c.events.length)?'<div class="card"><div class="body"><h3>📅 אירועים קרובים</h3><div class="muted">'+esc(c.eventsNote||'')+'</div><ul class="evl">'+c.events.map(e=>'<li><b>'+esc(e.t)+'</b><div class="muted">'+esc(e.when)+' · '+esc(e.where)+(e.price?' · '+esc(e.price):'')+'</div></li>').join('')+'</ul></div></div>':'';
@@ -4582,7 +4955,7 @@ function paneRoutes(c){
   const sel=(id,arr,v)=>'<select id="'+id+'">'+arr.map(a=>'<option value="'+a[0]+'"'+(String(v)===String(a[0])?' selected':'')+'>'+a[1]+'</option>').join('')+'</select>';
   const nums=(a,b)=>Array.from({length:b-a+1},(_,i)=>[a+i,a+i]);
   let h='<div class="card"><div class="body"><h3>🧭 בניית מסלול אישי</h3><p class="muted">ספרו לנו קצת על הטיול, ונתאים מסלול לפי מיקום המלון, כמות ההליכה והעליות.</p>'
-   +'<div class="row2"><div><label>תאריך תחילת הטיול</label><input type="text" id="fStart" inputmode="numeric" placeholder="DD/MM/YYYY" value="'+esc(f.start)+'" maxlength="10"></div><div><label>מספר ימים</label>'+sel('fDays',nums(1,7),f.days)+'</div></div>'
+   +'<div class="row2"><div><label>תאריך תחילת הטיול</label><input type="text" id="fStart" inputmode="numeric" placeholder="DD/MM/YYYY" value="'+esc(f.start)+'" maxlength="10"></div><div><label>מספר ימים</label>'+sel('fDays',nums(1,10),f.days)+'</div></div>'
    +'<div class="row2"><div><label>מבוגרים</label>'+sel('fAd',nums(1,10),f.ad)+'</div><div><label>ילדים</label>'+sel('fKids',nums(0,8),f.kids)+'</div></div>'
    +'<label>גיל הילד הצעיר ביותר</label>'+sel('fKidAge',KIDAGES.map((x,i)=>[i,x]),f.kidAge)
    +'<label>מלון / איפה אתם ישנים?</label><select id="fHotel">'+hopts+'</select>'
@@ -4692,7 +5065,18 @@ function planHtml(c,p){
    +'<div class="acts"><button class="btn alt sm" data-act="copyplan">📋 העתקת המסלול</button></div></div></div>';
   p.days.forEach((d,i)=>{
     const col=DAYCOL[i%7];
+    // weather for that day if available
+    let wxLine='';
+    try{
+      const w=LS.get('wx.'+c.id,null);
+      if(w&&w.days){
+        const key=d.date.getFullYear()+'-'+pad(d.date.getMonth()+1)+'-'+pad(d.date.getDate());
+        const wd=w.days.find(x=>x.d===key);
+        if(wd) wxLine='<div class="muted">'+(WX[wd.code]||'🌡️')+' <bdi dir="ltr">'+wd.max+'°/'+wd.min+'°</bdi>'+(wd.rain>=40?' · 💧'+wd.rain+'%':'')+'</div>';
+      }
+    }catch(e){}
     h+='<div class="card day" style="--c:'+col+'"><div class="body"><h3>יום '+(i+1)+' · '+DAYS[d.date.getDay()]+' <bdi dir="ltr">'+fmtDate(d.date)+'</bdi></h3>'
+     +wxLine
      +(d.walkKm?'<div class="muted">🚶 הליכה בפועל: כ-'+d.walkKm.toFixed(1)+' ק״מ</div>':'')+'<ul class="tl">';
     d.stops.forEach((st,k)=>{
       const s=st.s;
