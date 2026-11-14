@@ -813,6 +813,13 @@ input.ltr{direction:ltr;text-align:left}
 .search-row input{width:100%;padding:11px 14px;border:1.5px solid #ddd6fe;border-radius:14px;font:inherit;background:#fff;text-align:right;box-shadow:var(--sh)}
 @media print{#hdr,.tabs,.acts{display:none}}
 
+.sortbar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;align-items:center}
+.sortbar .lbl{font-weight:700;color:var(--ink);font-size:13px;margin-inline-end:4px}
+.sortbar button{border:1.5px solid #ddd6fe;background:#fff;color:#5b21b6;border-radius:99px;padding:5px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.sortbar button.on{background:#7c3aed;color:#fff;border-color:#7c3aed}
+.ccard .fl{font-size:28px;text-shadow:0 1px 3px rgba(0,0,0,.35)}
+
+
 .do-today{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .do-today .btn{font-size:13px;padding:7px 12px}
 .phrases{width:100%;border-collapse:collapse;font-size:13.5px;margin:8px 0}
@@ -4220,6 +4227,221 @@ info:{'כסף':['אירו'],'שפה':['הולנדית; אנגלית ברמה ג�
 events:[],updated:'אמתו מחירים ושעות באתרים הרשמיים.'
 });
 
+window.CITIES.push({id:'spb',name:'סנקט פטרבורג',en:'Saint Petersburg',local:'Санкт-Петербург',country:'רוסיה',flag:'🇷🇺',
+color:['#1e3a8a','#7c3aed'],center:[59.9343,30.3351],zoom:12,wiki:'Saint_Petersburg',
+cur:'RUB',sym:'₽',tz:'Europe/Moscow',
+phrase:'Можете, пожалуйста, отвезти меня по этому адресу?',phraseLang:'🇷🇺 Русский',speechLang:'ru-RU',
+phrases:[
+['שלום','Здравствуйте (Zdravstvuyte)','ZDRA-stvooy-tye'],
+['תודה','Спасибо (Spasibo)','spa-SEE-ba'],
+['בבקשה','Пожалуйста (Pozhaluysta)','pa-ZHAL-sta'],
+['כמה זה עולה?','Сколько стоит? (Skolko stoit?)','SKOL-ka STO-it'],
+['איפה השירותים?','Где туалет? (Gde tualet?)','gdye too-a-LYET'],
+['אני לא מדבר רוסית','Я не говорю по-русски','ya nye ga-va-RYU pa-RUS-ki'],
+['עזרה!','Помогите! (Pomogite!)','pa-ma-GEE-tye'],
+['חשבון בבקשה','Счёт, пожалуйста','schyot pa-ZHAL-sta'],
+['מים / תה','Вода / Чай','va-DA / chai'],
+['תחנת מטרו','Станция метро','STAN-tsi-ya met-RO'],
+['קחו אותי לכתובת הזו','Можете отвезти меня по этому адресу?','MO-zhe-te ot-vez-TI me-NYA po E-to-mu a-DRE-su'],
+['כשר','Кошерный','ka-SHER-niy'],
+['איפה הארמיטאז׳?','Где Эрмитаж?','gdye er-mi-TAZH'],
+['יופי!','Красиво!','kra-SEE-va']
+],
+intro:'סנקט פטרבורג – "ונציה של הצפון": תעלות, ארמונות בארוק, הארמיטאז׳, שדרת נבסקי ולילות לבנים בקיץ. עיר תרבות רוסית במיטבה, עם היסטוריה דרמטית מפטרוס הגדול ועד המהפכה.',
+sites:[
+{id:'hermitage',en:'State Hermitage Museum',loc:'Государственный Эрмитаж',lat:59.9398,lng:30.3146,wiki:'Hermitage_Museum',tags:['art','history','family'],
+desc:'אחד המוזיאונים הגדולים בעולם – ארמון החורף ואוספים מלכותיים: רמברנדט, לאונרדו, אימפרסיוניסטים ועתיקות.',
+hist:'נוסד ב-1764 על ידי יקטרינה הגדולה. הארמון היה מקום המגורים של הצארים עד 1917.',
+tips:'הזמינו כרטיס אונליין. התחילו בארמון החורף. יום שני סגור. אפשר לבלות כאן יום שלם.',
+price:'כ-800–1000 ₽ (משוער)',free:0,book:'recommended',bookNote:'הזמנה באתר hermitagemuseum.org חוסכת תור',
+museum:1,kids:3,addr:'Palace Square / Dvortsovaya ploshchad 2',
+tel:'+7 812 710-90-79',how:'מטרו Admiralteyskaya / Nevsky Prospekt + הליכה',
+hours:'בדרך כלל ג׳–א׳ 10:30–18:00 (ד׳ עד 21:00); סגור שני',
+disc:'סטודנטים והנחות – לבדוק',freeDays:'לעיתים ימים מסוימים לתושבים – תיירים בדרך כלל משלמים',
+tix:'hermitagemuseum.org',web:'https://www.hermitagemuseum.org'},
+
+{id:'palace_sq',en:'Palace Square & Winter Palace',loc:'Дворцовая площадь',lat:59.9388,lng:30.3156,wiki:'Palace_Square',tags:['history','views','family'],
+desc:'הכיכר המרכזית הגדולה – עמוד אלכסנדר, ארמון החורף וקשת המטכ״ל. לב האימפריה.',
+hist:'זירת אירועים היסטוריים כולל יום ראשון העקוב מדם (1905) והסתערות על הארמון (1917).',
+tips:'צילום מצוין בשקיעה. הכיכר עצמה חופשית.',
+price:'חופשי (הכיכר)',free:1,book:'no',museum:0,kids:4,
+addr:'Dvortsovaya ploshchad',how:'מטרו Admiralteyskaya / Nevsky Prospekt',hours:'תמיד'},
+
+{id:'church_spilled',en:'Church of the Savior on Spilled Blood',loc:'Спас на Крови',lat:59.9401,lng:30.3289,wiki:'Church_of_the_Savior_on_Blood',tags:['history','art','views'],
+desc:'כנסייה מרהיבה עם כיפות בצל ופסיפסים – נבנתה במקום ההתנקשות באלכסנדר השני.',
+hist:'הוקמה ב-1883–1907 באתר שבו נרצח הצאר אלכסנדר השני ב-1881.',
+tips:'שווה גם מבחוץ וגם מבפנים. כרטיס נפרד לפנים.',
+price:'כ-450–600 ₽',free:0,book:'recommended',museum:0,kids:3,
+addr:'Griboyedov Canal Embankment 2Б',how:'מטרו Nevsky Prospekt / Gostiny Dvor + הליכה קצרה',
+hours:'בדרך כלל 10:30–18:00; סגור ד׳',web:'https://eng.cathedral.ru'},
+
+{id:'peterhof',en:'Peterhof Palace & Gardens',loc:'Петергоф',lat:59.8846,lng:29.9076,wiki:'Peterhof_Palace',tags:['history','nature','family','views'],
+desc:'"ורסאי הרוסי" – ארמון, מפלים וגנים על מפרץ פינלנד. טיול יום קלאסי.',
+hist:'נבנה בפקודת פטרוס הגדול במאה ה-18 כמעון קיץ מלכותי.',
+tips:'בקיץ הגיעו במטאוסקאן (ספינה) ממרכז העיר. המזרקות פועלות בעונה (בערך מאי–אוקטובר). הזמינו כרטיסים.',
+price:'גנים + ארמון: משתנה לפי חלקים, מכמה מאות עד ~1500 ₽',free:0,book:'recommended',
+museum:0,trip:1,kids:5,hill:0,
+addr:'Razvodnaya ul. 2, Peterhof',how:'מטרו Avtovo + אוטובוס/מינית, או רכבת ל-Novy Peterhof, או ספינה מ-Admiralteyskaya embankment',
+hours:'גנים ~9:00–20:00 בעונה; ארמון לפי לוח',web:'https://www.peterhofmuseum.ru'},
+
+{id:'nevsky',en:'Nevsky Prospect',loc:'Невский проспект',lat:59.9339,lng:30.3351,wiki:'Nevsky_Prospect',tags:['vibe','shopping','history','family'],
+desc:'השדרה הראשית של העיר – 4.5 ק״מ של ארמונות, חנויות, קתדרלות ובתי קפה.',
+hist:'תוכננה במאה ה-18 כציר המרכזי של הבירה החדשה.',
+tips:'הליכה מכיכר הארמון עד לנהר מוניקה / אלכסנדר נבסקי. בערב מואר ויפה.',
+price:'חופשי',free:1,book:'no',museum:0,kids:4,
+addr:'Nevsky Prospect',how:'מטרו Nevsky Prospekt / Gostiny Dvor / Mayakovskaya',hours:'תמיד'},
+
+{id:'stisaac',en:'St. Isaac\'s Cathedral',loc:'Исаакиевский собор',lat:59.9343,lng:30.3060,wiki:'Saint_Isaac%27s_Cathedral',tags:['history','views','art'],
+desc:'הקתדרלה העצומה עם כיפת זהב – תצפית פנורמית מהקולונדה.',
+hist:'נבנתה 1818–1858 בתכנון מונפרן; אחת הכנסיות הגדולות בעולם.',
+tips:'עלייה לקולונדה שווה את המדרגות – נוף 360° על העיר.',
+price:'קתדרלה + קולונדה כ-400–600 ₽',free:0,book:'recommended',museum:0,kids:3,hill:1,
+addr:'St Isaac\'s Square 4',how:'מטרו Admiralteyskaya + הליכה',hours:'בדרך כלל 10:30–18:00; סגור ד׳',
+web:'https://www.cathedral.ru'},
+
+{id:'tsarskoye',en:'Catherine Palace (Tsarskoye Selo)',loc:'Екатерининский дворец',lat:59.7161,lng:30.3966,wiki:'Catherine_Palace',tags:['history','art','family'],
+desc:'ארמון בקתרינה בפארק צארסקויה סלו – חדר הענבר המפורסם.',
+hist:'מעון קיץ של הצארים; חדר הענבר שוחזר אחרי מלחמת העולם השנייה.',
+tips:'טיול יום. הזמינו כרטיס לחדר הענבר מראש – מכסה מוגבלת.',
+price:'כ-800–1200 ₽ לפי אגפים',free:0,book:'required',bookNote:'חדר הענבר – הזמנה מוקדמת',
+museum:0,trip:1,kids:4,
+addr:'Sadovaya ul. 7, Pushkin',how:'רכבת מ-Vitebsky ל-Tsarskoye Selo / אוטובוס ממוסקובסקיה',
+hours:'בדרך כלל 10:00–18:00; סגור ג׳',web:'https://www.tzar.ru'},
+
+{id:'kunstkamera',en:'Kunstkamera',loc:'Кунсткамера',lat:59.9415,lng:30.3046,wiki:'Kunstkamera',tags:['history','family'],
+desc:'המוזיאון הראשון ברוסיה (1714) – אוסף אתנוגרפי ומוזרויות של פטרוס הגדול.',
+hist:'נוסד על ידי פטרוס הגדול כדי "לחנך את העם".',
+tips:'מעניין אך חלק מהתצוגות (עוברים) לא מתאימים לילדים רגישים.',
+price:'כ-400 ₽',free:0,book:'no',museum:1,kids:2,
+addr:'Universitetskaya emb. 3',how:'מטרו Admiralteyskaya / Vasileostrovskaya',hours:'~11:00–18:00',web:'https://www.kunstkamera.ru'},
+
+{id:'canal_cruise',en:'Canal & River Cruise',loc:'Экскурсия по каналам',lat:59.9330,lng:30.3200,wiki:'Canals_of_Saint_Petersburg',tags:['views','family','vibe'],
+desc:'שייט בתעלות ובנהר נבה – הדרך היפה לראות ארמונות וגשרים.',
+tips:'בקיץ יש גם שייט לילי. בחרו מסלול של שעה–שעתיים.',
+price:'כ-800–1500 ₽ לאדם',free:0,book:'recommended',museum:0,kids:5,
+addr:'רציפים ליד Anichkov / Nevsky / Palace Quay',how:'נקודות יציאה לאורך נבסקי והתעלות',hours:'לפי עונה, בעיקר אפריל–אוקטובר'},
+
+{id:'mariinsky',en:'Mariinsky Theatre',loc:'Мариинский театр',lat:59.9257,lng:30.2960,wiki:'Mariinsky_Theatre',tags:['art','vibe'],
+desc:'אחד מבתי האופרה והבלט החשובים בעולם – במקור "התיאטרון הקיסרי".',
+tips:'הזמינו כרטיסים מראש באתר. יש גם אולם חדש (Mariinsky II).',
+price:'כרטיסים מכמה מאות עד אלפי ₽',free:0,book:'required',museum:0,kids:2,
+addr:'Teatralnaya pl. 1',how:'מטרו Sadovaya / Sennaya Ploshchad',hours:'לפי הצגות',web:'https://www.mariinsky.ru'},
+
+{id:'peter_paul',en:'Peter and Paul Fortress',loc:'Петропавловская крепость',lat:59.9500,lng:30.3167,wiki:'Peter_and_Paul_Fortress',tags:['history','views','family'],
+desc:'המצודה המקורית של העיר (1703) – קתדרלה עם קברי הצארים וחומות על האי.',
+hist:'המבנה הראשון של סנקט פטרבורג; שימשה גם כבית סוהר פוליטי.',
+tips:'ירי תותח בצהריים. חוף קטן בקיץ. כניסה למבצר חופשית; מוזיאונים בתשלום.',
+price:'מבצר חופשי; קתדרלה/מוזיאונים כ-500 ₽',free:1,book:'no',museum:0,kids:4,
+addr:'Zayachy Island',how:'מטרו Gorkovskaya + הליכה על הגשר',hours:'מבצר ~6:00–21:00; מוזיאונים לפי לוח'},
+
+{id:'jewish_spb',en:'Grand Choral Synagogue',loc:'Большая хоральная синагога',lat:59.9260,lng:30.2925,wiki:'Grand_Choral_Synagogue_of_St._Petersburg',tags:['jewish','history'],
+desc:'בית הכנסת הגדול של העיר – ארכיטקטורה מורית מרהיבה, פעיל.',
+hist:'נחנך ב-1893; מהגדולים באירופה.',
+tips:'סיור אפשרי; בדקו שעות ודרישות לבוש.',
+price:'סיור לפי תיאום',free:0,book:'recommended',museum:0,kids:2,
+addr:'Lermontovsky pr. 2',how:'מטרו Sadovaya / Sennaya',hours:'לבדוק מול הקהילה',web:'https://www.jewishpetersburg.ru'}
+],
+
+hotels:[
+{id:'astoria',name:'Hotel Astoria',stars:5,lat:59.9335,lng:30.3085,area:'St. Isaac\'s Square',addr:'Bolshaya Morskaya ul. 39',price:'מ-15,000 ₽ ללילה (משוער)',why:'מלון היסטורי מ-1912 מול קתדרלת יצחק, סטנדרט עולמי ומיקום מושלם.',tel:'+7 812 494-57-57'},
+{id:'belmond',name:'Belmond Grand Hotel Europe',stars:5,lat:59.9355,lng:30.3305,area:'Nevsky Prospect',addr:'Mikhailovskaya ul. 1/7',price:'מ-18,000 ₽ ללילה (משוער)',why:'המלון המפורסם על נבסקי מאז 1875 – יוקרה, היסטוריה ומיקום מרכזי.',tel:'+7 812 329-60-00'},
+{id:'angleterre',name:'Hotel Angleterre',stars:5,lat:59.9338,lng:30.3075,area:'St. Isaac\'s',addr:'Malaya Morskaya ul. 24',price:'מ-12,000 ₽ ללילה (משוער)',why:'ליד האסטוריה, נוף לקתדרלה, נוח להליכה לארמיטאז׳.'},
+{id:'indigo',name:'Hotel Indigo St. Petersburg',stars:4,lat:59.9340,lng:30.3200,area:'מרכז',addr:'לבדוק כתובת עדכנית',price:'מ-8,000 ₽ ללילה (משוער)',why:'רמה גבוהה במחיר סביר יותר, מיקום מרכזי.'}
+],
+
+restaurants:[
+{id:'palkin',name:'Palkin',lat:59.9358,lng:30.3310,addr:'Nevsky pr. 47',type:'רוסי קלאסי / יוקרתי',price:'3,000–6,000 ₽',note:'מסעדה היסטורית על נבסקי מהמאה ה-19. חוויה מיוחדת.'},
+{id:'cococo',name:'Cococo',lat:59.9320,lng:30.3000,addr:'Voznesensky pr. 6',type:'רוסי מודרני',price:'2,500–4,500 ₽',note:'מטבח רוסי עכשווי מוערך – הזמנה מומלצת.'},
+{id:'idiot',name:'The Idiot',lat:59.9285,lng:30.2950,addr:'Nab. reki Moyki 82',type:'צמחוני / ספרותי',price:'1,200–2,500 ₽',note:'אווירה בסגנון דוסטויבסקי, מנות צמחוניות ורוסיות.'},
+{id:'terki',name:'Teremok / בלינים',lat:59.9340,lng:30.3350,addr:'סניפים ברחבי העיר',type:'בלינים מהירים',price:'200–500 ₽',note:'רשת בלינים ממולאים – זול, טעים ומקומי.'},
+{id:'kosherspb',name:'מסעדה כשרה (לאמת)',lat:59.9300,lng:30.3100,addr:'לאמת מול הקהילה',type:'כשר',price:'לבדוק',note:'קהילה יהודית פעילה; בדקו מסעדות כשרות עדכניות ליד בית הכנסת.',kosher:1}
+],
+
+food:[
+{name:'בורשט',en:'Borscht',emoji:'🥣',desc:'מרק סלק עם שמנת חמוצה – קלאסיקה רוסית.',price:'250–450 ₽'},
+{name:'בלינים',en:'Bliny',emoji:'🥞',desc:'פנקייקים דקים עם קוויאר, שמנת, ריבה או בשר.',price:'200–600 ₽'},
+{name:'פלאמני / פלמני',en:'Pelmeni',emoji:'🥟',desc:'כיסוני בשר מבושלים עם חמאה או שמנת.',price:'300–550 ₽'},
+{name:'סלט אוליביה',en:'Olivier salad',emoji:'🥗',desc:'סלט תפוחי אדמה רוסי קלאסי (דומה לסלט יום הולדת).',price:'200–400 ₽'},
+{name:'קוויאר',en:'Caviar (ikra)',emoji:'eggs',desc:'קוויאר אדום או שחור על בליני – מותרות מקומית.',price:'משתנה מאוד'},
+{name:'לחם שחור / וודקה',en:'Black bread & vodka',emoji:'🍞',desc:'לחם שיפון כהה; וודקה בליווי חמוצים – חלק מהתרבות (בזהירות).',price:'—'}
+],
+
+shopping:[
+{name:'Gostiny Dvor',lat:59.9338,lng:30.3315,desc:'הקניון ההיסטורי על נבסקי – חנויות מזכות עד מודרניות.',hours:'~10:00–22:00'},
+{name:'Galeria Mall',lat:59.9280,lng:30.3600,desc:'קניון מודרני גדול ליד תחנת מוסקובסקי.',hours:'~10:00–22:00'},
+{name:'Nevsky Prospect',lat:59.9339,lng:30.3351,desc:'שדרת החנויות והבוטיקים הראשית.',hours:'~10:00–21:00'},
+{name:'Book House (Dom Knigi)',lat:59.9355,lng:30.3255,desc:'בית הספרים המפורסם בבניין Singer – מזכרות וספרים.',hours:'~9:00–24:00'}
+],
+
+markets:[
+{name:'Kuznechny Market',lat:59.9245,lng:30.3480,addr:'Kuznechny per. 3',days:'יומיומי',desc:'שוק אוכל מקורה איכותי – פירות, גבינות, מאפים.'},
+{name:'Apraksin Dvor',lat:59.9280,lng:30.3250,addr:'Sadovaya ul.',days:'יומיומי',desc:'שוק זול ומגוון – פחות תיירותי, זהירות מכייסים.'},
+{name:'Sytny Market',lat:59.9550,lng:30.3100,addr:'ליד המבצר',days:'יומיומי',desc:'שוק מקומי בצד פטרוגרד.'}
+],
+
+transport:{intro:'המטרו של סנקט פטרבורג עמוק ויפה (תחנות ארמון). כרטיס בודד או Podorozhnik. רכבות פרברים (elektrichka) לפטרהוף וצארסקויה סלו.',
+prices:[
+['מטרו נסיעה בודדת','כ-65–80 ₽','תעריף מתעדכן'],
+['כרטיס Podorozhnik','נטען','הנחה לנסיעות מרובות'],
+['מונית / Yandex Go','זול יחסית','העדיפו אפליקציה'],
+['שייט תעלות','800–1500 ₽','לפי מסלול']
+],
+tickets:['כרטיסים במכונות בתחנות המטרו','אפליקציית המטרו / כרטיסייה נטענת'],
+extra:[
+'המטרו עמוק מאוד – הגיעו בזמן',
+'בלילה רכבות נעצרות (בערך 00:30–05:30)',
+'לפטרהוף בקיץ – ספינה (Meteor) חוסכת זמן ומהנה'
+],
+lines:[
+{id:'M1',name:'קו 1 (אדום) – Kirovsko-Vyborgskaya',color:'#e74c3c',from:'Devyatkino',to:'Prospekt Veteranov',stations:['nevsky','vosstaniya','pl_lenina']},
+{id:'M2',name:'קו 2 (כחול) – Moskovsko-Petrogradskaya',color:'#3498db',from:'Parnas',to:'Kupchino',stations:['gorkovskaya','nevsky','moskovskaya']},
+{id:'M3',name:'קו 3 (ירוק) – Nevsko-Vasileostrovskaya',color:'#27ae60',from:'Begovaya',to:'Rybatskoye',stations:['vasileostrovskaya','gostiny','mayakovskaya']},
+{id:'M4',name:'קו 4 (כתום) – Pravoberezhnaya',color:'#e67e22',from:'Spasskaya',to:'Ulitsa Dybenko',stations:['dostoevskaya','pl_alexandra']}
+],
+stations:{
+nevsky:{n:'Nevsky Prospekt / Gostiny Dvor',he:'נבסקי – לב העיר',lat:59.9350,lng:30.3250,note:'החלפה בין קווים; יציאה לנבסקי ולארמיטאז׳',poi:['hermitage','palace_sq','church_spilled','nevsky']},
+admiralty:{n:'Admiralteyskaya',he:'אדמירליות – ארמיטאז׳',lat:59.9358,lng:30.3089,note:'התחנה העמוקה; קרוב לארמון החורף',poi:['hermitage','palace_sq','stisaac']},
+gorkovskaya:{n:'Gorkovskaya',he:'למבצר פטרוס ופאולוס',lat:59.9562,lng:30.3186,note:'',poi:['peter_paul']},
+vosstaniya:{n:'Ploshchad Vosstaniya',he:'כיכר המרד / תחנת מוסקבה',lat:59.9315,lng:30.3608,note:'רכבות למוסקבה',poi:['nevsky']},
+gostiny:{n:'Gostiny Dvor',he:'גוסטיני דבור',lat:59.9338,lng:30.3315,note:'',poi:['nevsky','church_spilled']},
+mayakovskaya:{n:'Mayakovskaya',he:'',lat:59.9298,lng:30.3542,note:'',poi:['nevsky']},
+moskovskaya:{n:'Moskovskaya',he:'לכיוון שדה התעופה',lat:59.8520,lng:30.3220,note:'אוטובוס/מונית לשדה התעופה',poi:[]},
+vasileostrovskaya:{n:'Vasileostrovskaya',he:'האי וסילי',lat:59.9425,lng:30.2782,note:'',poi:['kunstkamera']},
+sadovaya:{n:'Sadovaya / Sennaya',he:'מריאינסקי / בית כנסת',lat:59.9270,lng:30.2960,note:'',poi:['mariinsky','jewish_spb']}
+}},
+
+airports:[{
+n:'שדה התעופה פולקובו (LED)',
+lat:59.8003,lng:30.2625,
+via:'moskovskaya',
+how:'אוטובוס 39/39א לתחנת Moskovskaya (~30–40 דק׳) ואז מטרו; או מונית/Yandex Go למרכז (~45–60 דק׳ לפי עומס).'
+}],
+
+tips:[
+['🎫','ארמיטאז׳ וארמונות','הזמינו כרטיסים אונליין – התורים ארוכים בעונה.'],
+['🌙','לילות לבנים','מאמצע יוני עד תחילת יולי השמש כמעט לא שוקעת – חוויה ייחודית, וגם עומס תיירים.'],
+['💳','תשלום','כרטיסי אשראי בינלאומיים עלולים להיות מוגבלים – הביאו מזומן (רובל) ותכננו מראש.'],
+['🌉','גשרים מתרוממים','בלילה בקיץ גשרי הנבה מתרוממים – בדקו לוח אם אתם חוזרים מאוחר מצד אחר.'],
+['✡️','יהדות','בית הכנסת הגדול פעיל; קהילה עם היסטוריה עשירה. בדקו מסעדות כשרות מול הקהילה.'],
+['🗣️','שפה','אנגלית מוגבלת מחוץ לתיירות – שמרו כתובות ברוסית (האפליקציה תומכת ב"הראה לנהג").'],
+['🌡️','מזג אוויר','חורף קר ושלג; קיץ מתון. שכבות תמיד שימושיות.'],
+['🚢','פטרהוף','בקיץ הגיעו בספינה – יפה ונוח יותר מתחבורה יבשתית.']
+],
+
+info:{
+'כסף':['רובל רוסי (RUB / ₽)','שער משתנה; עדיף להחליף במקומות רשמיים','כרטיסים זרים – בדקו זמינות לפני הנסיעה'],
+'שפה ותקשורת':['רוסית','אנגלית במוזיאונים גדולים ובמלונות','SIM מקומי או eSIM לפי זמינות'],
+'כניסה למדינה':['בדקו ויזה רוסית ודרישות עדכניות לאזרחי ישראל לפני כל תכנון','אזהרות מסע – עקבו אחר הנחיות משרד החוץ'],
+'חירום':['חירום: 112','משטרה: 102','אמבולנס: 103'],
+'חשמל ושעון':['220V, תקע אירופי','אותה שעה כמו מוסקבה; שעתיים לפני ישראל (בשעון חורף/קיץ – לבדוק)']
+},
+
+eventsNote:'בדקו קונצרטים במריאינסקי, תערוכות בארמיטאז׳ ופסטיבל הלילות הלבנים (יוני).',
+events:[],
+updated:'מידע מקיף על אתרים, תחבורה וטיפים. מחירים בשער משוער ומשתנים – אמתו באתרים הרשמיים. בדקו דרישות כניסה ואזהרות מסע לפני הנסיעה.'
+});
+
+
 
 
 </script><script>(function(){'use strict';
@@ -4255,10 +4477,18 @@ const S={
   tab:'map',sub:'prices',cityId:null,
   custom:LS.get('custom',[]),deleted:LS.get('deleted',[]),
   form:LS.get('form',{}),hotel:LS.get('hotel',{}),
-  map:null,layers:{},plan:null,siteFilter:'all'
+  map:null,layers:{},plan:null,siteFilter:'all',
+  citySort:LS.get('citySort','default')
 };
 const saveCustom=()=>LS.set('custom',S.custom);
-function allCities(){return [...window.CITIES.filter(c=>!S.deleted.includes(c.id)),...S.custom]}
+function allCities(){
+  let list=[...window.CITIES.filter(c=>!S.deleted.includes(c.id)),...S.custom];
+  const sort=S.citySort||'default';
+  if(sort==='he') list=[...list].sort((a,b)=>a.name.localeCompare(b.name,'he'));
+  else if(sort==='en') list=[...list].sort((a,b)=>a.en.localeCompare(b.en,'en'));
+  else if(sort==='country') list=[...list].sort((a,b)=>(a.country||'').localeCompare(b.country||'','he')||a.name.localeCompare(b.name,'he'));
+  return list;
+}
 const curCity=()=>allCities().find(c=>c.id===S.cityId);
 
 const TABS=[['map','🗺️','מפה'],['sites','🏛️','אתרים'],['hotels','🏨','מלונות'],['transport','🚇','תחבורה'],['rest','🍽️','מסעדות'],['food','🥘','אוכל'],['shop','🛍️','קניות'],['markets','🧺','שווקים'],['tips','💡','טיפים'],['routes','🧭','מסלולים'],['info','ℹ️','מידע לתייר']];
@@ -4267,16 +4497,21 @@ const INTERESTS=[['history','🏛️ היסטוריה ותרבות'],['views','�
 /* ===== תמונות וידע חי ===== */
 const imgMem={};
 async function wikiImg(title,name){
-  if(!title)return null;
-  const key=title||('?'+name);
+  const key=title||('?'+(name||''));
+  if(!title&&!name)return null;
   const cache=LS.get('img',{});
   if(cache[key])return cache[key];
   if(imgMem[key]===null)return null;
   try{
     let u=null;
-    if(title){
-      let lang='en',t=title;const m=title.match(/^([a-z]{2,3}):(.+)$/);if(m){lang=m[1];t=m[2]}
-      const r=await fetch('https://'+lang+'.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(t.replace(/ /g,'_')));
+    let t=title,lang='en';
+    if(title){const m=title.match(/^([a-z]{2,3}):(.+)$/);if(m){lang=m[1];t=m[2]}}
+    if(t){
+      const r=await fetch('https://'+lang+'.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(String(t).replace(/ /g,'_')));
+      if(r.ok){const j=await r.json();u=(j.thumbnail&&j.thumbnail.source)||null}
+    }
+    if(!u&&name){
+      const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/summary/'+encodeURIComponent(String(name).replace(/ /g,'_')));
       if(r.ok){const j=await r.json();u=(j.thumbnail&&j.thumbnail.source)||null}
     }
     if(u){u=u.replace(/\/\d+px-/,'/640px-');cache[key]=u;LS.set('img',cache);return u}
@@ -4286,7 +4521,14 @@ async function wikiImg(title,name){
 function loadImages(root){
   $$('[data-wiki]',root||document).forEach(el=>{
     if(el.dataset.done)return;el.dataset.done=1;
-    wikiImg(el.dataset.wiki||'','').then(u=>{if(u){el.style.backgroundImage="linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.35)),url('"+u+"')";const em=el.querySelector('.em');if(em)em.style.display='none'}});
+    const title=el.dataset.wiki||'';
+    const name=el.dataset.wikiname||'';
+    wikiImg(title,name).then(u=>{
+      if(u){
+        el.style.backgroundImage="linear-gradient(180deg,rgba(0,0,0,.05) 40%,rgba(0,0,0,.55)),url('"+u+"')";
+        const em=el.querySelector('.em');if(em)em.style.display='none';
+      }
+    });
   });
 }
 const WX={0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️'};
@@ -4357,13 +4599,17 @@ const popup=(title,sub,p)=>'<div dir="rtl"><b>'+esc(title)+'</b>'+(sub?'<br>'+es
 
 /* ===== מסך הבית ===== */
 function renderHome(){
-  destroyMap();S.cityId=null;
   const cs=allCities();
   $('#btnHome').style.display='none';$('#btnRef').style.display='none';
-  let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">בחרו עיר לפרטים מלאים — או הוסיפו מקום חדש מכל מקום בעולם.</div></div><div class="grid">';
+  const sort=S.citySort||'default';
+  const sorts=[['default','לפי ברירת מחדל'],['he','א–ב עברית'],['en','A–Z English'],['country','לפי מדינה']];
+  let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">בחרו עיר לפרטים מלאים — או הוסיפו מקום חדש מכל מקום בעולם.</div></div>';
+  h+='<div class="sortbar"><span class="lbl">מיון:</span>'+sorts.map(s=>'<button type="button" class="'+(sort===s[0]?'on':'')+'" data-act="sortcities" data-s="'+s[0]+'">'+s[1]+'</button>').join('')+'</div>';
+  h+='<div class="grid">';
   cs.forEach(c=>{
-    var bg=c.custom?'':('background-image:url(city-img/'+c.id+'.jpg);background-size:cover;background-position:center');
-    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+bg+'"'+(c.custom?' data-wiki="'+esc(c.wiki||'')+'" data-wikiname="'+esc(c.en)+'"':'')+'>'
+    // Use Wikipedia image for every city that has wiki title
+    const wikiAttr=c.wiki?(' data-wiki="'+esc(c.wiki)+'"'):(c.en?(' data-wiki="" data-wikiname="'+esc(c.en)+'"'):'');
+    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+'"'+wikiAttr+'>'
      +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button><span class="fl">'+(c.flag||'📍')+'</span>'
      +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
   });
@@ -4373,7 +4619,6 @@ function renderHome(){
   $('#app').innerHTML=h;loadImages();
 }
 
-/* ===== מסך עיר ===== */
 function openCity(id,push){
   S.cityId=id;S.tab='map';S.sub='prices';S.plan=null;S.gFrom=S.gTo=null;
   if(push)history.pushState({c:id},'');
@@ -4476,6 +4721,7 @@ document.addEventListener('click',e=>{
   if(a==='driver'){showDriver(t.dataset.n,t.dataset.l,t.dataset.a);return}
   if(a==='gmap'){gmapSheet(t.dataset.q);return}
   if(a==='mapkind'){S.mapKind=t.dataset.k;S.gq=t.dataset.q||S.gq;renderPane();return}
+  if(a==='sortcities'){S.citySort=t.dataset.s||'default';LS.set('citySort',S.citySort);renderHome();return}
   if(a==='dotoday'){showDoToday();return}
   if(a==='mapfs'){const w=$('#mapWrap');if(!w)return;if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{(w.requestFullscreen||w.webkitRequestFullscreen).call(w);setTimeout(()=>{try{S.map&&S.map.invalidateSize(false)}catch(e){}},300)}return}
   if(a==='say'){const txt=t.dataset.say||'';const lang=t.dataset.lang||'en';if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(txt);u.lang=lang;u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}else toast('השמעה לא נתמכת במכשיר זה');return}
