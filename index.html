@@ -811,7 +811,13 @@ input.ltr{direction:ltr;text-align:left}
 .pick-list .res{width:100%;text-align:right}
 .search-row{margin:0 0 12px}
 .search-row input{width:100%;padding:11px 14px;border:1.5px solid #ddd6fe;border-radius:14px;font:inherit;background:#fff;text-align:right;box-shadow:var(--sh)}
-@media print{#hdr,.tabs,.acts{display:none}}
+@media print{
+#hdr,.tabs,.acts,.sortbar,.hello,.filters,.do-today,.tab{display:none!important}
+#app{max-width:100%;padding:0}
+.card{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+.map,#planMap{height:320px!important;break-inside:avoid}
+body{background:#fff}
+}
 
 .sortbar{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 12px;align-items:center}
 .sortbar .lbl{font-weight:700;color:var(--ink);font-size:13px;margin-inline-end:4px}
@@ -4724,6 +4730,9 @@ document.addEventListener('click',e=>{
   if(a==='plan'){doPlan();return}
   if(a==='copyplan'){copyPlan();return}
   if(a==='planday'){focusDay(+t.dataset.d);return}
+  if(a==='printplan'){printPlan();return}
+  if(a==='savefile'){savePlanFile();return}
+  if(a==='shareplan'){sharePlan();return}
   if(a==='route'){doGuide();return}
   if(a==='locate'){locateMe();return}
   if(a==='placepick'){openPlacePicker();return}
@@ -4763,11 +4772,52 @@ document.addEventListener('click',e=>{
     toast('המסלול נמחק');renderPane();return;
   }
   if(a==='editplan'){
-    // גלילה לטופס העריכה בראש הלשונית
     const c=curCity();if(S.plan&&S.plan.f){S.form[c.id]=Object.assign({},S.form[c.id]||{},S.plan.f);LS.set('form',S.form)}
     renderPane();
     setTimeout(()=>{const el=$('#fStart');if(el)el.scrollIntoView({behavior:'smooth',block:'center'})},100);
-    toast('ערכו את ההעדפות ולחצו «בנה לי מסלול»');return;
+    toast('ערכו את ההעדפות (כולל תחבורה) ולחצו «בנה לי מסלול»');return;
+  }
+  if(a==='planlinks'){
+    const c=curCity();if(!c)return;
+    const idx=+t.dataset.i;
+    let target=null, isCurrent=idx===-1;
+    if(isCurrent){
+      if(!S.plan||S.plan.cityId!==c.id){toast('שמרו מסלול קודם או בנו מסלול');return}
+      target=S.plan;
+    }else{
+      target=(S.savedPlans&&S.savedPlans[c.id]||[])[idx];
+    }
+    if(!target)return;
+    target.links=target.links||[];
+    const list=target.links.map((l,i)=>'<li><a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.title||l.url)+'</a> <button class="btn alt sm" data-rm="'+i+'">הסרה</button></li>').join('')||'<li class="muted">אין קישורים עדיין</li>';
+    const o=sheet('<h3>📎 קישורים למסמכים / תמונות</h3><p class="muted">הוסיפו קישור + תיאור (למשל PDF, Google Drive, תמונה)</p><ul class="plan-links" id="plList">'+list+'</ul>'
+      +'<label>תיאור</label><input type="text" id="plTitle" placeholder="למשל: אישור מלון">'
+      +'<label>קישור (URL)</label><input type="text" id="plUrl" class="ltr" placeholder="https://...">'
+      +'<div class="acts"><button class="btn sm" id="plAdd">הוספה</button><button class="btn alt sm" id="plX">סגירה</button></div>');
+    const save=()=>{
+      if(isCurrent){/* also mirror into matching saved if any */}
+      else{LS.set('savedPlans',S.savedPlans)}
+      if(isCurrent){
+        // keep on S.plan; if user saves later, links go with it
+      } else {
+        LS.set('savedPlans',S.savedPlans);
+      }
+    };
+    $('#plX',o).onclick=()=>{save();closeSheet();renderPane()};
+    $('#plAdd',o).onclick=()=>{
+      const title=($('#plTitle',o).value||'').trim();
+      let url=($('#plUrl',o).value||'').trim();
+      if(!url){toast('נא להזין קישור');return}
+      if(!/^https?:\/\//i.test(url))url='https://'+url;
+      target.links.push({title:title||url,url:url});
+      save();
+      closeSheet();
+      // reopen refreshed
+      setTimeout(()=>{const btn=document.querySelector('[data-act="planlinks"][data-i="'+idx+'"]');if(btn)btn.click();else renderPane()},50);
+      toast('הקישור נוסף');
+    };
+    $$('[data-rm]',o).forEach(b=>b.onclick=()=>{target.links.splice(+b.dataset.rm,1);save();closeSheet();setTimeout(()=>{const btn=document.querySelector('[data-act="planlinks"][data-i="'+idx+'"]');if(btn)btn.click();else renderPane()},50)});
+    return;
   }
   if(a==='dotoday'){showDoToday();return}
   if(a==='mapfs'){const w=$('#mapWrap');if(!w)return;if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{(w.requestFullscreen||w.webkitRequestFullscreen).call(w);setTimeout(()=>{try{S.map&&S.map.invalidateSize(false)}catch(e){}},300)}return}
@@ -5233,7 +5283,7 @@ const DAYCOL=['#7c3aed','#ec4899','#0ea5e9','#10b981','#f59e0b','#ef4444','#6366
 const KIDAGES=['0–3 (תינוק/פעוט)','4–7','8–12','13–17'];
 function defForm(c){
   const t=new Date();t.setDate(t.getDate()+1);
-  return Object.assign({start:fmtDate(t),days:3,ad:2,kids:0,kidAge:1,senior:false,walk:'mid',pace:'normal',ints:['history','views','vibe'],mus:false,trip:false,hotel:S.hotel[c.id]?'h:'+S.hotel[c.id]:(c.hotels[0]?'h:'+c.hotels[0].id:'c')},S.form[c.id]||{});
+  return Object.assign({start:fmtDate(t),days:3,ad:2,kids:0,kidAge:1,senior:false,walk:'mid',pace:'normal',ints:['history','views','vibe'],mus:false,trip:false,transit:'mixed',hotel:S.hotel[c.id]?'h:'+S.hotel[c.id]:(c.hotels[0]?'h:'+c.hotels[0].id:'c')},S.form[c.id]||{});
 }
 function originOf(c,key){
   if(key&&key.startsWith('h:')){const h=c.hotels.find(x=>x.id===key.slice(2));if(h)return {lat:h.lat,lng:h.lng,name:h.name}}
@@ -5242,17 +5292,20 @@ function originOf(c,key){
 }
 function paneRoutes(c){
   const f=defForm(c);const t=T0(c);
-  const hopts='<optgroup label="🏨 מלונות מומלצים">'+c.hotels.map(h=>'<option value="h:'+esc(h.id)+'"'+(f.hotel==='h:'+h.id?' selected':'')+'>'+esc(h.name)+'</option>').join('')+'</optgroup>'
-   +'<optgroup label="📍 מקום אחר">'+'<option value="c"'+(f.hotel==='c'?' selected':'')+'>מרכז העיר (ללא מלון מסוים)</option>'
-   +Object.entries(t.stations).map(([id,s])=>'<option value="t:'+esc(id)+'"'+(f.hotel==='t:'+id?' selected':'')+'>אני גר ליד תחנת '+esc(s.n)+'</option>').join('')+'</optgroup>';
+  const areas=[...new Set((c.hotels||[]).map(h=>h.area).filter(Boolean))];
+  const hopts='<optgroup label="🏨 כל המלונות המומלצים">'+c.hotels.map(h=>'<option value="h:'+esc(h.id)+'"'+(f.hotel==='h:'+h.id?' selected':'')+'>'+esc(h.name)+(h.area?' · '+esc(h.area):'')+(h.stars?(' · '+h.stars+'★'):'')+'</option>').join('')+'</optgroup>'
+   +(areas.length?'<optgroup label="📍 אזורים">'+areas.map(a=>{const hh=c.hotels.find(x=>x.area===a);const val=hh?('h:'+hh.id):'c';return '<option value="'+esc(val)+'"'+(f.hotel===val?' selected':'')+'>אזור '+esc(a)+'</option>'}).join('')+'</optgroup>':'')
+   +'<optgroup label="🚇 קרוב לתחנה">'+Object.entries(t.stations||{}).map(([id,s])=>'<option value="t:'+esc(id)+'"'+(f.hotel==='t:'+id?' selected':'')+'>תחנת '+esc(s.n)+(s.he?' — '+esc(s.he):'')+'</option>').join('')+'</optgroup>'
+   +'<optgroup label="📌 כללי"><option value="c"'+(f.hotel==='c'?' selected':'')+'>מרכז העיר (ללא מלון מסוים)</option></optgroup>';
   const sel=(id,arr,v)=>'<select id="'+id+'">'+arr.map(a=>'<option value="'+a[0]+'"'+(String(v)===String(a[0])?' selected':'')+'>'+a[1]+'</option>').join('')+'</select>';
   const nums=(a,b)=>Array.from({length:b-a+1},(_,i)=>[a+i,a+i]);
   let h='<div class="card"><div class="body"><h3>🧭 בניית מסלול אישי</h3><p class="muted">ספרו לנו קצת על הטיול, ונתאים מסלול לפי מיקום המלון, כמות ההליכה והעליות.</p>'
-   +'<div class="row2"><div><label>תאריך תחילת הטיול</label><div style="display:flex;gap:6px;align-items:center"><input type="text" id="fStart" inputmode="numeric" placeholder="DD/MM/YYYY" value="'+esc(f.start)+'" maxlength="10" style="flex:1"><input type="date" id="fStartCal" title="בחירה מלוח שנה" style="width:42px;padding:8px 4px;border:1.5px solid #ddd6fe;border-radius:12px;background:#fff;cursor:pointer"></div></div><div><label>מספר ימים</label>'+sel('fDays',nums(1,10),f.days)+'</div></div>'
+   +'<div class="row2"><div><label>תאריך תחילת הטיול</label><div style="display:flex;gap:6px;align-items:center"><input type="text" id="fStart" inputmode="numeric" placeholder="DD/MM/YYYY" value="'+esc(f.start)+'" maxlength="10" style="flex:1"><button type="button" class="cal-btn" id="fStartCalBtn" title="בחירה מלוח שנה" aria-label="לוח שנה">📅</button><input type="date" id="fStartCal" style="position:absolute;opacity:0;width:1px;height:1px;overflow:hidden" tabindex="-1"></div></div><div><label>מספר ימים</label>'+sel('fDays',nums(1,10),f.days)+'</div></div>'
    +'<div class="row2"><div><label>מבוגרים</label>'+sel('fAd',nums(1,10),f.ad)+'</div><div><label>ילדים</label>'+sel('fKids',nums(0,8),f.kids)+'</div></div>'
    +'<label>גיל הילד הצעיר ביותר</label>'+sel('fKidAge',KIDAGES.map((x,i)=>[i,x]),f.kidAge)
    +'<label>מלון / איפה אתם ישנים?</label><select id="fHotel">'+hopts+'</select>'
    +'<div class="row2"><div><label>כמה הליכה נוח לכם?</label>'+sel('fWalk',[['low','מעט (עד ~3 ק״מ ליום)'],['mid','בינוני (עד ~6 ק״מ)'],['high','הרבה (עד ~10 ק״מ)']],f.walk)+'</div><div><label>קצב הטיול</label>'+sel('fPace',[['relaxed','רגוע (3 אתרים ליום)'],['normal','רגיל (4 אתרים)'],['intense','אינטנסיבי (5 אתרים)']],f.pace)+'</div></div>'
+   +'<label>תחבורה מנקודת היציאה ליעדים</label>'+sel('fTransit',[['mixed','משולב (הליכה + תחבורה)'],['walk','הליכה בעיקר'],['transit','תחבורה ציבורית בעיקר'],['taxi','מונית / אפליקציה']],f.transit||'mixed')
    +'<div class="checks" style="margin-top:8px"><label><input type="checkbox" id="fSenior"'+(f.senior?' checked':'')+'><span>👴 יש מבוגרים מעל 65 / קושי בהליכה</span></label>'
    +'<label><input type="checkbox" id="fMus"'+(f.mus?' checked':'')+'><span>🖼️ לכלול מוזיאונים</span></label>'
    +(c.sites.some(s=>s.trip)?'<label><input type="checkbox" id="fTrip"'+(f.trip?' checked':'')+'><span>🚌 טיול יום מחוץ לעיר</span></label>':'')+'</div>'
@@ -5264,16 +5317,23 @@ function paneRoutes(c){
   if(saved.length){
     h+='<div class="card"><div class="body"><h3>💾 מסלולים שמורים</h3><ul style="margin:6px 0;padding-inline-start:18px">';
     saved.forEach((sp,i)=>{
-      h+='<li style="margin:8px 0"><b>'+esc(sp.name||('מסלול '+(i+1)))+'</b> · '+esc(sp.f&&sp.f.start||'')+' · '+(sp.f&&sp.f.days||'?')+' ימים '
+      const links=sp.links||[];
+      h+='<li style="margin:10px 0;padding:10px;background:#faf5ff;border-radius:12px"><div><b>'+esc(sp.name||('מסלול '+(i+1)))+'</b> · '+esc(sp.f&&sp.f.start||'')+' · '+(sp.f&&sp.f.days||'?')+' ימים</div>';
+      if(links.length){
+        h+='<div class="muted" style="margin:4px 0">📎 קישורים: '+links.map(l=>'<a href="'+esc(l.url)+'" target="_blank" rel="noopener">'+esc(l.title||l.url)+'</a>').join(' · ')+'</div>';
+      }
+      h+='<div class="acts" style="margin-top:6px">'
        +'<button class="btn alt sm" data-act="loadplan" data-i="'+i+'">טעינה</button> '
-       +'<button class="btn alt sm" data-act="delplan" data-i="'+i+'">מחיקה</button></li>';
+       +'<button class="btn alt sm" data-act="planlinks" data-i="'+i+'">📎 קישורים</button> '
+       +'<button class="btn bad sm" data-act="delplan" data-i="'+i+'">🗑️ מחיקה</button>'
+       +'</div></li>';
     });
     h+='</ul></div></div>';
   }
   return h;
 }
 function readForm(){
-  const f={start:$('#fStart').value.trim(),days:+$('#fDays').value,ad:+$('#fAd').value,kids:+$('#fKids').value,kidAge:+$('#fKidAge').value,hotel:$('#fHotel').value,walk:$('#fWalk').value,pace:$('#fPace').value,senior:$('#fSenior').checked,mus:$('#fMus').checked,trip:!!($('#fTrip')&&$('#fTrip').checked),ints:$$('#fInts input:checked').map(x=>x.value)};
+  const f={start:$('#fStart').value.trim(),days:+$('#fDays').value,ad:+$('#fAd').value,kids:+$('#fKids').value,kidAge:+$('#fKidAge').value,hotel:$('#fHotel').value,walk:$('#fWalk').value,pace:$('#fPace').value,senior:$('#fSenior').checked,mus:$('#fMus').checked,trip:!!($('#fTrip')&&$('#fTrip').checked),transit:($('#fTransit')&&$('#fTransit').value)||'mixed',ints:$$('#fInts input:checked').map(x=>x.value)};
   return f;
 }
 function planTrip(c,f){
@@ -5320,7 +5380,7 @@ function planTrip(c,f){
         pool.forEach(p=>{
           const s=p.s;if(!open(s))return;
           const dkm=dist(cur,s),legKm=dkm*1.25;
-          const transit=legKm>(slow?0.9:1.4)||(s.hill&&lowW&&legKm>0.5);
+          const prefer=f.transit||'mixed';const transit=prefer==='walk'?false:(prefer==='taxi'||prefer==='transit')?true:(legKm>(slow?0.9:1.4)||(s.hill&&lowW&&legKm>0.5));
           const legMin=transit?Math.round(12+legKm*3):Math.round(legKm/speed*60);
           const dur=Math.max(0.5,s.dur*dscale);
           const need=legMin/60+dur,walkAdd=transit?0:legKm;
@@ -5365,10 +5425,14 @@ const hm=m=>pad(Math.floor(m/60)%24)+':'+pad(Math.round(m%60));
 function planHtml(c,p){
   const f=p.f;
   let h='<div class="card" id="planTop"><div class="body"><h3>✅ המסלול שלכם · '+f.days+' ימים</h3><div class="chips"><span class="b p">👥 '+f.ad+' מבוגרים'+(f.kids?' · '+f.kids+' ילדים':'')+'</span><span class="b s">🏨 '+esc(p.O.name)+'</span><span class="b g">🚶 ממוצע '+p.avgWalk.toFixed(1)+' ק״מ הליכה ליום</span></div>'
-   +'<div class="map" id="planMap" style="height:42vh;min-height:280px"></div><div class="filters" style="margin-top:8px">'+p.days.map((d,i)=>'<button class="chip" style="background:'+DAYCOL[i%7]+';color:#fff" data-act="planday" data-d="'+i+'">יום '+(i+1)+'</button>').join('')+'<button class="chip" data-act="planday" data-d="-1">הכול</button></div>'
+   +'<div class="map" id="planMap" style="height:42vh;min-height:280px"></div><div class="filters" style="margin-top:8px">'+p.days.map((d,i)=>'<button class="chip" style="background:'+DAYCOL[i%7]+';color:#fff" data-act="planday" data-d="'+i+'">יום '+(i+1)+(d.date?(' · '+DAYS[d.date.getDay()]):'')+'</button>').join('')+'<button class="chip" data-act="planday" data-d="-1" style="outline:3px solid #111">🗺️ הכול</button></div>'
    +'<div class="acts"><button class="btn alt sm" data-act="copyplan">📋 העתקת המסלול</button>'
    +'<button class="btn sm" data-act="saveplan">💾 שמירת המסלול</button>'
-   +'<button class="btn alt sm" data-act="editplan">✏️ עריכת ההעדפות</button></div></div></div>';
+   +'<button class="btn alt sm" data-act="editplan">✏️ עריכת ההעדפות</button>'
+   +'<button class="btn alt sm" data-act="planlinks" data-i="-1">📎 קישורים למסמכים</button>'
+   +'<button class="btn alt sm" data-act="printplan">🖨️ הדפסה / PDF</button>'
+   +'<button class="btn alt sm" data-act="savefile">⬇️ שמירה כקובץ</button>'
+   +'<button class="btn alt sm" data-act="shareplan">📤 שיתוף</button></div></div></div>';
   p.days.forEach((d,i)=>{
     const col=DAYCOL[i%7];
     // weather for that day if available
@@ -5381,8 +5445,8 @@ function planHtml(c,p){
         if(wd) wxLine='<div class="muted">'+(WX[wd.code]||'🌡️')+' <bdi dir="ltr">'+wd.max+'°/'+wd.min+'°</bdi>'+(wd.rain>=40?' · 💧'+wd.rain+'%':'')+'</div>';
       }
     }catch(e){}
-    h+='<div class="card day" style="--c:'+col+'"><div class="body"><h3>יום '+(i+1)+' · '+DAYS[d.date.getDay()]+' <bdi dir="ltr">'+fmtDate(d.date)+'</bdi></h3>'
-     +wxLine
+    h+='<div class="card day" style="--c:'+col+'"><div class="body"><h3>יום '+(i+1)+' · '+DAYS[d.date.getDay()]+', <bdi dir="ltr">'+fmtDate(d.date)+'</bdi></h3>'
+     +(wxLine?wxLine.replace('class="muted"','class="muted" style="font-size:14px;margin:4px 0 6px"'):'<div class="muted" style="margin:4px 0 6px">🌡️ אין תחזית זמינה לתאריך זה</div>')
      +(d.walkKm?'<div class="muted">🚶 הליכה בפועל: כ-'+d.walkKm.toFixed(1)+' ק״מ</div>':'')+'<ul class="tl">';
     d.stops.forEach((st,k)=>{
       const s=st.s;
@@ -5402,10 +5466,11 @@ function afterRoutes(c){
   const d=$('#fStart');
   if(d)d.addEventListener('input',()=>{let v=d.value.replace(/\D/g,'').slice(0,8),o=v;if(v.length>4)o=v.slice(0,2)+'/'+v.slice(2,4)+'/'+v.slice(4);else if(v.length>2)o=v.slice(0,2)+'/'+v.slice(2);d.value=o});
   const cal=$('#fStartCal');
+  const calBtn=$('#fStartCalBtn');
   if(cal&&d){
-    // sync calendar from text
     const pd=parseDMY(d.value);if(pd){const y=pd.getFullYear(),m=String(pd.getMonth()+1).padStart(2,'0'),day=String(pd.getDate()).padStart(2,'0');cal.value=y+'-'+m+'-'+day}
     cal.addEventListener('change',()=>{if(!cal.value)return;const p=cal.value.split('-');if(p.length===3)d.value=p[2]+'/'+p[1]+'/'+p[0]});
+    if(calBtn)calBtn.onclick=()=>{try{if(cal.showPicker)cal.showPicker();else cal.click()}catch(e){cal.click()}};
   }
   if(S.plan&&S.plan.cityId===c.id&&$('#planMap')){
     const p=S.plan,m=mkMap('planMap',c.center,13),b=[[p.O.lat,p.O.lng]];
@@ -5421,8 +5486,84 @@ function afterRoutes(c){
 }
 function focusDay(i){
   const p=S.plan;if(!p||!S.map)return;
-  p.days.forEach((d,k)=>{const o=S.layers['d'+k];if(!o)return;if(i<0||i===k){S.map.addLayer(o.g)}else S.map.removeLayer(o.g)});
-  if(i>=0&&S.layers['d'+i])S.map.fitBounds(S.layers['d'+i].pts,{padding:[30,30],animate:false});
+  S.planDay=i;
+  p.days.forEach((d,k)=>{
+    const o=S.layers['d'+k];if(!o)return;
+    if(i<0||i===k){if(!S.map.hasLayer(o.g))S.map.addLayer(o.g)}
+    else if(S.map.hasLayer(o.g))S.map.removeLayer(o.g);
+  });
+  if(i>=0&&S.layers['d'+i]&&S.layers['d'+i].pts.length){
+    S.map.fitBounds(S.layers['d'+i].pts,{padding:[30,30],animate:false});
+  }else{
+    const all=[];p.days.forEach((d,k)=>{const o=S.layers['d'+k];if(o)o.pts.forEach(pt=>all.push(pt))});
+    if(all.length)S.map.fitBounds(all,{padding:[24,24],animate:false});
+  }
+  // highlight chips
+  $$('[data-act="planday"]').forEach(ch=>{
+    const d=+ch.dataset.d;
+    if(d===i){ch.style.outline='3px solid #111';ch.style.opacity='1'}
+    else{ch.style.outline='';ch.style.opacity=i<0?'1':'0.55'}
+  });
+  // scroll to day card
+  if(i>=0){
+    const cards=$$('.card.day');
+    if(cards[i])cards[i].scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+}
+function planPlainText(c,p){
+  const f=p.f||{};
+  let t=c.name+' — מסלול '+f.days+' ימים\n';
+  t+='תאריך התחלה: '+(f.start||'')+'\n';
+  t+='נקודת יציאה: '+(p.O&&p.O.name||'')+'\n';
+  t+='מבוגרים: '+(f.ad||'')+(f.kids?(' · ילדים: '+f.kids):'')+'\n\n';
+  (p.days||[]).forEach((d,i)=>{
+    const dow=(typeof DAYS!=='undefined'&&d.date)?DAYS[d.date.getDay()]:'';
+    t+='=== יום '+(i+1)+(dow?(' · '+dow):'')+(d.date?(' · '+fmtDate(d.date)):'')+' ===\n';
+    (d.stops||[]).forEach((st,k)=>{
+      t+=(k+1)+'. '+(st.s.en||st.s.loc||'')+(st.s.loc&&st.s.en!==st.s.loc?(' ('+st.s.loc+')'):'')+'\n';
+      if(st.s.addr)t+='   '+st.s.addr+'\n';
+    });
+    if(d.walkKm)t+='הליכה משוערת: '+d.walkKm.toFixed(1)+' ק״מ\n';
+    t+='\n';
+  });
+  t+='נוצר ב«מידע למטייל»';
+  return t;
+}
+function savePlanFile(){
+  const c=curCity();const p=S.plan;
+  if(!c||!p||p.cityId!==c.id){toast('אין מסלול לשמירה');return}
+  const text=planPlainText(c,p);
+  const blob=new Blob([text],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=(c.en||c.name).replace(/\s+/g,'_')+'_itinerary.txt';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  toast('הקובץ נשמר');
+}
+async function sharePlan(){
+  const c=curCity();const p=S.plan;
+  if(!c||!p||p.cityId!==c.id){toast('אין מסלול לשיתוף');return}
+  const text=planPlainText(c,p);
+  try{
+    if(navigator.share){
+      await navigator.share({title:'מסלול ב'+c.name,text:text});
+      return;
+    }
+  }catch(e){if(e&&e.name==='AbortError')return}
+  try{
+    await navigator.clipboard.writeText(text);
+    toast('המסלול הועתק — אפשר להדביק ולשתף');
+  }catch(e){
+    // fallback prompt
+    prompt('העתיקו את המסלול:',text);
+  }
+}
+function printPlan(){
+  if(!S.plan){toast('אין מסלול להדפסה');return}
+  // ensure all days visible on map before print
+  focusDay(-1);
+  setTimeout(()=>window.print(),200);
 }
 function doPlan(){
   const c=curCity();const f=readForm();
