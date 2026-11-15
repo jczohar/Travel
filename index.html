@@ -703,8 +703,11 @@ h3{margin:0 0 4px;font-size:16px;color:var(--ink)}
 .hello{padding:14px;border-radius:18px;background:linear-gradient(135deg,#7c3aed,#ec4899);color:#fff;box-shadow:var(--sh);margin-bottom:14px}
 .hello h2{color:#fff;margin:0 0 2px}
 /* hero */
-.hero{border-radius:18px;color:#fff;padding:9px 12px;margin-bottom:8px;box-shadow:var(--sh);background:linear-gradient(135deg,var(--a),var(--b));position:relative;overflow:hidden}
-.hero h2{color:#fff;margin:0;font-size:21px}
+.hero{border-radius:18px;color:#1c1917;padding:9px 12px;margin-bottom:8px;box-shadow:var(--sh);background:linear-gradient(135deg,#fffef5,#fefce8);position:relative;overflow:hidden;border:1px solid #f5f0c8}
+.hero h2{color:#1c1917;margin:0;font-size:21px}
+.hero .meta,.hero .wx,.hero #heroP,.hero p{color:#1c1917!important}
+.hero .pill{background:rgba(0,0,0,.08)!important;color:#1c1917!important}
+.hero .do-today .btn{box-shadow:0 1px 4px rgba(0,0,0,.15)}
 bdi{unicode-bidi:isolate}
 .hero .meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
 .pill{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.22);border-radius:99px;padding:2px 9px;font-size:12px;white-space:nowrap}
@@ -4688,11 +4691,14 @@ madrid:'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Madrid_-_Sky_Ba
 lisbon:'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Lisboa_-_Portugal_%2852597836992%29.jpg/330px-Lisboa_-_Portugal_%2852597836992%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
 amsterdam:'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/330px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
 spb:'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg/330px-Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
-toronto:'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg/640px-Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+toronto:'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg/330px-Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg',
 };
 
 function allCities(){
   let list=[...window.CITIES.filter(c=>!S.deleted.includes(c.id)),...S.custom];
+  // מניעת כפילויות (למשל עיר מובנית + עותק מותאם אישית / טעינה כפולה)
+  const seen=new Set();
+  list=list.filter(c=>{const id=c.id||c.en||c.name;if(!id||seen.has(id))return false;seen.add(id);return true});
   const sort=S.citySort||'default';
   if(sort==='he') list=[...list].sort((a,b)=>a.name.localeCompare(b.name,'he'));
   else if(sort==='en') list=[...list].sort((a,b)=>a.en.localeCompare(b.en,'en'));
@@ -4705,6 +4711,8 @@ const TABS=[['map','🗺️','מפה'],['sites','🏛️','אתרים'],['hotels
 const INTERESTS=[['history','🏛️ היסטוריה ותרבות'],['views','🌇 תצפיות ונוף'],['nature','🌳 טבע וגנים'],['jewish','✡️ יהדות'],['family','👨‍👩‍👧 משפחה וילדים'],['vibe','🎭 אווירה ושכונות'],['shopping','🛍️ קניות'],['food','🍴 אוכל']];
 
 /* ===== תמונות וידע חי ===== */
+/* DEDUPE_CITIES */
+(function(){const s=new Set();window.CITIES=(window.CITIES||[]).filter(c=>{if(!c||!c.id||s.has(c.id))return false;s.add(c.id);return true});})();
 const imgMem={};
 async function wikiImg(title,name){
   const key=title||('?'+(name||''));
