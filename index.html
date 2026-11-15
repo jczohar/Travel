@@ -4425,6 +4425,207 @@ events:[],
 updated:'מידע מקיף על אתרים, תחבורה וטיפים. מחירים בשער משוער ומשתנים – אמתו באתרים הרשמיים. בדקו דרישות כניסה ואזהרות מסע לפני הנסיעה.'
 });
 
+window.CITIES.push({id:'toronto',name:'טורונטו',en:'Toronto',local:'Toronto',country:'קנדה',flag:'🇨🇦',
+color:['#1d4ed8','#dc2626'],center:[43.6532,-79.3832],zoom:12,wiki:'Toronto',
+cur:'CAD',sym:'C$',tz:'America/Toronto',
+phrase:'Can you take me to this address, please?',phraseLang:'🇨🇦 English / Français',speechLang:'en-CA',
+phrases:[
+['שלום','Hello / Bonjour','he-LO / bon-ZHOOR'],
+['תודה','Thank you / Merci','thank you / mer-SEE'],
+['בבקשה','Please / S\'il vous plaît','please / seel voo PLAY'],
+['כמה זה עולה?','How much is it?','how much is it'],
+['איפה השירותים?','Where is the washroom?','where is the WASH-room'],
+['עזרה!','Help!','help'],
+['חשבון בבקשה','The bill, please','the bill please'],
+['מים / קפה','Water / Coffee','water / coffee'],
+['תחנת מטרו','Subway station','SUB-way station'],
+['קחו אותי לכתובת הזו','Can you take me to this address?','can you take me to this address'],
+['כשר','Kosher','KO-sher'],
+['איפה הסי אנן?','Where is the CN Tower?','where is the see-en tower']
+],
+intro:'טורונטו – העיר הגדולה בקנדה: מגדל CN, איי טורונטו, מוזיאונים ברמה עולמית, שכונות תוססות וקהילה יהודית גדולה. בטיול של כמה ימים כדאי לשלב יום במפלי ניאגרה (כשעה וחצי נסיעה).',
+sites:[
+{id:'cn_tower',en:'CN Tower',loc:'CN Tower',lat:43.6426,lng:-79.3871,wiki:'CN_Tower',tags:['views','family','vibe'],
+desc:'סמל העיר – תצפית, רצפת זכוכית ו-EdgeWalk למי שמעז.',
+tips:'הזמינו כרטיס מראש, במיוחד בסופי שבוע. השקיעה מרהיבה.',
+price:'מ-C$40 בערך (לפי חבילה)',free:0,book:'recommended',museum:0,kids:4,hill:1,
+addr:'290 Bremner Blvd',how:'Union Station / רכבת קלה / הליכה מאזור ה-Harbourfront',
+hours:'בדרך כלל 9:00–22:00 (משתנה)',web:'https://www.cntower.ca'},
+
+{id:'islands',en:'Toronto Islands',loc:'Toronto Islands',lat:43.6205,lng:-79.3788,wiki:'Toronto_Islands',tags:['nature','family','views','vibe'],
+desc:'איים מול הדאונטאון – חופים, אופניים, פארק שעשועים ונוף לקו הרקיע.',
+tips:'מעבורת מ-Jack Layton Ferry Terminal. בקיץ מגיעים מוקדם. אפשר להשכיר אופניים באי.',
+price:'מעבורת ~C$10 הלוך-חזור',free:0,book:'no',museum:0,kids:5,
+addr:'Ferry from 9 Queens Quay',how:'מעבורת מתחנת הקוואי ליד Harbourfront',
+hours:'מעבורות לפי לוח עונתי'},
+
+{id:'distillery',en:'Distillery District',loc:'Distillery Historic District',lat:43.6503,lng:-79.3596,wiki:'Distillery_District,_Toronto',tags:['history','vibe','shopping','food'],
+desc:'מתחם תעשייתי מהמאה ה-19 שהפך לגלריות, מסעדות וחנויות – ללא רכבים.',
+tips:'יפה במיוחד בערב ובחורף (שוק חג המולד).',
+price:'חופשי להליכה',free:1,book:'no',museum:0,kids:3,
+addr:'55 Mill St',how:'רחובות / תחבורה ל-King & Parliament',
+hours:'חנויות ומסעדות לפי עסק'},
+
+{id:'rom',en:'Royal Ontario Museum',loc:'Royal Ontario Museum (ROM)',lat:43.6677,lng:-79.3948,wiki:'Royal_Ontario_Museum',tags:['history','art','family'],
+desc:'המוזיאון הגדול בקנדה – דינוזאורים, תרבויות עולם ואגף ליבורסקיינד הבולט.',
+price:'~C$25',free:0,book:'recommended',museum:1,kids:4,
+addr:'100 Queens Park',how:'מטרו Museum / St. George',
+hours:'בדרך כלל 10:00–17:00',web:'https://www.rom.on.ca'},
+
+{id:'ago',en:'Art Gallery of Ontario',loc:'Art Gallery of Ontario (AGO)',lat:43.6536,lng:-79.3925,wiki:'Art_Gallery_of_Ontario',tags:['art','history'],
+desc:'אמנות קנדית ובינלאומית; אגף שעוצב מחדש על ידי פרנק גרי.',
+price:'~C$25',free:0,book:'recommended',museum:1,kids:2,
+addr:'317 Dundas St W',how:'מטרו St. Patrick',
+hours:'בדרך כלל 10:30–17:00',web:'https://ago.ca'},
+
+{id:'kensington',en:'Kensington Market',loc:'Kensington Market',lat:43.6546,lng:-79.4019,wiki:'Kensington_Market',tags:['vibe','food','shopping','family'],
+desc:'שוק שכונתי צבעוני – אוכל רחוב, חנויות וינטג׳ ותרבויות מכל העולם.',
+tips:'בקיץ יש ימי רחוב ללא רכבים. מצוין לאוכל מגוון.',
+price:'חופשי',free:1,book:'no',museum:0,kids:3,
+addr:'Kensington Ave / Baldwin St',how:'מטרו Spadina + הליכה / חשמלית',
+hours:'חנויות ביום; בתי קפה עד הערב'},
+
+{id:'harbourfront',en:'Harbourfront & Queens Quay',loc:'Harbourfront',lat:43.6389,lng:-79.3817,wiki:'Harbourfront_Centre',tags:['vibe','family','views'],
+desc:'טיילת האגם, מרכז אמנויות, שייט ונוף לאיים ולמגדל CN.',
+price:'חופשי להליכה',free:1,book:'no',museum:0,kids:4,
+addr:'Queens Quay W',how:'Union / רכבת קלה Queens Quay',
+hours:'תמיד; אטרקציות לפי לוח'},
+
+{id:'casa_loma',en:'Casa Loma',loc:'Casa Loma',lat:43.6780,lng:-79.4094,wiki:'Casa_Loma',tags:['history','family','views'],
+desc:'טירה גותית מפוארת עם גנים ומנהרות – חוויה משפחתית.',
+price:'~C$40',free:0,book:'recommended',museum:0,kids:4,hill:1,
+addr:'1 Austin Terrace',how:'מטרו Dupont + הליכה בעלייה / אוטובוס',
+hours:'בדרך כלל 9:30–17:00',web:'https://casaloma.ca'},
+
+{id:'stlawrence',en:'St. Lawrence Market',loc:'St. Lawrence Market',lat:43.6487,lng:-79.3715,wiki:'St._Lawrence_Market',tags:['food','family','vibe'],
+desc:'שוק אוכל היסטורי – מהמפורסמים בעולם. ה-peameal bacon sandwich הוא קלאסיקה.',
+tips:'שבת בבוקר הכי תוסס. יום ראשון – שוק עתיקות (South Market).',
+price:'חופשי בכניסה',free:1,book:'no',museum:0,kids:4,
+addr:'93 Front St E',how:'הליכה מ-Union / King streetcar',
+hours:'ג׳–ה׳ בערך 8–18; ש׳ עד אחה״צ',web:'https://stlawrencemarket.com'},
+
+{id:'ripleys',en:'Ripley\'s Aquarium',loc:'Ripley\'s Aquarium of Canada',lat:43.6424,lng:-79.3860,wiki:'Ripley%27s_Aquarium_of_Canada',tags:['family','nature'],
+desc:'אקווריום גדול ליד מגדל CN – כרישים, מנהרה תת-מימית ופעילויות לילדים.',
+price:'~C$40',free:0,book:'recommended',museum:0,kids:5,
+addr:'288 Bremner Blvd',how:'ליד CN Tower / Union',
+hours:'בדרך כלל 9:00–21:00',web:'https://www.ripleyaquariums.com/canada'},
+
+{id:'high_park',en:'High Park',loc:'High Park',lat:43.6465,lng:-79.4637,wiki:'High_Park',tags:['nature','family'],
+desc:'הפארק הגדול בעיר – פריחת דובדבן באביב, גן חיות קטן ואגמים.',
+price:'חופשי',free:1,book:'no',museum:0,kids:5,
+addr:'1873 Bloor St W',how:'מטרו High Park / Keele',
+hours:'תמיד'},
+
+{id:'niagara',en:'Niagara Falls (day trip)',loc:'Niagara Falls',lat:43.0896,lng:-79.0849,wiki:'Niagara_Falls',tags:['nature','views','family','trip'],
+desc:'מפלי הניאגרה – אחת האטרקציות המפורסמות בצפון אמריקה. טיול יום קלאסי מטורונטו (כ־1.5–2 שעות נסיעה).',
+hist:'גבול קנדה–ארה״ב; הצד הקנדי מציע תצפיות מצוינות וסירות Hornblower/Maid of the Mist.',
+tips:'מומלץ יום שלם. הגיעו עם רכבת GO / אוטובוס סיור / רכב. בקיץ רטוב ליד המפלים – בגדים מתאימים. בערב – מופע אורות.',
+price:'תצפית חופשית; סירה/אטרקציות מ-C$30+',free:0,book:'recommended',museum:0,trip:1,kids:5,
+addr:'Niagara Falls, Ontario (≈130 ק״מ מטורונטו)',
+how:'GO Train ל-Niagara (עונתי/סופ״ש) · אוטובוסי סיור · רכב בכביש QEW · מטיילים רבים יוצאים בבוקר וחוזרים בערב',
+hours:'המפלים תמיד; אטרקציות לפי עונה',
+web:'https://www.niagarafallstourism.com'}
+],
+
+hotels:[
+{id:'h-fairmont',name:'Fairmont Royal York',stars:5,lat:43.6457,lng:-79.3817,area:'Union Station / Downtown',addr:'100 Front St W',price:'מ-C$300 ללילה (משוער, ארוחת בוקר לבדוק)',why:'מלון אייקוני מול Union Station – נוח לרכבות, CN Tower והארבורפרונט.'},
+{id:'h-shangri',name:'Shangri-La Toronto',stars:5,lat:43.6490,lng:-79.3865,area:'Downtown / Financial',addr:'188 University Ave',price:'מ-C$350 ללילה (משוער)',why:'יוקרה ומיקום מרכזי להליכה למוזיאונים ולבידור.'},
+{id:'h-marriott-cf',name:'Toronto Marriott City Centre',stars:4,lat:43.6546,lng:-79.3807,area:'Eaton Centre',addr:'525 Bay St',price:'מ-C$220 ללילה (משוער)',why:'מחובר לקניות ו-Eaton Centre, נוח למשפחות.'},
+{id:'h-1hotel',name:'1 Hotel Toronto',stars:5,lat:43.6428,lng:-79.4020,area:'King West',addr:'550 Wellington St W',price:'מ-C$320 ללילה (משוער)',why:'עיצוב מודרני וידידותי לסביבה באזור בתי הקפה והמסעדות.'},
+{id:'h-chelsea',name:'The Chelsea Hotel',stars:4,lat:43.6580,lng:-79.3835,area:'Downtown',addr:'33 Gerrard St W',price:'מ-C$180 ללילה (משוער)',why:'גדול ומשפחתי, בריכה ומחיר סביר יחסית למרכז.'}
+],
+
+restaurants:[
+{id:'pai',name:'Pai Northern Thai Kitchen',lat:43.6477,lng:-79.3886,addr:'18 Duncan St',type:'תאילנדי',price:'C$20–40',note:'פופולרי מאוד – הגיעו מוקדם או הירשמו לתור.'},
+{id:'stlawrence-r',name:'St. Lawrence Market vendors',lat:43.6487,lng:-79.3715,addr:'93 Front St E',type:'שוק אוכל',price:'C$10–25',note:'כריכי peameal bacon, גבינות ואוכל מקומי.'},
+{id:'kensington-r',name:'Kensington Market eats',lat:43.6546,lng:-79.4019,addr:'Kensington Market',type:'רחוב / בינלאומי',price:'C$10–30',note:'טאקוס, בריסלס, מאפים ומטבחים מכל העולם.'},
+{id:'cn-restaurant',name:'360 Restaurant at CN Tower',lat:43.6426,lng:-79.3871,addr:'CN Tower',type:'גסטרונומי / נוף',price:'C$80+',note:'מסעדה מסתובבת – הזמנה מראש; חוויית נוף.'},
+{id:'kosher-tor',name:'מסעדות כשרות (באט׳רסט / נורת׳ יורק)',lat:43.7629,lng:-79.4110,addr:'Bathurst St / North York – לאמת',type:'כשר',price:'לבדוק',note:'קהילה יהודית גדולה – מסעדות כשרות רבות לאורך Bathurst וב-North York. אמתו תעודה.',kosher:1}
+],
+
+food:[
+{name:'Peameal bacon sandwich',en:'Peameal bacon sandwich',emoji:'🥪',desc:'סנדביץ׳ הבייקון הקנדי הקלאסי – חובה בשוק סנט לורנס.',price:'C$8–14'},
+{name:'פוטינה',en:'Poutine',emoji:'🍟',desc:'צ׳יפס, גבינת חלבונים ורטב – מנה קנדית מפורסמת.',price:'C$8–16'},
+{name:'מייפל / פנקייק',en:'Maple syrup treats',emoji:'🍁',desc:'סירופ מייפל על פנקייקס, ממתקים ומזכרות.',price:'משתנה'},
+{name:'רול אפ דה רימ',en:'Butter tart / Nanaimo',emoji:'🥧',desc:'קינוחים קנדיים מתוקים – כדאי לנסות בבית קפה מקומי.',price:'C$3–6'}
+],
+
+shopping:[
+{name:'Toronto Eaton Centre',lat:43.6544,lng:-79.3807,desc:'הקניון המרכזי בדאונטאון – מאות חנויות.',hours:'~10:00–21:00'},
+{name:'Yorkdale Shopping Centre',lat:43.7255,lng:-79.4520,desc:'קניון גדול מצפון – מותגים וחנויות יוקרה.',hours:'~10:00–21:00'},
+{name:'Queen Street West',lat:43.6475,lng:-79.4010,desc:'אופנה, בוטיקים ותרבות רחוב.',hours:'~11:00–19:00'},
+{name:'Distillery District shops',lat:43.6503,lng:-79.3596,desc:'גלריות ומלאכת יד במתחם ההיסטורי.',hours:'לפי חנות'},
+{name:'PATH Underground',lat:43.6480,lng:-79.3810,desc:'רשת מנהרות קניות מתחת לדאונטאון – שימושי בחורף.',hours:'שעות עסקים'}
+],
+
+markets:[
+{name:'St. Lawrence Market',lat:43.6487,lng:-79.3715,addr:'93 Front St E',days:'ג׳–ש׳ (ראשון עתיקות)',desc:'שוק האוכל המרכזי.'},
+{name:'Kensington Market',lat:43.6546,lng:-79.4019,addr:'Kensington area',days:'יומיומי',desc:'שוק שכונתי וחנויות מזון.'},
+{name:'Evergreen Brick Works Market',lat:43.6845,lng:-79.3655,addr:'550 Bayview Ave',days:'סופי שבוע (לבדוק)',desc:'שוק איכרים במתחם ירוק.'}
+],
+
+transport:{intro:'טורונטו: מטרו (TTC), חשמלית ואוטובוסים. כרטיס PRESTO נוח. לניאגרה – GO Train (עונתי/סופ״ש) או אוטובוס סיור. מוניות ו-Uber/Lyft נפוצים.',
+prices:[
+['נסיעה TTC (חד פעמי)','~C$3.35','PRESTO זול יותר לריבוי נסיעות'],
+['יום TTC','~C$13.50','לבדוק תעריף עדכני'],
+['GO Train לניאגרה','משתנה','עונתי / סופ״ש – בדקו לוח'],
+['מונית/אובר לשדה התעופה','~C$50–80','לפי עומס']
+],
+tickets:['כרטיס PRESTO (נטען)','אפליקציית TTC / תשלום בכרטיס אשראי בכניסה לפי זמינות'],
+extra:[
+'שמרו על כרטיס/PRESTO עד היציאה',
+'לניאגרה ביום אחד צאו מוקדם',
+'בחורף ה-PATH התת-קרקעי חוסך קור'
+],
+lines:[
+{id:'YUS',name:'Line 1 Yonge–University',color:'#f5c400',from:'Vaughan / Finch',to:'',stations:['union','stgeorge','bloor']},
+{id:'BD',name:'Line 2 Bloor–Danforth',color:'#00a54f',from:'Kipling',to:'Kennedy',stations:['bloor','spadina']},
+{id:'RT',name:'Streetcars (King/Queen)',color:'#e74c3c',from:'מזרח–מערב',to:'',stations:['king','queen']}
+],
+stations:{
+union:{n:'Union Station',he:'מרכז / רכבות',lat:43.6453,lng:-79.3806,note:'CN Tower, Harbourfront, GO trains',poi:['cn_tower','harbourfront','ripleys']},
+stgeorge:{n:'St. George',he:'אוניברסיטה / ROM',lat:43.6682,lng:-79.3998,note:'',poi:['rom']},
+bloor:{n:'Bloor–Yonge',he:'החלפה ראשית',lat:43.6708,lng:-79.3860,note:'',poi:[]},
+spadina:{n:'Spadina',he:'קנסינגטון / צ׳יינטאון',lat:43.6544,lng:-79.4032,note:'',poi:['kensington']},
+king:{n:'King streetcar area',he:'דאונטאון דרום',lat:43.6480,lng:-79.3780,note:'',poi:['distillery','stlawrence']},
+queen:{n:'Queen streetcar',he:'',lat:43.6520,lng:-79.3800,note:'',poi:[]}
+}},
+
+airports:[{
+n:'נמל התעופה פירסון (YYZ)',
+lat:43.6777,lng:-79.6248,
+via:'union',
+how:'Union Pearson Express (UP Express) ל-Union Station ~25 דק׳; או אוטובוס TTC; או מונית/אובר.'
+},{
+n:'Billy Bishop Toronto City Airport (YTZ)',
+lat:43.6275,lng:-79.3962,
+via:'union',
+how:'מעבורת קצרה / מנהרה להולכי רגל לאי – קרוב לדאונטאון.'
+}],
+
+tips:[
+['🌧️','מזג אוויר','חורף קר ומושלג; קיץ חם ולח. שכבות בחורף, מים בקיץ.'],
+['🎫','CN Tower וניאגרה','הזמינו מראש בעונה. לניאגרה – יום מלא.'],
+['🚇','PRESTO','כרטיס אחד ל-TTC וחלק מקווי GO.'],
+['🍁','טיפין','נהוג ~15–20% במסעדות.'],
+['✡️','יהדות','קהילה גדולה – מסעדות כשרות באזור Bathurst / North York; בדקו שבת ושעות.'],
+['🌊','מפלי ניאגרה','טיול יום מומלץ: יציאה בבוקר, סירה או תצפית, חזרה בערב. דרכון/תעודה אם חוצים לארה״ב (לא חובה לצד הקנדי).'],
+['💵','מטבע','דולר קנדי (CAD). אשראי מקובל בכל מקום.']
+],
+
+info:{
+'כסף':['דולר קנדי (CAD / C$)','טיפין 15–20% במסעדות'],
+'שפה':['אנגלית; צרפתית רשמית בקנדה אך בטורונטו בעיקר אנגלית'],
+'חירום':['911'],
+'חשמל':['120V, תקע צפון-אמריקאי'],
+'כניסה':['בדקו אשרת כניסה / eTA לקנדה לפי דרכון']
+},
+
+events:[],
+updated:'כולל טיול יום למפלי ניאגרה. אמתו מחירים, לוחות GO ושעות לפני הנסיעה.'
+});
+
+
 
 
 
@@ -4487,6 +4688,7 @@ madrid:'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Madrid_-_Sky_Ba
 lisbon:'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Lisboa_-_Portugal_%2852597836992%29.jpg/330px-Lisboa_-_Portugal_%2852597836992%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
 amsterdam:'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/330px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
 spb:'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg/330px-Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+toronto:'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg/640px-Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
 };
 
 function allCities(){
