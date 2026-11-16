@@ -4898,8 +4898,10 @@ const S={
 };
 function persistSession(){
   try{
-    LS.set('lastCity',S.cityId||null);
-    LS.set('lastTab',S.tab||'map');
+    // זוכרים את המסך האחרון: בית או עיר (לא "עיר אחרונה שביקרתי" אם יצאתי מהבית)
+    LS.set('lastScreen', S.cityId ? 'city' : 'home');
+    LS.set('lastCity', S.cityId || null);
+    LS.set('lastTab', S.tab || 'map');
   }catch(e){}
 }
 function ud(cityId){
@@ -5216,7 +5218,7 @@ function enableCityDrag(){
 function openCity(id,push){
   S.cityId=id;S.tab='map';S.sub='prices';S.plan=null;S.gFrom=S.gTo=null;
   persistSession();
-  if(push)history.pushState({c:id,tab:S.tab},'');
+  if(push)history.pushState({c:id,tab:S.tab,fromNav:1},'');
   renderCity();window.scrollTo(0,0);
 }
 function renderCity(){
@@ -5694,7 +5696,7 @@ document.addEventListener('click',e=>{
   if(a==='mapfs'){const w=$('#mapWrap');if(!w)return;if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}else{(w.requestFullscreen||w.webkitRequestFullscreen).call(w);setTimeout(()=>{try{S.map&&S.map.invalidateSize(false)}catch(e){}},300)}return}
   if(a==='say'){const txt=t.dataset.say||'';const lang=t.dataset.lang||'en';if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(txt);u.lang=lang;u.rate=0.9;speechSynthesis.cancel();speechSynthesis.speak(u)}else toast('השמעה לא נתמכת במכשיר זה');return}
 });
-$('#btnHome').onclick=()=>{if(history.state&&history.state.c)history.back();else renderHome()};
+$('#btnHome').onclick=()=>{S.cityId=null;persistSession();try{history.pushState({fromNav:1},'')}catch(e){}renderHome();};
 $('#btnRef').onclick=refreshAll;
 window.addEventListener('popstate',()=>{const c=history.state&&history.state.c;if(c&&allCities().some(x=>x.id===c)){S.cityId=c;S.tab='map';renderCity()}else renderHome()});
 
@@ -6634,22 +6636,52 @@ async function buildCity(pl,prog){
 /* ===== הפעלה ===== */
 (function init(){
   const st=history.state;
-  // שחזור מקום אחרון / היסטוריה
-  let restoreId=(st&&st.c)||S.cityId;
-  if(restoreId&&allCities().some(x=>x.id===restoreId)){
-    S.cityId=restoreId;
-    if(st&&st.tab)S.tab=st.tab;
+  tryImportFromHash();
+  // שחזור המסך ממנו יצאנו: בית או עיר
+  const lastScreen=LS.get('lastScreen', null);
+  const histCity=st&&st.c;
+  // history.state רק אם יש ניווט פנימי; אחרת lastScreen קובע
+  if(histCity&&allCities().some(x=>x.id===histCity)&&st&&st.fromNav){
+    S.cityId=histCity;
+    if(st.tab)S.tab=st.tab;
     renderCity();
+  }else if(lastScreen==='city'){
+    const id=LS.get('lastCity',null);
+    if(id&&allCities().some(x=>x.id===id)){
+      S.cityId=id;
+      S.tab=LS.get('lastTab','map')||'map';
+      renderCity();
+    }else{
+      S.cityId=null;renderHome();
+    }
   }else{
+    // מסך ראשי (או אין מידע) — תמיד בית
     S.cityId=null;renderHome();
   }
-  // שמירת מצב בעת עזיבה
-  tryImportFromHash();
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')persistSession()});
   window.addEventListener('pagehide',persistSession);
 
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)&&document.querySelector('link[rel=manifest]')){
-    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+    navigator.serviceWorker.register('./sw.js').then(reg=>{
+      // בדיקת עדכונים בכל פתיחה
+      try{reg.update()}catch(e){}
+      if(reg.waiting){reg.waiting.postMessage({type:'SKIP_WAITING'})}
+      reg.addEventListener('updatefound',()=>{
+        const nw=reg.installing;if(!nw)return;
+        nw.addEventListener('statechange',()=>{
+          if(nw.state==='installed'&&navigator.serviceWorker.controller){
+            // יש גרסה חדשה — הפעלה מיידית ברענון הבא / עכשיו
+            nw.postMessage({type:'SKIP_WAITING'});
+          }
+        });
+      });
+    }).catch(()=>{});
+    let refreshing=false;
+    navigator.serviceWorker.addEventListener('controllerchange',()=>{
+      if(refreshing)return;refreshing=true;
+      // טעינה מחדש לגרסה החדשה רק אם לא מצב file
+      try{location.reload()}catch(e){}
+    });
   }
   // מופע יחיד: אם העתק כבר פתוח – להתמקד בו
   try{

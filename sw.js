@@ -1,7 +1,5 @@
-const CACHE = 'travel-info-v3';
+const CACHE = 'travel-info-v4';
 const ASSETS = [
-  './',
-  './index.html',
   './manifest.webmanifest',
   './icon-192.png',
   './icon-512.png',
@@ -19,8 +17,13 @@ self.addEventListener('activate', e => {
   );
 });
 
+self.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') self.skipWaiting();
+});
+
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
+  // API ורשת חיצונית — תמיד מהרשת
   if (url.hostname.includes('open-meteo') || url.hostname.includes('wikipedia') ||
       url.hostname.includes('wikimedia') || url.hostname.includes('frankfurter') ||
       url.hostname.includes('nominatim') || url.hostname.includes('restcountries') ||
@@ -28,6 +31,24 @@ self.addEventListener('fetch', e => {
     e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
     return;
   }
+  // HTML / ניווט — קודם רשת (גרסה חדשה), אחר כך מטמון
+  const isHTML = e.request.mode === 'navigate' ||
+    url.pathname.endsWith('.html') ||
+    url.pathname.endsWith('/') ||
+    (e.request.headers.get('accept') || '').includes('text/html');
+  if (isHTML) {
+    e.respondWith(
+      fetch(e.request).then(resp => {
+        if (resp && resp.status === 200) {
+          const clone = resp.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return resp;
+      }).catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
+    );
+    return;
+  }
+  // שאר הנכסים — מטמון ואז רשת
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).then(resp => {
       const clone = resp.clone();
@@ -37,15 +58,4 @@ self.addEventListener('fetch', e => {
       return resp;
     }).catch(() => caches.match('./index.html')))
   );
-});
-
-// מיקוד חלון קיים כשפותחים שוב את ה-PWA
-self.addEventListener('message', async (event) => {
-  if (!event.data || event.data.type !== 'FOCUS_EXISTING') return;
-  const all = await clients.matchAll({ type: 'window', includeUncontrolled: true });
-  for (const c of all) {
-    if (c.url && 'focus' in c) {
-      try { await c.focus(); } catch (e) {}
-    }
-  }
 });
