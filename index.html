@@ -691,6 +691,7 @@ h3{margin:0 0 4px;font-size:16px;color:var(--ink)}
 .muted{color:var(--muted);font-size:13px}
 /* home */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.grid .ccard{content-visibility:auto;contain:layout style paint}
 .ccard{position:relative;border-radius:20px;min-height:170px;color:#fff;overflow:hidden;box-shadow:var(--sh);cursor:pointer;background-color:var(--a);background-image:linear-gradient(135deg,var(--a),var(--b));background-size:cover;background-position:center;background-repeat:no-repeat}
 .ccard::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.65))}
 .ccard .in{position:absolute;inset:auto 0 0 0;padding:12px;z-index:2}
@@ -4628,6 +4629,230 @@ events:[],
 updated:'כולל טיול יום למפלי ניאגרה. אמתו מחירים, לוחות GO ושעות לפני הנסיעה.'
 });
 
+window.CITIES.push({id:'london',name:'לונדון',en:'London',local:'London',country:'בריטניה',flag:'🇬🇧',
+color:['#1e3a8a','#b91c1c'],center:[51.5074,-0.1278],zoom:12,wiki:'London',
+cur:'GBP',sym:'£',tz:'Europe/London',
+phrase:'Could you take me to this address, please?',phraseLang:'🇬🇧 English',speechLang:'en-GB',
+phrases:[
+['שלום','Hello','he-LO'],
+['תודה','Thank you','thank you'],
+['בבקשה','Please','please'],
+['כמה זה עולה?','How much is it?','how much is it'],
+['איפה השירותים?','Where is the toilet?','where is the TOI-let'],
+['עזרה!','Help!','help'],
+['חשבון בבקשה','The bill, please','the bill please'],
+['מים / תה','Water / Tea','water / tea'],
+['תחנת רכבת תחתית','Underground station','underground station'],
+['קחו אותי לכתובת הזו','Could you take me to this address?','could you take me to this address'],
+['כשר','Kosher','KO-sher'],
+['איפה ביג בן?','Where is Big Ben?','where is big ben'],
+['סליחה','Excuse me / Sorry','ex-CUSE me / sorry']
+],
+intro:'לונדון – בירת בריטניה: היסטוריה מלכותית, מוזיאונים ברמה עולמית (רבים עם כניסה חופשית), תיאטרון בווסט אנד, פארקים עצומים וקהילה יהודית גדולה. העיר עצומה – תכננו לפי אזורים והשתמשו ב-Underground.',
+sites:[
+{id:'british_museum',en:'British Museum',loc:'British Museum',lat:51.5194,lng:-0.1270,wiki:'British_Museum',tags:['history','art','family'],
+desc:'מהמוזיאונים החשובים בעולם – אבן רוזטה, שיש אלגין וממצאים מכל התרבויות. כניסה חופשית.',
+tips:'הזמינו כרטיס כניסה חינם מראש באתר – חוסך תור. התחילו באגפים שמעניינים אתכם.',
+price:'חופשי (תרומה מוצעת)',free:1,book:'recommended',museum:1,kids:4,
+addr:'Great Russell St, WC1B 3DG',how:'מטרו Tottenham Court Road / Holborn / Russell Square',
+hours:'בדרך כלל 10:00–17:00',web:'https://www.britishmuseum.org'},
+
+{id:'tower',en:'Tower of London',loc:'Tower of London',lat:51.5081,lng:-0.0759,wiki:'Tower_of_London',tags:['history','family'],
+desc:'מצודה נורמנית, כתרים מלכותיים (Crown Jewels) והיסטוריה דרמטית של מלכים ואסירים.',
+tips:'הזמינו מראש. סיור עם Beefeater מומלץ.',
+price:'~£35',free:0,book:'recommended',museum:0,kids:4,
+addr:'London EC3N 4AB',how:'מטרו Tower Hill',
+hours:'בדרך כלל 9:00–17:00 (חורף קצר יותר)',web:'https://www.hrp.org.uk/tower-of-london'},
+
+{id:'tower_bridge',en:'Tower Bridge',loc:'Tower Bridge',lat:51.5055,lng:-0.0754,wiki:'Tower_Bridge',tags:['views','family','history'],
+desc:'הגשר האייקוני – לא להתבלבל עם London Bridge. אפשר לעלות לתערוכה ולרצפת הזכוכית.',
+price:'הליכה על הגשר חופשית; תערוכה בתשלום',free:1,book:'no',museum:0,kids:4,
+addr:'Tower Bridge Rd, SE1 2UP',how:'מטרו Tower Hill / London Bridge',
+hours:'גשר תמיד; תערוכה לפי לוח',web:'https://www.towerbridge.org.uk'},
+
+{id:'westminster',en:'Westminster – Big Ben & Abbey',loc:'Westminster',lat:51.4994,lng:-0.1245,wiki:'Palace_of_Westminster',tags:['history','views','family'],
+desc:'ביג בן (מגדל אליזבת), הפרלמנט ומנזר וסטמינסטר – לב השלטון הבריטי.',
+tips:'מנזר וסטמינסטר בתשלום; צילום חיצוני חופשי. בדקו שיפוצים על הביג בן.',
+price:'חופשי מבחוץ; Abbey ~£30',free:0,book:'recommended',museum:0,kids:3,
+addr:'Westminster, SW1',how:'מטרו Westminster',
+hours:'אזור חיצוני תמיד; Abbey לפי לוח',web:'https://www.westminster-abbey.org'},
+
+{id:'national_gallery',en:'National Gallery',loc:'National Gallery',lat:51.5089,lng:-0.1283,wiki:'National_Gallery',tags:['art','history','family'],
+desc:'ואן גוך, טרנר, דה וינצ׳י ועוד – כניסה חופשית בטרפלגר סקוור.',
+price:'חופשי (תערוכות מיוחדות בתשלום)',free:1,book:'no',museum:1,kids:3,
+addr:'Trafalgar Square, WC2N 5DN',how:'מטרו Charing Cross / Leicester Square',
+hours:'בדרך כלל 10:00–18:00',web:'https://www.nationalgallery.org.uk'},
+
+{id:'london_eye',en:'London Eye',loc:'London Eye',lat:51.5033,lng:-0.1195,wiki:'London_Eye',tags:['views','family'],
+desc:'גלגל ענק על התמזה – תצפית פנורמית על העיר.',
+tips:'הזמינו מראש; שקיעה = תור ארוך ומחיר גבוה יותר.',
+price:'מ-~£30',free:0,book:'recommended',museum:0,kids:5,
+addr:'Riverside Building, County Hall, SE1 7PB',how:'מטרו Waterloo / Westminster',
+hours:'בדרך כלל 11:00–18:00 (משתנה)',web:'https://www.londoneye.com'},
+
+{id:'buckingham',en:'Buckingham Palace',loc:'Buckingham Palace',lat:51.5014,lng:-0.1419,wiki:'Buckingham_Palace',tags:['history','family','views'],
+desc:'מקום מגורי המלך. Changing of the Guard – טקס משמר (לפי לוח).',
+tips:'הטקס לא כל יום – בדקו לוח. בקיץ אפשר לבקר באגפים מסוימים.',
+price:'טקס מבחוץ חופשי; ארמון בתשלום בעונה',free:1,book:'no',museum:0,kids:4,
+addr:'Westminster, SW1A 1AA',how:'מטרו Victoria / Green Park / St James\'s Park',
+hours:'טקס לפי לוח מלכותי',web:'https://www.rct.uk'},
+
+{id:'hyde_park',en:'Hyde Park & Kensington Gardens',loc:'Hyde Park',lat:51.5073,lng:-0.1657,wiki:'Hyde_Park,_London',tags:['nature','family','vibe'],
+desc:'פארק ענק במרכז – אגם, ספיקרים קורנר, וארמון קנסינגטון.',
+price:'חופשי',free:1,book:'no',museum:0,kids:5,
+addr:'Hyde Park, W2',how:'מטרו Hyde Park Corner / Marble Arch / Lancaster Gate',
+hours:'תמיד'},
+
+{id:'camden',en:'Camden Market',loc:'Camden Market',lat:51.5416,lng:-0.1460,wiki:'Camden_Market',tags:['vibe','shopping','food','family'],
+desc:'שוק אלטרנטיבי – אוכל רחוב, מוזיקה, אופנה ואווירה צעירה.',
+tips:'עמוס בסופי שבוע. שמרו על חפצים.',
+price:'חופשי',free:1,book:'no',museum:0,kids:3,
+addr:'Camden Lock, NW1',how:'מטרו Camden Town (יציאה הכי עמוסה בסופ״ש)',
+hours:'בערך 10:00–18:00'},
+
+{id:'borough',en:'Borough Market',loc:'Borough Market',lat:51.5055,lng:-0.0910,wiki:'Borough_Market',tags:['food','vibe','family'],
+desc:'שוק האוכל המפורסם ליד London Bridge – גבינות, לחמים ואוכל רחוב.',
+tips:'הכי טוב בבוקר באמצע השבוע; עמוס בצהרי סופ״ש.',
+price:'חופשי בכניסה',free:1,book:'no',museum:0,kids:4,
+addr:'8 Southwark St, SE1 1TL',how:'מטרו London Bridge',
+hours:'בדרך כלל ד׳–ש׳; לבדוק',web:'https://boroughmarket.org.uk'},
+
+{id:'stpauls',en:'St Paul\'s Cathedral',loc:'St Paul\'s Cathedral',lat:51.5138,lng:-0.0984,wiki:'St_Paul%27s_Cathedral',tags:['history','views','art'],
+desc:'הקתדרלה של רן – כיפה, קריפטה ותצפית (אם פתוחה).',
+price:'~£25',free:0,book:'recommended',museum:0,kids:3,hill:1,
+addr:'St. Paul\'s Churchyard, EC4M 8AD',how:'מטרו St. Paul\'s',
+hours:'בדרך כלל 8:30–16:30',web:'https://www.stpauls.co.uk'},
+
+{id:'tate_modern',en:'Tate Modern',loc:'Tate Modern',lat:51.5076,lng:-0.0994,wiki:'Tate_Modern',tags:['art','views','family'],
+desc:'אמנות מודרנית ועכשווית במבנה תחנת כוח לשעבר – כניסה חופשית, נוף ממרפסת.',
+price:'חופשי (תערוכות מיוחדות בתשלום)',free:1,book:'no',museum:1,kids:3,
+addr:'Bankside, SE1 9TG',how:'מטרו Southwark / Blackfriars / London Bridge',
+hours:'בדרך כלל 10:00–18:00',web:'https://www.tate.org.uk/visit/tate-modern'},
+
+{id:'covent',en:'Covent Garden',loc:'Covent Garden',lat:51.5118,lng:-0.1226,wiki:'Covent_Garden',tags:['vibe','shopping','family'],
+desc:'רחבה, מופעי רחוב, חנויות ושוק – לב תיירותי ונעים.',
+price:'חופשי',free:1,book:'no',museum:0,kids:4,
+addr:'Covent Garden, WC2',how:'מטרו Covent Garden (מדרגות רבות!) / Leicester Square',
+hours:'תמיד'},
+
+{id:'greenwich',en:'Greenwich (day trip area)',loc:'Greenwich',lat:51.4769,lng:-0.0005,wiki:'Greenwich',tags:['history','views','family','trip'],
+desc:'קו אורך 0, מצפה כוכבים, Cutty Sark ופארק עם נוף ללונדון. חצי יום–יום.',
+tips:'רכבת מ-London Bridge / מעבורת על התמזה.',
+price:'פארק חופשי; מוזיאונים לפי אתר',free:0,book:'no',museum:0,trip:1,kids:4,hill:1,
+addr:'Greenwich, SE10',how:'רכבת ל-Greenwich / Cutty Sark DLR',
+hours:'פארק תמיד'},
+
+{id:'jewish_museum_ldn',en:'Jewish Museum London',loc:'Jewish Museum London',lat:51.5370,lng:-0.1440,wiki:'Jewish_Museum_London',tags:['jewish','history'],
+desc:'היסטוריה ותרבות יהודית בבריטניה – תצוגות למשפחות.',
+price:'לבדוק (לעיתים תרומה/כרטיס)',free:0,book:'recommended',museum:1,kids:3,
+addr:'Raymond Burton House, 129–131 Albert St, NW1',how:'מטרו Camden Town',
+hours:'לבדוק באתר',web:'https://jewishmuseum.org.uk'}
+],
+
+hotels:[
+{id:'h-savoy',name:'The Savoy',stars:5,lat:51.5100,lng:-0.1205,area:'Strand / Covent Garden',addr:'Strand, WC2R 0EU',price:'מ-£450 ללילה (משוער)',why:'מלון היסטורי אגדי במרכז – יוקרה ומיקום מצוין לתיאטרון.'},
+{id:'h-claridges',name:'Claridge\'s',stars:5,lat:51.5125,lng:-0.1478,area:'Mayfair',addr:'Brook St, W1K 4HR',price:'מ-£550 ללילה (משוער)',why:'אייקון של מייפייר – אלגנטיות בריטית קלאסית.'},
+{id:'h-corinthia',name:'Corinthia London',stars:5,lat:51.5055,lng:-0.1245,area:'Whitehall / Westminster',addr:'Whitehall Place, SW1A 2BD',price:'מ-£400 ללילה (משוער)',why:'יוקרה מודרנית ליד וסטמינסטר והתמזה.'},
+{id:'h-premier_south',name:'Premier Inn / מומלץ למשפחות (אזור South Bank)',stars:4,lat:51.5045,lng:-0.1160,area:'South Bank',addr:'לבדוק סניף',price:'מ-£120 ללילה (משוער)',why:'רשת אמינה במחיר סביר יחסית ללונדון, נוח למשפחות.'},
+{id:'h-travelodge_city',name:'Travelodge London City',stars:3,lat:51.5110,lng:-0.0750,area:'City / Tower',addr:'לבדוק סניף',price:'מ-£100 ללילה (משוער)',why:'מיקום טוב לתקציב בינוני ליד הסיטי והטאוור.'}
+],
+
+restaurants:[
+{id:'dishoom',name:'Dishoom',lat:51.5125,lng:-0.1265,addr:'כמה סניפים (Covent Garden, King\'s Cross...)',type:'הודי / בומביי קפה',price:'£15–35',note:'פופולרי מאוד – הגיעו מוקדם או הזמינו.'},
+{id:'borough_eats',name:'Borough Market food stalls',lat:51.5055,lng:-0.0910,addr:'Borough Market',type:'שוק אוכל',price:'£8–20',note:'גבינות, סנדוויצ׳ים ואוכל רחוב איכותי.'},
+{id:'chinatown',name:'Chinatown London',lat:51.5115,lng:-0.1310,addr:'Gerrard St, W1',type:'סיני',price:'£12–30',note:'ריכוז מסעדות סיניות בסוהו.'},
+{id:'brick_lane',name:'Brick Lane curries',lat:51.5220,lng:-0.0715,addr:'Brick Lane, E1',type:'הודו-בנגלי',price:'£12–25',note:'רחוב הקארי המפורסם – בחרו לפי חוות דעת עדכניות.'},
+{id:'kosher_ldn',name:'מסעדות כשרות (גולדרס גרין / סטמפורד היל)',lat:51.5730,lng:-0.1940,addr:'Golders Green / Stamford Hill – לאמת',type:'כשר',price:'לבדוק',note:'קהילה יהודית גדולה – מסעדות כשרות רבות בצפון-מערב לונדון. אמתו תעודה ושעות שבת.',kosher:1}
+],
+
+food:[
+{name:'Fish and chips',en:'Fish and chips',emoji:'🐟',desc:'דג מטוגן וצ׳יפס – קלאסיקה בריטית. נסו ב-chippy מומלץ.',price:'£8–15'},
+{name:'Full English breakfast',en:'Full English',emoji:'🍳',desc:'ארוחת בוקר כבדה – ביצים, בייקון, שעועית, טוסט.',price:'£8–14'},
+{name:'Afternoon tea',en:'Afternoon tea',emoji:'🫖',desc:'תה, סקונס ומתוקים – חוויה תיירותית (גם במלונות יוקרה).',price:'£25–60'},
+{name:'Sunday roast',en:'Sunday roast',emoji:'🍖',desc:'צלי יום ראשון עם ירקות ו-Yorkshire pudding.',price:'£15–25'},
+{name:'Pie & mash',en:'Pie and mash',emoji:'🥧',desc:'מאפה בשר מסורתי של לונדון המזרחית.',price:'£8–12'}
+],
+
+shopping:[
+{name:'Oxford Street / Selfridges',lat:51.5154,lng:-0.1410,desc:'רחוב הקניות הראשי ויוניברסטיס סלפרידג׳ס.',hours:'~10:00–21:00'},
+{name:'Harrods',lat:51.4994,lng:-0.1632,desc:'היוניברסל הנודע בנייטסברידג׳.',hours:'~10:00–9:00'},
+{name:'Covent Garden',lat:51.5118,lng:-0.1226,desc:'בוטיקים, שוק ומופעי רחוב.',hours:'~10:00–20:00'},
+{name:'Borough Market',lat:51.5055,lng:-0.0910,desc:'אוכל ומוצרים מיוחדים.',hours:'לפי ימי השוק'},
+{name:'Camden Market',lat:51.5416,lng:-0.1460,desc:'אופנה אלטרנטיבית ומזכרות.',hours:'~10:00–18:00'},
+{name:'Westfield London (Shepherd\'s Bush)',lat:51.5070,lng:-0.2210,desc:'קניון ענק במערב העיר.',hours:'~10:00–22:00'}
+],
+
+markets:[
+{name:'Borough Market',lat:51.5055,lng:-0.0910,addr:'Southwark St, SE1',days:'בעיקר ד׳–ש׳',desc:'שוק אוכל איכותי.'},
+{name:'Camden Market',lat:51.5416,lng:-0.1460,addr:'Camden Lock',days:'יומיומי',desc:'שוק תרבות ואוכל.'},
+{name:'Portobello Road Market',lat:51.5150,lng:-0.2050,addr:'Notting Hill',days:'בעיקר שבת (עתיקות)',desc:'שוק עתיקות ואופנה בנוטינג היל.'},
+{name:'Spitalfields Market',lat:51.5195,lng:-0.0754,addr:'Brushfield St, E1',days:'יומיומי',desc:'עיצוב, אופנה ואוכל.'}
+],
+
+transport:{intro:'ה-Underground («הטיוב») + אוטובוסים + רכבת פרברית (Overground/National Rail). כרטיס Oyster או כרטיס אשראי contactless – אותו תעריף. יש תקרת יום (daily cap).',
+prices:[
+['נסיעה בודדת (משוער)','£2.80–£5.60','לפי אזורים'],
+['תקרת יום (zones 1–2)','~£8.50','contactless/Oyster'],
+['אוטובוס נסיעה','~£1.75','העברות תוך שעה'],
+['היטרו להילטון אקספרס','לבדוק','גם Elizabeth Line ו-Piccadilly']
+],
+tickets:['Contactless / Apple Pay / Google Pay','Oyster Card','כרטיסי Visitor לפי הצורך'],
+extra:[
+'לא חייבים לקנות כרטיס נייר – contactless נוח יותר',
+'עומדים מימין בדרגנוע, הולכים משמאל',
+'לילה: Night Tube בקווים מסוימים בסופ״ש + אוטובוסי לילה',
+'עומס בבוקר (8–9:30) ואחה״צ (17–18:30)'
+],
+lines:[
+{id:'CL',name:'Central',color:'#e2410a',from:'West Ruislip / Ealing',to:'Epping / Hainault',stations:['oxford','tottenham','bank']},
+{id:'PIC',name:'Piccadilly',color:'#003e89',from:'Heathrow / Uxbridge',to:'Cockfosters',stations:['heathrow','southken','leicester','kingscross']},
+{id:'JUB',name:'Jubilee',color:'#868f98',from:'Stanmore',to:'Stratford',stations:['baker','wminster','londonbridge','canary']},
+{id:'NOR',name:'Northern',color:'#000000',from:'Edgware / High Barnet',to:'Morden',stations:['camden','leicester','londonbridge']},
+{id:'EL',name:'Elizabeth line',color:'#773dbd',from:'Reading / Heathrow',to:'Abbey Wood / Shenfield',stations:['paddington','tottenham','liverpool']}
+],
+stations:{
+westminster:{n:'Westminster',he:'ביג בן / פרלמנט',lat:51.5010,lng:-0.1250,note:'',poi:['westminster','london_eye']},
+towerhill:{n:'Tower Hill',he:'טאוור',lat:51.5098,lng:-0.0766,note:'',poi:['tower','tower_bridge']},
+oxford:{n:'Oxford Circus',he:'קניות',lat:51.5152,lng:-0.1418,note:'',poi:[]},
+leicester:{n:'Leicester Square',he:'וסט אנד',lat:51.5113,lng:-0.1281,note:'',poi:['national_gallery','covent']},
+camden:{n:'Camden Town',he:'קמדן',lat:51.5392,lng:-0.1426,note:'עמוס בסופ״ש',poi:['camden','jewish_museum_ldn']},
+londonbridge:{n:'London Bridge',he:'בורו / טייט',lat:51.5050,lng:-0.0860,note:'',poi:['borough','tate_modern','tower_bridge']},
+kingscross:{n:'King\'s Cross St. Pancras',he:'רכבות צפון / יורוסטאר',lat:51.5308,lng:-0.1238,note:'',poi:[]},
+paddington:{n:'Paddington',he:'היטרו (אליזבת)',lat:51.5154,lng:-0.1755,note:'',poi:[]},
+southken:{n:'South Kensington',he:'מוזיאונים',lat:51.4941,lng:-0.1737,note:'מדע / טבע / V&A',poi:['hyde_park']},
+tottenham:{n:'Tottenham Court Road',he:'בריטיש מיוזיאום',lat:51.5165,lng:-0.1310,note:'',poi:['british_museum']}
+}},
+
+airports:[
+{n:'Heathrow (LHR)',lat:51.4700,lng:-0.4543,via:'paddington',how:'Elizabeth Line או Heathrow Express ל-Paddington; או Piccadilly line (זול יותר, איטי יותר).'},
+{n:'Gatwick (LGW)',lat:51.1537,lng:-0.1821,via:'londonbridge',how:'Gatwick Express / Southern ל-Victoria או Thameslink.'},
+{n:'Stansted (STN)',lat:51.8860,lng:0.2389,via:'kingscross',how:'Stansted Express ל-Liverpool Street.'},
+{n:'Luton (LTN)',lat:51.8747,lng:-0.3683,via:'kingscross',how:'רכבת ל-St Pancras (עם הסעה קצרה מהטרמינל).'}
+],
+
+tips:[
+['🎫','מוזיאונים חינם','British Museum, National Gallery, Tate Modern ועוד – כניסה חופשית; תרומה מוצעת.'],
+['🚇','Contactless','העדיפו אשראי/טלפון על פני כרטיסי נייר – תעריף משתלם עם תקרת יום.'],
+['💷','מטבע','פאונד שטרלינג (£). טיפין במסעדות ~12–15% אם לא כלול.'],
+['☔','מזג אוויר','גשם אפשרי כל השנה – קחו מטרייה או מעיל קל.'],
+['✡️','יהדות','קהילות בגולדרס גרין, הנדון, סטמפורד היל; מסעדות כשרות – אמתו תעודה.'],
+['🎭','תיאטרון','וסט אנד – כרטיסים ביום ב-TKTS בליסטר סקוור לעיתים בהנחה.'],
+['🚶','הליכה','מרכז לונדון הליכתי בין אשכולות אתרים; בין אזורים רחוקים – טיוב.']
+],
+
+info:{
+'כסף':['פאונד שטרלינג (GBP / £)','טיפין 12–15% במסעדות לעיתים'],
+'שפה':['אנגלית'],
+'חירום':['999 או 112'],
+'חשמל':['230V, תקע בריטי תלת-פיני – הביאו מתאם'],
+'כניסה':['בדקו דרכון / ETA לבריטניה לפי הנחיות עדכניות']
+},
+
+events:[],
+updated:'מדריך מורחב ללונדון. מחירים משתנים – אמתו באתרים הרשמיים לפני הביקור.'
+});
+
+
 
 
 
@@ -4662,13 +4887,65 @@ function confirmBox(title,text,okLabel,cb,danger){
 
 /* ===== מצב ===== */
 const S={
-  tab:'map',sub:'prices',cityId:null,
+  tab:LS.get('lastTab','map'),sub:'prices',cityId:LS.get('lastCity',null),
   custom:LS.get('custom',[]),deleted:LS.get('deleted',[]),
   form:LS.get('form',{}),hotel:LS.get('hotel',{}),
   map:null,layers:{},plan:null,siteFilter:'all',
-  citySort:LS.get('citySort','default'),
-  savedPlans:LS.get('savedPlans',{})
+  citySort:LS.get('citySort','custom'),
+  cityOrder:LS.get('cityOrder',[]),
+  savedPlans:LS.get('savedPlans',{}),
+  userData:LS.get('userData',{}) // {cityId:{sites:[],hotels:[],restaurants:[],notes:[],tips:[]}}
 };
+function persistSession(){
+  try{
+    LS.set('lastCity',S.cityId||null);
+    LS.set('lastTab',S.tab||'map');
+  }catch(e){}
+}
+function ud(cityId){
+  S.userData=S.userData||{};
+  if(!S.userData[cityId])S.userData[cityId]={sites:[],hotels:[],restaurants:[],notes:[],transport:[],tips:[]};
+  const u=S.userData[cityId];
+  ['sites','hotels','restaurants','notes','transport','tips'].forEach(k=>{if(!Array.isArray(u[k]))u[k]=[]});
+  return u;
+}
+function saveUserData(){LS.set('userData',S.userData)}
+// דירוגים והערות לפריטים: { "cityId|type|itemId": {stars:1-5, note:"", t} }
+function ratingsMap(){return LS.get('ratings',{})||{}}
+function saveRatings(m){LS.set('ratings',m)}
+function placeKey(cityId,type,itemId){return cityId+'|'+type+'|'+itemId}
+function getRating(cityId,type,itemId){return ratingsMap()[placeKey(cityId,type,itemId)]||null}
+function setRating(cityId,type,itemId,stars,note){
+  const m=ratingsMap();
+  const k=placeKey(cityId,type,itemId);
+  if(!stars&&!note){delete m[k]}
+  else{m[k]={stars:stars||0,note:note||'',t:Date.now()}}
+  saveRatings(m);
+}
+function starsHtml(cityId,type,itemId){
+  const r=getRating(cityId,type,itemId)||{stars:0,note:''};
+  let h='<div class="rate-row" data-city="'+esc(cityId)+'" data-type="'+esc(type)+'" data-id="'+esc(itemId)+'">';
+  for(let i=1;i<=5;i++){
+    h+='<button type="button" class="star-btn'+(i<=r.stars?' on':'')+'" data-act="ratestar" data-s="'+i+'" aria-label="'+i+' כוכבים">'+(i<=r.stars?'★':'☆')+'</button>';
+  }
+  h+='<button type="button" class="btn alt sm" data-act="ratenote" style="margin-inline-start:6px">הערה</button>';
+  if(r.note)h+='<div class="muted rate-note">📝 '+esc(r.note)+'</div>';
+  h+='</div>';
+  return h;
+}
+
+function mergeCityExtras(c){
+  if(!c)return c;
+  const u=ud(c.id);
+  // non-mutating view for display lists
+  c._userSites=u.sites||[];
+  c._userHotels=u.hotels||[];
+  c._userRest=u.restaurants||[];
+  c._userNotes=u.notes||[];
+  c._userTips=u.tips||[];
+  c._userTransport=u.transport||[];
+  return c;
+}
 const saveCustom=()=>LS.set('custom',S.custom);
 
 /* תמונות סמל לערים – Wikimedia (יציב) */
@@ -4692,18 +4969,39 @@ lisbon:'https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f2/Lisboa_-_Portug
 amsterdam:'https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png/330px-Imagen_de_los_canales_conc%C3%A9ntricos_en_%C3%81msterdam.png?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
 spb:'https://thumb.wikimedia.org/wikipedia/commons/thumb/4/41/Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg/330px-Spb_06-2017_img20_StMichael_Castle_%28cropped%29.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
 toronto:'https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg/330px-Toronto_Skyline_from_Snake_Island%2C_September_11_2026_%2801%29.jpg',
+london:'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/London_Skyline_%28125508655%29.jpeg/330px-London_Skyline_%28125508655%29.jpeg',
 };
 
 function allCities(){
   let list=[...window.CITIES.filter(c=>!S.deleted.includes(c.id)),...S.custom];
-  // מניעת כפילויות (למשל עיר מובנית + עותק מותאם אישית / טעינה כפולה)
   const seen=new Set();
   list=list.filter(c=>{const id=c.id||c.en||c.name;if(!id||seen.has(id))return false;seen.add(id);return true});
-  const sort=S.citySort||'default';
-  if(sort==='he') list=[...list].sort((a,b)=>a.name.localeCompare(b.name,'he'));
+  const sort=S.citySort||'custom';
+  if(sort==='custom'){
+    const order=S.cityOrder||[];
+    list=[...list].sort((a,b)=>{
+      const ia=order.indexOf(a.id), ib=order.indexOf(b.id);
+      if(ia<0&&ib<0)return 0;
+      if(ia<0)return 1;
+      if(ib<0)return -1;
+      return ia-ib;
+    });
+  }else if(sort==='he') list=[...list].sort((a,b)=>a.name.localeCompare(b.name,'he'));
   else if(sort==='en') list=[...list].sort((a,b)=>a.en.localeCompare(b.en,'en'));
   else if(sort==='country') list=[...list].sort((a,b)=>(a.country||'').localeCompare(b.country||'','he')||a.name.localeCompare(b.name,'he'));
+  // default = original built-in order (no extra sort)
   return list;
+}
+function moveCityOrder(id,dir){
+  let order=S.cityOrder&&S.cityOrder.length?S.cityOrder.slice():allCities().map(c=>c.id);
+  // ensure all current ids present
+  allCities().forEach(c=>{if(!order.includes(c.id))order.push(c.id)});
+  const i=order.indexOf(id);if(i<0)return;
+  const j=i+dir;if(j<0||j>=order.length)return;
+  const t=order[i];order[i]=order[j];order[j]=t;
+  S.cityOrder=order;LS.set('cityOrder',order);
+  S.citySort='custom';LS.set('citySort','custom');
+  renderHome();
 }
 const curCity=()=>allCities().find(c=>c.id===S.cityId);
 
@@ -4769,12 +5067,22 @@ async function getWeather(c,force){
   LS.set(key,o);return o;
 }
 async function getRate(cur,force){
-  if(!cur||cur==='ILS')return null;
+  if(!cur||cur==='ILS')return {t:Date.now(),v:1,cur:'ILS'};
   const all=LS.get('rate',{});
-  if(all[cur]&&!force&&Date.now()-all[cur].t<6*3600e3)return all[cur];
+  if(all[cur]&&!force&&Date.now()-all[cur].t<3*3600e3)return all[cur];
   const r=await fetch('https://api.frankfurter.app/latest?from='+encodeURIComponent(cur)+'&to=ILS');
   if(!r.ok)throw 0;const j=await r.json();
-  all[cur]={t:Date.now(),v:j.rates.ILS};LS.set('rate',all);return all[cur];
+  all[cur]={t:Date.now(),v:j.rates.ILS,cur:cur};LS.set('rate',all);return all[cur];
+}
+function rateHtml(cur,sym,rate){
+  if(!rate||!rate.v)return '';
+  const when=new Date(rate.t);
+  const ts=pad(when.getDate())+'/'+pad(when.getMonth()+1)+' '+pad(when.getHours())+':'+pad(when.getMinutes());
+  const v=rate.v;
+  return '<div class="card"><div class="body"><h3>💱 שער מטבע מול שקל</h3>'
+    +'<p style="font-size:18px;margin:6px 0"><b>1 '+(sym||cur)+' ≈ '+v.toFixed(3)+' ₪</b></p>'
+    +'<p class="muted">1 ₪ ≈ '+(1/v).toFixed(3)+' '+(sym||cur)+' · עודכן: '+ts+'</p>'
+    +'<p class="muted">שער יורו/דולר ייחוס דרך frankfurter.app — לבנקים ייתכן הפרש.</p></div></div>';
 }
 const SYM={EUR:'€',USD:'$',GBP:'£',CZK:'Kč',HUF:'Ft',PLN:'zł',CHF:'CHF',JPY:'¥',TRY:'₺',THB:'฿',AED:'AED',EGP:'E£'};
 
@@ -4829,7 +5137,7 @@ function renderHome(){
   const cs=allCities();
   $('#btnHome').style.display='none';$('#btnRef').style.display='none';
   const sort=S.citySort||'default';
-  const sorts=[['default','לפי ברירת מחדל'],['he','א–ב עברית'],['en','A–Z English'],['country','לפי מדינה']];
+  const sorts=[['custom','סדר שלי'],['he','א–ב עברית'],['en','A–Z English'],['country','לפי מדינה']];
   let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">בחרו עיר לפרטים מלאים — או הוסיפו מקום חדש מכל מקום בעולם.</div></div>';
   h+='<div class="sortbar"><span class="lbl">מיון:</span>'+sorts.map(s=>'<button type="button" class="'+(sort===s[0]?'on':'')+'" data-act="sortcities" data-s="'+s[0]+'">'+s[1]+'</button>').join('')+'</div>';
   h+='<div class="grid">';
@@ -4839,18 +5147,28 @@ function renderHome(){
     const imgAttr=photo?(' data-img="'+esc(photo)+'"'):'';
     const bg=photo?('background-image:linear-gradient(180deg,rgba(0,0,0,.08) 35%,rgba(0,0,0,.6)),url(\''+photo+'\');background-size:cover;background-position:center;'):'';
     h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+bg+'"'+wikiAttr+imgAttr+'>'
-     +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button><span class="fl">'+(c.flag||'📍')+'</span>'
+     +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button>'
+     +(sort==='custom'?('<div class="ord"><button type="button" class="ord-btn" data-act="cityup" data-id="'+esc(c.id)+'" title="העלאה">▲</button><button type="button" class="ord-btn" data-act="citydn" data-id="'+esc(c.id)+'" title="הורדה">▼</button></div>'):'')
+     +'<span class="fl">'+(c.flag||'📍')+'</span>'
      +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
   });
   h+='<div class="addc" data-act="add"><span>＋</span>הוספת מקום</div></div>';
   if(S.deleted.length)h+='<p style="text-align:center;margin-top:14px"><button class="btn alt sm" data-act="restore">↩ שחזור ערים שנמחקו ('+S.deleted.length+')</button></p>';
+  h+='<div class="card" style="margin-top:14px"><div class="body"><h3>🤝 שיתוף השינויים שלי</h3>'
+   +'<p class="muted">שלחו לחבר קישור שמייבא דירוגים, הערות, הסתרות, מסלולים והוספות</p>'
+   +'<div class="acts">'
+   +'<button class="btn sm" data-act="sharedata">📤 שליחת קישור עם השינויים</button>'
+   +'<button class="btn alt sm" data-act="exportdata">⬇️ ייצוא לקובץ</button>'
+   +'<button class="btn alt sm" data-act="importdata">⬆️ ייבוא מקובץ</button>'
+   +'</div></div></div>';
   h+='<p class="muted" style="text-align:center;margin-top:18px">מומלץ להתקין את האפליקציה במסך הבית של הטלפון.</p>';
   $('#app').innerHTML=h;loadImages();
 }
 
 function openCity(id,push){
   S.cityId=id;S.tab='map';S.sub='prices';S.plan=null;S.gFrom=S.gTo=null;
-  if(push)history.pushState({c:id},'');
+  persistSession();
+  if(push)history.pushState({c:id,tab:S.tab},'');
   renderCity();window.scrollTo(0,0);
 }
 function renderCity(){
@@ -4860,7 +5178,9 @@ function renderCity(){
   const tabs=TABS.map(t=>'<button class="tab'+(S.tab===t[0]?' on':'')+'" data-act="tab" data-t="'+t[0]+'">'+t[1]+' '+t[2]+'</button>').join('');
   $('#app').innerHTML='<div class="hero" style="--a:'+c.color[0]+';--b:'+c.color[1]+'"><h2>'+(c.flag||'')+' '+esc(c.name)+' <span style="font-size:14px;font-weight:400;opacity:.9">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</span></h2>'
     +'<div class="meta" id="heroMeta"><span class="pill">'+esc(c.country||'')+'</span></div><div class="wx" id="heroWx"></div>'
-    +'<div class="do-today"><button class="btn sm" data-act="dotoday">☀️ מה עושים היום?</button></div>'
+    +'<div class="do-today"><button class="btn sm" data-act="dotoday">☀️ מה עושים היום?</button> '
+    +'<button class="btn alt sm" data-act="shareloc">📍 שתף מיקום</button> '
+    +'<button class="btn alt sm" data-act="sharecity">📤 שתף עיר</button></div>'
     +'<p id="heroP" data-act="heroP">'+esc(c.intro||'')+'</p></div><div class="tabs" id="tabs">'+tabs+'</div><div id="pane"></div>';
   renderPane();fillHero(c,false);
 }
@@ -4897,6 +5217,171 @@ function renderPane(){
 }
 
 /* ===== פעולות גלובליות ===== */
+
+async function shareAppInfo(kind){
+  const c=curCity();
+  let title='מידע למטייל';
+  let text='';
+  let url=location.href;
+  if(kind==='loc'){
+    toast('מאתר מיקום...');
+    try{
+      const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{enableHighAccuracy:true,timeout:12000}));
+      const {latitude:lat,longitude:lng}=pos.coords;
+      url='https://maps.google.com/?q='+lat+','+lng;
+      title='המיקום שלי';
+      text='הנה המיקום שלי עכשיו:\n'+url+'\n\n(נשלח מ«מידע למטייל»)';
+    }catch(e){toast('לא ניתן לקבל מיקום — בדקו הרשאות');return}
+  }else if(kind==='city'&&c){
+    title=c.name+' — מידע למטייל';
+    text=c.name+' ('+c.en+')\n'+(c.intro||'')+'\n\n';
+    if(c.sites&&c.sites[0])text+='אתרים לדוגמה: '+c.sites.slice(0,5).map(s=>s.en).join(', ')+'\n';
+    text+='\nמ«מידע למטייל»';
+  }else if(kind==='plan'&&c&&S.plan&&S.plan.cityId===c.id){
+    text=planPlainText(c,S.plan);
+    title='מסלול ב'+c.name;
+  }else if(c){
+    text=c.name+': '+(c.intro||'')+'\nמ«מידע למטייל»';
+  }else{
+    text='אפליקציית מידע למטייל — מדריך ערים לתייר';
+  }
+  try{
+    if(navigator.share){await navigator.share({title,text,url:kind==='loc'?url:undefined});return}
+  }catch(e){if(e&&e.name==='AbortError')return}
+  const full=text+(url?'\n'+url:'');
+  try{await navigator.clipboard.writeText(full);toast('הועתק ללוח — הדביקו בוואטסאפ/הודעה')}
+  catch(e){prompt('העתיקו:',full)}
+}
+function userItemsHtml(c,type){
+  const u=ud(c.id);
+  const arr=u[type]||[];
+  if(!arr.length)return '';
+  return '<div class="card note-card"><div class="body"><h3>✏️ התוספות שלי — '+(type==='sites'?'אתרים':type==='hotels'?'מלונות':type==='restaurants'?'מסעדות':type==='tips'?'טיפים':type==='transport'?'תחבורה':'הערות')+'</h3>'
+    +arr.map((it,i)=>'<div style="margin:8px 0;padding:8px;background:#fff;border-radius:10px"><b>'+esc(it.name||it.title||'פריט')+'</b>'
+      +(it.desc?('<div class="muted">'+esc(it.desc)+'</div>'):'')
+      +(it.addr?('<div class="muted">📍 '+esc(it.addr)+'</div>'):'')
+      +(it.tel?('<div class="muted">📞 '+esc(it.tel)+'</div>'):'')
+      +(it.url?('<div><a href="'+esc(it.url)+'" target="_blank" rel="noopener">קישור</a></div>'):'')
+      +'<button class="btn bad sm" data-act="udel" data-type="'+type+'" data-i="'+i+'">מחיקה</button></div>').join('')
+    +'</div></div>';
+}
+function openUserAdd(type){
+  const c=curCity();if(!c)return;
+  const labels={sites:'אתר / אטרקציה',hotels:'מלון',restaurants:'מסעדה',tips:'טיפ',transport:'מידע תחבורה',notes:'הערה כללית'};
+  const o=sheet('<h3>✏️ הוספה — '+(labels[type]||type)+'</h3>'
+    +'<label>שם / כותרת</label><input type="text" id="ueName" placeholder="חובה">'
+    +'<label>תיאור</label><textarea id="ueDesc" rows="3" placeholder="פרטים שימושיים לתייר"></textarea>'
+    +'<label>כתובת</label><input type="text" id="ueAddr">'
+    +'<label>טלפון</label><input type="text" id="ueTel" class="ltr">'
+    +'<label>קישור</label><input type="text" id="ueUrl" class="ltr" placeholder="https://">'
+    +'<div class="acts"><button class="btn sm" id="ueSave">שמירה</button><button class="btn alt sm" id="ueX">ביטול</button></div>');
+  $('#ueX',o).onclick=()=>closeSheet();
+  $('#ueSave',o).onclick=()=>{
+    const name=($('#ueName',o).value||'').trim();
+    if(!name){toast('נא להזין שם');return}
+    let url=($('#ueUrl',o).value||'').trim();
+    if(url&&!/^https?:\/\//i.test(url))url='https://'+url;
+    const item={name,desc:($('#ueDesc',o).value||'').trim(),addr:($('#ueAddr',o).value||'').trim(),tel:($('#ueTel',o).value||'').trim(),url,t:Date.now()};
+    const u=ud(c.id);
+    if(!u[type])u[type]=[];
+    u[type].unshift(item);
+    saveUserData();
+    closeSheet();renderPane();toast('נשמר במכשיר');
+  };
+}
+
+
+function exportUserBundle(){
+  return {
+    v:1,
+    exportedAt:new Date().toISOString(),
+    cityOrder:S.cityOrder||[],
+    citySort:S.citySort||'custom',
+    deleted:S.deleted||[],
+    custom:S.custom||[],
+    userData:S.userData||{},
+    ratings:ratingsMap(),
+    sel:LS.get('sel',{})||{},
+    savedPlans:S.savedPlans||{},
+    form:S.form||{},
+    hotel:S.hotel||{}
+  };
+}
+function applyUserBundle(data){
+  if(!data||typeof data!=='object')throw new Error('invalid');
+  if(data.cityOrder){S.cityOrder=data.cityOrder;LS.set('cityOrder',S.cityOrder)}
+  if(data.citySort){S.citySort=data.citySort;LS.set('citySort',S.citySort)}
+  if(data.deleted){S.deleted=data.deleted;LS.set('deleted',S.deleted)}
+  if(data.custom){S.custom=data.custom;saveCustom()}
+  if(data.userData){S.userData=data.userData;saveUserData()}
+  if(data.ratings){saveRatings(data.ratings)}
+  if(data.sel){LS.set('sel',data.sel)}
+  if(data.savedPlans){S.savedPlans=data.savedPlans;LS.set('savedPlans',S.savedPlans)}
+  if(data.form){S.form=data.form;LS.set('form',S.form)}
+  if(data.hotel){S.hotel=data.hotel;LS.set('hotel',S.hotel)}
+}
+function bundleToLink(){
+  const json=JSON.stringify(exportUserBundle());
+  // compress with base64 uri
+  const b64=btoa(unescape(encodeURIComponent(json)));
+  const base=location.href.split('#')[0].split('?')[0];
+  return base+'#data='+b64;
+}
+async function shareUserDataLink(){
+  let link;
+  try{
+    link=bundleToLink();
+    if(link.length>12000){
+      // too long for URL — fall back to file
+      downloadUserBundle();
+      toast('הנתונים ארוכים מדי לקישור — הורד קובץ לשיתוף');
+      return;
+    }
+  }catch(e){toast('שגיאה ביצירת קישור');return}
+  const text='היי, זה הקישור לאפליקציית «מידע למטייל» עם כל השינויים, הדירוגים וההערות שלי:\n'+link;
+  try{
+    if(navigator.share){await navigator.share({title:'מידע למטייל — הנתונים שלי',text:text,url:link});return}
+  }catch(e){if(e&&e.name==='AbortError')return}
+  try{await navigator.clipboard.writeText(text);toast('הקישור הועתק — שלחו לחבר')}
+  catch(e){prompt('העתיקו את הקישור:',link)}
+}
+function downloadUserBundle(){
+  const json=JSON.stringify(exportUserBundle(),null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='meida-lamatayel-data.json';
+  document.body.appendChild(a);a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+  toast('קובץ הנתונים נשמר');
+}
+function importUserBundleFile(file){
+  const reader=new FileReader();
+  reader.onload=()=>{
+    try{
+      const data=JSON.parse(reader.result);
+      applyUserBundle(data);
+      toast('הנתונים יובאו בהצלחה');
+      if(S.cityId)renderCity();else renderHome();
+    }catch(e){toast('קובץ לא תקין')}
+  };
+  reader.readAsText(file);
+}
+function tryImportFromHash(){
+  try{
+    const h=location.hash||'';
+    if(!h.startsWith('#data='))return false;
+    const b64=h.slice(6);
+    const json=decodeURIComponent(escape(atob(b64)));
+    const data=JSON.parse(json);
+    if(!confirm('לייבא את השינויים, הדירוגים וההערות מהקישור?'))return true;
+    applyUserBundle(data);
+    history.replaceState(null,'',location.pathname+location.search);
+    toast('הנתונים מהקישור יובאו');
+    return true;
+  }catch(e){console.warn(e);toast('לא ניתן לייבא מהקישור');return false}
+}
+
 async function refreshAll(){
   const c=curCity();if(!c)return;
   const b=$('#btnRef');b.classList.add('spin');
@@ -4913,7 +5398,7 @@ async function refreshAll(){
     }
     LS.set('upd.'+c.id,Date.now());
     renderCity();
-    toast(ok?'המידע עודכן: מזג אוויר, שער חליפין, תמונות'+(c.custom?' וכל נתוני המקום':'')+'.':'אין חיבור לאינטרנט — לא ניתן היה לעדכן הכול.');
+    toast(ok?'עודכן במלואו: מזג אוויר, שער מול ₪, תמונות'+(c.custom?' ונתוני מקום':'')+'. בדקו גם טיפים ואירועים לפני יציאה.':'אין חיבור לאינטרנט — לא ניתן היה לעדכן הכול.');
   }finally{b.classList.remove('spin')}
 }
 function delCity(id){
@@ -4943,6 +5428,15 @@ document.addEventListener('click',e=>{
   if(a==='printplan'){printPlan();return}
   if(a==='savefile'){savePlanFile();return}
   if(a==='shareplan'){sharePlan();return}
+  if(a==='shareloc'){shareAppInfo('loc');return}
+  if(a==='sharecity'){shareAppInfo('city');return}
+  if(a==='uadd'){openUserAdd(t.dataset.type||'notes');return}
+  if(a==='udel'){
+    const c=curCity();if(!c)return;
+    const type=t.dataset.type;const i=+t.dataset.i;
+    const u=ud(c.id);if(!u[type])return;
+    u[type].splice(i,1);saveUserData();renderPane();toast('נמחק');return;
+  }
   if(a==='route'){doGuide();return}
   if(a==='locate'){locateMe();return}
   if(a==='placepick'){openPlacePicker();return}
@@ -5078,6 +5572,12 @@ function decorate(c,p){
       const bar=document.createElement('div');bar.className='selb';
       bar.innerHTML='<button class="'+(st===1?'on':'')+'" data-act="star" data-id="'+esc(id)+'">'+(st===1?'★ מעניין אותי':'☆ מעניין אותי')+'</button><button data-act="hide" data-id="'+esc(id)+'">'+(st===-1?'↩ החזרה לרשימה':'🙈 הסתר')+'</button>';
       body.insertBefore(bar,body.firstChild);
+      // דירוג והערה אישיים
+      const typeMap={sites:'sites',hotels:'hotels',rest:'restaurants',food:'food',shop:'shop',markets:'markets'};
+      const rtype=typeMap[S.tab]||S.tab;
+      const rate=document.createElement('div');
+      rate.innerHTML=starsHtml(c.id,rtype,id);
+      body.insertBefore(rate,bar.nextSibling);
       const acts=body.querySelector('.acts');
       if(acts){
         if(ad)acts.insertAdjacentHTML('beforeend','<button class="btn alt sm" data-act="driver" data-n="'+esc(nm)+'" data-l="'+esc(loc||it.name||'')+'" data-a="'+esc(ad)+'">🗣️ הראה לנהג</button>');
@@ -5476,16 +5976,47 @@ function showDoToday(){
 }
 
 function paneInfo(c){
+  mergeCityExtras(c);
   const info=c.info||{};
   const ev=(c.events&&c.events.length)?'<div class="card"><div class="body"><h3>📅 אירועים קרובים</h3><div class="muted">'+esc(c.eventsNote||'')+'</div><ul class="evl">'+c.events.map(e=>'<li><b>'+esc(e.t)+'</b><div class="muted">'+esc(e.when)+' · '+esc(e.where)+(e.price?' · '+esc(e.price):'')+'</div></li>').join('')+'</ul></div></div>':'';
-  return '<div class="note">'+esc(c.updated||'')+'</div>'+ev+Object.entries(info).map(([k,v])=>'<div class="card"><div class="body"><h3>'+esc(k)+'</h3><ul style="margin:6px 0 0;padding-inline-start:20px">'+v.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></div>').join('');
+  let rateBox='<div class="card" id="rateBox"><div class="body"><h3>💱 שער מטבע מול שקל</h3><p class="muted">טוען שער עדכני...</p></div></div>';
+  const share='<div class="card"><div class="body"><h3>📤 שיתוף</h3><div class="share-bar">'
+    +'<button class="btn sm" data-act="shareloc">📍 המיקום שלי</button>'
+    +'<button class="btn alt sm" data-act="sharecity">🏙️ מידע על העיר</button>'
+    +'<button class="btn alt sm" data-act="shareplan">🧭 המסלול שלי</button>'+'<button class="btn sm" data-act="sharedata">🤝 כל השינויים שלי</button></div>'
+    +'<p class="muted">שיתוף בוואטסאפ/הודעות או העתקה ללוח</p></div></div>';
+  const addbar='<div class="card note-card"><div class="body"><h3>✏️ הוספות ועדכונים שלי</h3><p class="muted">המידע נשמר במכשיר בלבד ומופיע בלשוניות הרלוונטיות</p><div class="user-edit-bar">'
+    +'<button class="btn alt sm" data-act="uadd" data-type="sites">+ אתר</button>'
+    +'<button class="btn alt sm" data-act="uadd" data-type="hotels">+ מלון</button>'
+    +'<button class="btn alt sm" data-act="uadd" data-type="restaurants">+ מסעדה</button>'
+    +'<button class="btn alt sm" data-act="uadd" data-type="transport">+ תחבורה</button>'
+    +'<button class="btn alt sm" data-act="uadd" data-type="tips">+ טיפ</button>'
+    +'<button class="btn alt sm" data-act="uadd" data-type="notes">+ הערה</button></div></div></div>';
+  const notes=userItemsHtml(c,'notes')+userItemsHtml(c,'tips');
+  getRate(c.cur,false).then(rt=>{
+    const box=$('#rateBox');if(!box||!curCity()||curCity().id!==c.id)return;
+    box.outerHTML=rateHtml(c.cur,c.sym,rt)||'';
+  }).catch(()=>{const box=$('#rateBox');if(box)box.innerHTML='<div class="body"><h3>💱 שער מטבע</h3><p class="muted">לא ניתן לטעון שער כרגע</p></div>'});
+  return '<div class="note">'+esc(c.updated||'')+' · לחצו ↻ למעלה לרענון מקיף (מזג אוויר, שער, תמונות)</div>'
+    +rateBox+share+addbar+notes+ev
+    +Object.entries(info).map(([k,v])=>'<div class="card"><div class="body"><h3>'+esc(k)+'</h3><ul>'+(Array.isArray(v)?v:String(v).split(/\n/)).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div></div>').join('');
 }
 
-/* ===== אחרי רינדור ===== */
 function afterPane(c){
   if(S.tab==='map'){if($('#map'))initMainMap(c)}
   else if(S.tab==='transport'&&S.sub==='map')initMetroMap(c);
   else if(S.tab==='routes')afterRoutes(c);
+  // הצגת תוספות משתמש + כפתור הוספה בלשוניות תוכן
+  const pane=$('#pane');if(!pane||!c)return;
+  mergeCityExtras(c);
+  const mapType={sites:'sites',hotels:'hotels',rest:'restaurants',tips:'tips',transport:'transport'}[S.tab];
+  if(mapType){
+    const box=document.createElement('div');
+    box.innerHTML=userItemsHtml(c,mapType)
+      +'<div class="acts" style="margin:10px 0"><button class="btn alt sm" data-act="uadd" data-type="'+mapType+'">✏️ הוספה/עדכון '+({sites:'אתר',hotels:'מלון',restaurants:'מסעדה',tips:'טיפ',transport:'תחבורה'}[mapType]||'')+'</button>'
+      +'<button class="btn alt sm" data-act="sharecity">📤 שיתוף מידע</button></div>';
+    pane.appendChild(box);
+  }
 }
 
 /* ===== מסלולים ===== */
@@ -5931,7 +6462,20 @@ async function buildCity(pl,prog){
 /* ===== הפעלה ===== */
 (function init(){
   const st=history.state;
-  if(st&&st.c&&allCities().some(x=>x.id===st.c)){S.cityId=st.c;renderCity()}else renderHome();
+  // שחזור מקום אחרון / היסטוריה
+  let restoreId=(st&&st.c)||S.cityId;
+  if(restoreId&&allCities().some(x=>x.id===restoreId)){
+    S.cityId=restoreId;
+    if(st&&st.tab)S.tab=st.tab;
+    renderCity();
+  }else{
+    S.cityId=null;renderHome();
+  }
+  // שמירת מצב בעת עזיבה
+  tryImportFromHash();
+  document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')persistSession()});
+  window.addEventListener('pagehide',persistSession);
+
   if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol)&&document.querySelector('link[rel=manifest]')){
     navigator.serviceWorker.register('./sw.js').catch(()=>{});
   }
