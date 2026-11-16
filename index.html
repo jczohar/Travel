@@ -5153,7 +5153,7 @@ function renderHome(){
     h+='<div class="ccard" data-id="'+esc(c.id)+'"'+(selectMode?'':' data-act="open"')+' style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+bg+'"'+wikiAttr+imgAttr+dragAttr+'>'
      +(selectMode?('<input type="checkbox" class="pick" data-act="pickcity" data-id="'+esc(c.id)+'"'+(S.cityPick&&S.cityPick[c.id]?' checked':'')+'>'):'')
      +'<span class="fl">'+(c.flag||'📍')+'</span>'
-     +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+(sort==='custom'&&!selectMode?' · ☰ גרירה':'')+'</div></div></div>';
+     +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
   });
   h+='<div class="addc" data-act="add"><span>＋</span>הוספת מקום</div></div>';
   // מחיקת ערים — רק מתחתית, עם סימון ואישור
