@@ -5140,20 +5140,31 @@ function renderHome(){
   const sorts=[['custom','סדר שלי'],['he','א–ב עברית'],['en','A–Z English'],['country','לפי מדינה']];
   let h='<div class="hello"><h2>לאן טסים? ✈️</h2><div style="font-size:14px">בחרו עיר לפרטים מלאים — או הוסיפו מקום חדש מכל מקום בעולם.</div></div>';
   h+='<div class="sortbar"><span class="lbl">מיון:</span>'+sorts.map(s=>'<button type="button" class="'+(sort===s[0]?'on':'')+'" data-act="sortcities" data-s="'+s[0]+'">'+s[1]+'</button>').join('')+'</div>';
-  h+='<div class="grid">';
+  h+='<div class="grid'+(S.citySelectMode?' select-mode':'')+'">';
+  const selectMode=!!S.citySelectMode;
   cs.forEach(c=>{
     const photo=CITY_PHOTO[c.id]||c.photo||'';
     const wikiAttr=c.wiki?(' data-wiki="'+esc(c.wiki)+'"'):(c.en?(' data-wiki="" data-wikiname="'+esc(c.en)+'"'):'');
     const imgAttr=photo?(' data-img="'+esc(photo)+'"'):'';
     const bg=photo?('background-image:linear-gradient(180deg,rgba(0,0,0,.08) 35%,rgba(0,0,0,.6)),url(\''+photo+'\');background-size:cover;background-position:center;'):'';
-    h+='<div class="ccard" data-act="open" data-id="'+esc(c.id)+'" style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+bg+'"'+wikiAttr+imgAttr+'>'
-     +'<button class="del" data-act="del" data-id="'+esc(c.id)+'" aria-label="מחיקה">✕</button>'
-     +(sort==='custom'?('<div class="ord"><button type="button" class="ord-btn" data-act="cityup" data-id="'+esc(c.id)+'" title="העלאה">▲</button><button type="button" class="ord-btn" data-act="citydn" data-id="'+esc(c.id)+'" title="הורדה">▼</button></div>'):'')
+    const dragAttr=(sort==='custom'&&!selectMode)?' draggable="true" data-drag="1"':'';
+    h+='<div class="ccard" data-id="'+esc(c.id)+'"'+(selectMode?'':' data-act="open"')+' style="--a:'+c.color[0]+';--b:'+c.color[1]+';'+bg+'"'+wikiAttr+imgAttr+dragAttr+'>'
+     +(selectMode?('<input type="checkbox" class="pick" data-act="pickcity" data-id="'+esc(c.id)+'"'+(S.cityPick&&S.cityPick[c.id]?' checked':'')+'>'):'')
      +'<span class="fl">'+(c.flag||'📍')+'</span>'
-     +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+'</div></div></div>';
+     +'<div class="in"><h3>'+esc(c.name)+'</h3><div class="sub">'+esc(c.en)+(c.local&&c.local!==c.en?' · '+esc(c.local):'')+'</div><div class="sub">'+esc(c.country||'')+(sort==='custom'&&!selectMode?' · ☰ גרירה':'')+'</div></div></div>';
   });
   h+='<div class="addc" data-act="add"><span>＋</span>הוספת מקום</div></div>';
-  if(S.deleted.length)h+='<p style="text-align:center;margin-top:14px"><button class="btn alt sm" data-act="restore">↩ שחזור ערים שנמחקו ('+S.deleted.length+')</button></p>';
+  // מחיקת ערים — רק מתחתית, עם סימון ואישור
+  h+='<div class="del-bar">';
+  if(!S.citySelectMode){
+    h+='<button class="btn alt sm" data-act="delmode">🗑️ מחיקת ערים מהרשימה</button>';
+  }else{
+    h+='<button class="btn bad sm" data-act="delconfirm">מחיקת המסומנות</button>';
+    h+='<button class="btn alt sm" data-act="delcancel">ביטול</button>';
+    h+='<span class="muted">סמנו ערים למחיקה</span>';
+  }
+  h+='</div>';
+  if(S.deleted.length)h+='<p style="text-align:center;margin-top:8px"><button class="btn alt sm" data-act="restore">↩ שחזור ערים שנמחקו ('+S.deleted.length+')</button></p>';
   h+='<div class="card" style="margin-top:14px"><div class="body"><h3>🤝 שיתוף השינויים שלי</h3>'
    +'<p class="muted">שלחו לחבר קישור שמייבא דירוגים, הערות, הסתרות, מסלולים והוספות</p>'
    +'<div class="acts">'
@@ -5161,8 +5172,45 @@ function renderHome(){
    +'<button class="btn alt sm" data-act="exportdata">⬇️ ייצוא לקובץ</button>'
    +'<button class="btn alt sm" data-act="importdata">⬆️ ייבוא מקובץ</button>'
    +'</div></div></div>';
-  h+='<p class="muted" style="text-align:center;margin-top:18px">מומלץ להתקין את האפליקציה במסך הבית של הטלפון.</p>';
+  // הודעת התקנה רק אם לא רץ כ-PWA מותקן
+  const isStandalone=(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches)||window.navigator.standalone===true;
+  const isFile=location.protocol==='file:';
+  if(!isStandalone){
+    h+='<p class="muted" style="text-align:center;margin-top:18px">'+(isFile
+      ?'לחוויה נוחה יותר אפשר לשמור את הקובץ ולפתוח מהדפדפן, או להתקין כאפליקציה כשמגישים משרת.'
+      :'מומלץ להתקין את האפליקציה במסך הבית של הטלפון.')+'</p>';
+  }
   $('#app').innerHTML=h;loadImages();
+  if(sort==='custom'&&!S.citySelectMode)enableCityDrag();
+}
+function enableCityDrag(){
+  const grid=$('.grid');if(!grid)return;
+  let dragId=null;
+  $$('.ccard[data-drag]',grid).forEach(card=>{
+    card.addEventListener('dragstart',e=>{
+      dragId=card.dataset.id;
+      card.classList.add('dragging');
+      try{e.dataTransfer.setData('text/plain',dragId);e.dataTransfer.effectAllowed='move'}catch(err){}
+    });
+    card.addEventListener('dragend',()=>{card.classList.remove('dragging');$$('.ccard',grid).forEach(x=>x.classList.remove('drag-over'))});
+    card.addEventListener('dragover',e=>{e.preventDefault();card.classList.add('drag-over')});
+    card.addEventListener('dragleave',()=>card.classList.remove('drag-over'));
+    card.addEventListener('drop',e=>{
+      e.preventDefault();card.classList.remove('drag-over');
+      const toId=card.dataset.id;
+      const fromId=dragId||(e.dataTransfer&&e.dataTransfer.getData('text/plain'));
+      if(!fromId||!toId||fromId===toId)return;
+      let order=S.cityOrder&&S.cityOrder.length?S.cityOrder.slice():allCities().map(c=>c.id);
+      allCities().forEach(c=>{if(!order.includes(c.id))order.push(c.id)});
+      const fi=order.indexOf(fromId),ti=order.indexOf(toId);
+      if(fi<0||ti<0)return;
+      order.splice(fi,1);
+      order.splice(ti,0,fromId);
+      S.cityOrder=order;LS.set('cityOrder',order);
+      S.citySort='custom';LS.set('citySort','custom');
+      renderHome();
+    });
+  });
 }
 
 function openCity(id,push){
@@ -5262,34 +5310,78 @@ function userItemsHtml(c,type){
       +(it.addr?('<div class="muted">📍 '+esc(it.addr)+'</div>'):'')
       +(it.tel?('<div class="muted">📞 '+esc(it.tel)+'</div>'):'')
       +(it.url?('<div><a href="'+esc(it.url)+'" target="_blank" rel="noopener">קישור</a></div>'):'')
-      +'<button class="btn bad sm" data-act="udel" data-type="'+type+'" data-i="'+i+'">מחיקה</button></div>').join('')
+      +'<div class="acts" style="margin-top:6px">'
+      +'<button class="btn alt sm" data-act="uedit" data-type="'+type+'" data-i="'+i+'">✏️ עדכון</button> '
+      +'<button class="btn bad sm" data-act="udel" data-type="'+type+'" data-i="'+i+'">מחיקה</button></div></div>').join('')
     +'</div></div>';
 }
-function openUserAdd(type){
+function openUserAdd(type){openUserEdit(type,null)}
+function openUserEdit(type, existing){
   const c=curCity();if(!c)return;
-  const labels={sites:'אתר / אטרקציה',hotels:'מלון',restaurants:'מסעדה',tips:'טיפ',transport:'מידע תחבורה',notes:'הערה כללית'};
-  const o=sheet('<h3>✏️ הוספה — '+(labels[type]||type)+'</h3>'
-    +'<label>שם / כותרת</label><input type="text" id="ueName" placeholder="חובה">'
-    +'<label>תיאור</label><textarea id="ueDesc" rows="3" placeholder="פרטים שימושיים לתייר"></textarea>'
-    +'<label>כתובת</label><input type="text" id="ueAddr">'
-    +'<label>טלפון</label><input type="text" id="ueTel" class="ltr">'
-    +'<label>קישור</label><input type="text" id="ueUrl" class="ltr" placeholder="https://">'
-    +'<div class="acts"><button class="btn sm" id="ueSave">שמירה</button><button class="btn alt sm" id="ueX">ביטול</button></div>');
+  const labels={sites:'אתר / אטרקציה',hotels:'מלון',restaurants:'מסעדה',tips:'טיפ',transport:'מידע תחבורה',notes:'הערה כללית',food:'אוכל',shop:'קניות',markets:'שווקים'};
+  const isEdit=!!existing;
+  const ex=existing||{};
+  const o=sheet('<h3>✏️ '+(isEdit?'עדכון':'הוספה')+' — '+(labels[type]||type)+'</h3>'
+    +(isEdit?'<p class="muted">עריכת מידע קיים — השינויים נשמרים במכשיר ובייצוא/שיתוף</p>':'')
+    +'<label>שם / כותרת</label><input type="text" id="ueName" placeholder="חובה" value="'+esc(ex.name||ex.en||ex.title||'')+'">'
+    +'<label>תיאור</label><textarea id="ueDesc" rows="3" placeholder="פרטים שימושיים לתייר">'+esc(ex.desc||ex.note||ex.why||'')+'</textarea>'
+    +'<label>כתובת</label><input type="text" id="ueAddr" value="'+esc(ex.addr||'')+'">'
+    +'<label>טלפון</label><input type="text" id="ueTel" class="ltr" value="'+esc(ex.tel||'')+'">'
+    +'<label>קישור</label><input type="text" id="ueUrl" class="ltr" placeholder="https://" value="'+esc(ex.url||ex.web||'')+'">'
+    +'<label>שעות / מחיר / הערה נוספת</label><input type="text" id="ueExtra" value="'+esc(ex.extra||ex.price||ex.hours||'')+'">'
+    +'<div class="acts"><button class="btn sm" id="ueSave">שמירת העדכון</button><button class="btn alt sm" id="ueX">ביטול</button></div>');
   $('#ueX',o).onclick=()=>closeSheet();
   $('#ueSave',o).onclick=()=>{
     const name=($('#ueName',o).value||'').trim();
     if(!name){toast('נא להזין שם');return}
     let url=($('#ueUrl',o).value||'').trim();
     if(url&&!/^https?:\/\//i.test(url))url='https://'+url;
-    const item={name,desc:($('#ueDesc',o).value||'').trim(),addr:($('#ueAddr',o).value||'').trim(),tel:($('#ueTel',o).value||'').trim(),url,t:Date.now()};
+    const item={
+      name:name,
+      desc:($('#ueDesc',o).value||'').trim(),
+      addr:($('#ueAddr',o).value||'').trim(),
+      tel:($('#ueTel',o).value||'').trim(),
+      url:url,
+      extra:($('#ueExtra',o).value||'').trim(),
+      t:Date.now()
+    };
     const u=ud(c.id);
-    if(!u[type])u[type]=[];
-    u[type].unshift(item);
+    if(isEdit && existing._userIndex!=null){
+      // עדכון פריט שהמשתמש הוסיף
+      item.id=existing.id;
+      u[type][existing._userIndex]=item;
+    }else if(isEdit && existing._baseId){
+      // עדכון/דריסה של פריט מובנה
+      u.overrides=u.overrides||{};
+      u.overrides[type]=u.overrides[type]||{};
+      u.overrides[type][existing._baseId]=Object.assign({},item,{id:existing._baseId});
+    }else{
+      item.id='u_'+Date.now();
+      if(!u[type])u[type]=[];
+      u[type].unshift(item);
+    }
     saveUserData();
-    closeSheet();renderPane();toast('נשמר במכשיר');
+    closeSheet();renderPane();toast(isEdit?'העדכון נשמר':'נוסף בהצלחה');
   };
 }
-
+function getOverride(c,type,id){
+  const u=ud(c.id);
+  return (u.overrides&&u.overrides[type]&&u.overrides[type][id])||null;
+}
+function applyOverridesToCard(body,c,type,id,it){
+  const ov=getOverride(c,type,id);
+  if(!ov||!body)return;
+  // הצגת סימון שנערך + טקסט מעודכן קצר
+  const flag=document.createElement('div');
+  flag.className='muted';
+  flag.style.cssText='margin-top:6px;padding:6px 8px;background:#fef3c7;border-radius:8px';
+  flag.innerHTML='✏️ עודכן על ידך: <b>'+esc(ov.name||'')+'</b>'
+    +(ov.desc?('<div>'+esc(ov.desc)+'</div>'):'')
+    +(ov.addr?('<div>📍 '+esc(ov.addr)+'</div>'):'')
+    +(ov.tel?('<div>📞 '+esc(ov.tel)+'</div>'):'')
+    +(ov.extra?('<div>'+esc(ov.extra)+'</div>'):'');
+  body.appendChild(flag);
+}
 
 function exportUserBundle(){
   return {
@@ -5431,11 +5523,86 @@ document.addEventListener('click',e=>{
   if(a==='shareloc'){shareAppInfo('loc');return}
   if(a==='sharecity'){shareAppInfo('city');return}
   if(a==='uadd'){openUserAdd(t.dataset.type||'notes');return}
+  if(a==='uedit'){
+    e.preventDefault();e.stopPropagation();
+    const c=curCity();if(!c)return;
+    const type=t.dataset.type;const i=+t.dataset.i;
+    const u=ud(c.id);const it=(u[type]||[])[i];if(!it)return;
+    const copy=Object.assign({},it,{_userIndex:i});
+    openUserEdit(type,copy);return;
+  }
+  if(a==='ueditbase'){
+    e.preventDefault();e.stopPropagation();
+    const c=curCity();if(!c)return;
+    const type=t.dataset.type;const id=t.dataset.id;
+    // מצא פריט מובנה
+    let list=type==='sites'?c.sites:type==='hotels'?c.hotels:type==='restaurants'?c.restaurants:type==='food'?c.food:type==='shop'?c.shopping:type==='markets'?c.markets:[];
+    list=list||[];
+    let it=list.find(x=>(x.id||x.name||x.en)===id)||list.find(x=>idOf(x)===id);
+    if(!it&&S.tab==='sites')it=(c.sites||[]).find(x=>x.id===id);
+    if(!it){toast('לא נמצא הפריט');return}
+    const ov=getOverride(c,type,id)||{};
+    const base={
+      name:ov.name||it.en||it.name||it.loc||'',
+      desc:ov.desc||it.desc||it.note||it.why||'',
+      addr:ov.addr||it.addr||'',
+      tel:ov.tel||it.tel||'',
+      url:ov.url||it.url||it.web||'',
+      extra:ov.extra||[it.price,it.hours].filter(Boolean).join(' · ')||'',
+      _baseId:id
+    };
+    openUserEdit(type,base);return;
+  }
   if(a==='udel'){
     const c=curCity();if(!c)return;
     const type=t.dataset.type;const i=+t.dataset.i;
     const u=ud(c.id);if(!u[type])return;
     u[type].splice(i,1);saveUserData();renderPane();toast('נמחק');return;
+  }
+  if(a==='ratestar'){
+    e.preventDefault();e.stopPropagation();
+    const row=t.closest('.rate-row');if(!row)return;
+    const city=row.dataset.city,type=row.dataset.type,id=row.dataset.id;
+    const s=+t.dataset.s;
+    const prev=getRating(city,type,id)||{stars:0,note:''};
+    const next=(prev.stars===s)?0:s;
+    setRating(city,type,id,next,prev.note||'');
+    // עדכון מקומי בלי רינדור מלא אם אפשר
+    const y=window.scrollY;
+    renderPane();
+    window.scrollTo(0,y);
+    toast(next?('דירוג: '+next+' ★'):'הדירוג בוטל');
+    return;
+  }
+  if(a==='ratenote'){
+    e.preventDefault();e.stopPropagation();
+    const row=t.closest('.rate-row');if(!row)return;
+    const city=row.dataset.city,type=row.dataset.type,id=row.dataset.id;
+    const prev=getRating(city,type,id)||{stars:0,note:''};
+    const note=prompt('הערה למקום:',prev.note||'');
+    if(note===null)return;
+    setRating(city,type,id,prev.stars||0,note.trim());
+    const y=window.scrollY;renderPane();window.scrollTo(0,y);
+    toast(note.trim()?'ההערה נשמרה':'ההערה נמחקה');
+    return;
+  }
+  if(a==='sharedata'){shareUserDataLink();return}
+  if(a==='exportdata'){downloadUserBundle();return}
+  if(a==='importdata'){const inp=document.createElement('input');inp.type='file';inp.accept='application/json,.json';inp.onchange=()=>{if(inp.files&&inp.files[0])importUserBundleFile(inp.files[0])};inp.click();return}
+  if(a==='delmode'){S.citySelectMode=true;S.cityPick={};renderHome();return}
+  if(a==='delcancel'){S.citySelectMode=false;S.cityPick={};renderHome();return}
+  if(a==='pickcity'){e.stopPropagation();S.cityPick=S.cityPick||{};S.cityPick[t.dataset.id]=!!t.checked;return}
+  if(a==='delconfirm'){
+    const ids=Object.keys(S.cityPick||{}).filter(k=>S.cityPick[k]);
+    if(!ids.length){toast('לא סומנה אף עיר');return}
+    const names=ids.map(id=>{const c=allCities().find(x=>x.id===id);return c?c.name:id}).join(', ');
+    if(!confirm('למחוק מהרשימה את: '+names+'?\nניתן לשחזר אחר כך.'))return;
+    ids.forEach(id=>{
+      const c=allCities().find(x=>x.id===id);if(!c)return;
+      if(c.custom){S.custom=S.custom.filter(x=>x.id!==id);saveCustom()}
+      else{if(!S.deleted.includes(id))S.deleted.push(id);LS.set('deleted',S.deleted)}
+    });
+    S.citySelectMode=false;S.cityPick={};renderHome();toast('הערים הוסרו מהרשימה');return;
   }
   if(a==='route'){doGuide();return}
   if(a==='locate'){locateMe();return}
@@ -5578,6 +5745,11 @@ function decorate(c,p){
       const rate=document.createElement('div');
       rate.innerHTML=starsHtml(c.id,rtype,id);
       body.insertBefore(rate,bar.nextSibling);
+      applyOverridesToCard(body,c,rtype,id,it);
+      const editBtn=document.createElement('div');
+      editBtn.style.marginTop='6px';
+      editBtn.innerHTML='<button type="button" class="btn alt sm" data-act="ueditbase" data-type="'+rtype+'" data-id="'+esc(id)+'">✏️ עדכון המידע</button>';
+      body.insertBefore(editBtn,rate.nextSibling);
       const acts=body.querySelector('.acts');
       if(acts){
         if(ad)acts.insertAdjacentHTML('beforeend','<button class="btn alt sm" data-act="driver" data-n="'+esc(nm)+'" data-l="'+esc(loc||it.name||'')+'" data-a="'+esc(ad)+'">🗣️ הראה לנהג</button>');
