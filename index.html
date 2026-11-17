@@ -2456,10 +2456,11 @@ hotels:[
  {id:'h-wyndham',name:'Wyndham Grand Tbilisi',stars:5,lat:41.7100,lng:44.7950,area:'מרכז',addr:'Tbilisi',price:'מחיר לבדוק באתרי הזמנות',why:'רשת בינלאומית, נוח למשפחות ולעסקים.',web:''},
  {id:'h-pullman',name:'Pullman Tbilisi Axis Towers',stars:5,lat:41.7200,lng:44.7800,area:'Axis Towers',addr:'Tbilisi',price:'מחיר לבדוק באתרי הזמנות',why:'מלון מודרני במגדלי Axis – רמה גבוהה ונוף.',web:''},
  {id:'h-royaltulip',name:'Royal Tulip Hotel & Casino',stars:5,lat:41.7050,lng:44.7900,area:'מרכז',addr:'Tbilisi',price:'מחיר לבדוק באתרי הזמנות',why:'מלון יוקרה עם קזינו ושירות מלא.',web:''},
- {id:'h-hualing',name:'Hotels & Preference Hualing Tbilisi',stars:5,lat:41.7300,lng:44.8500,area:'Hualing',addr:'Tbilisi',price:'מחיר לבדוק באתרי הזמנות',why:'מתחם מלונאות מודרני באזור Hualing.',web:''}
+ {id:'h-hualing',name:'Hotels & Preference Hualing Tbilisi',stars:5,lat:41.7300,lng:44.8500,area:'Hualing',addr:'Tbilisi',price:'מחיר לבדוק באתרי הזמנות',why:'מתחם מלונאות מודרני באזור Hualing.',web:''},
+ {id:'h-holiday-inn',name:'Holiday Inn Tbilisi',stars:4,lat:41.7095,lng:44.7800,area:'Saburtalo / מרכז',addr:'Tbilisi (לבדוק כתובת סניף)',price:'מחיר לבדוק באתרי הזמנות (ארוחת בוקר — לבדוק)',why:'רשת בינלאומית מוכרת, נוח למשפחות ולעסקים.'},
+ {id:'h-hilton-garden',name:'Hilton Garden Inn Tbilisi',stars:4,lat:41.7150,lng:44.7950,area:'מרכז / דידובה',addr:'Tbilisi (לבדוק כתובת סניף)',price:'מחיר לבדוק באתרי הזמנות (ארוחת בוקר — לבדוק)',why:'סטנדרט Hilton Garden Inn — מיקום נוח ושירות עקבי.'}
 ],
 restaurants:[
- {id:'sami-saukune',name:'סאמי סאוקונה (Sami Saukune)',lat:41.6850,lng:44.8150,addr:'Ortachala, I Kheivani St 12',type:'גאורגית',price:'₾₾',note:'מסעדה מומלצת באורטח׳לה.',tel:'+995 592 777 333'},
  {id:'megruli',name:'מגרולי סחלי (Megreliani / Megruli Sakhli)',lat:41.7095,lng:44.7680,addr:'Vake, Mosashvili #13 ליד פארק ואקה',type:'מגרולית / גאורגית',price:'₾₾',note:'מטבח מגרולי ליד פארק ואקה. סניף נוסף: Atoneli #31 מתחת לגשר היבש.',tel:'+995 591 336 655'},
  {id:'khinkali-fab',name:'חינקליס פאבריקה (Khinklis Pabrika)',lat:41.7095,lng:44.7685,addr:'Vake, Mosashvili #11 ליד פארק ואקה',type:'חינקלי / גאורגית',price:'₾–₾₾',note:'חינקלי טריים; יש עוד 2 סניפים. אפשר משלוח הביתה.',tel:'+995 577 330 340'},
  {id:'krtsanisi',name:'קרצניסי (Krtsanisi)',lat:41.6840,lng:44.8120,addr:'Ortachala, Gorgasali St 2',type:'גאורגית',price:'₾₾',note:'מסעדה באורטח׳לה.',tel:'+995 32 272 47 88'},
@@ -6038,14 +6039,59 @@ function routeGuide(c,A,B){
   }else{
     out.push('<li>🚶 הליכה כ-'+walkAll+' דקות ('+(dd*1.25).toFixed(1)+' ק״מ בערך), או מונית/אפליקציה.</li>');total=walkAll;
   }
-  return {html:'<div class="card"><div class="body"><h3>המסלול המומלץ'+(total?' · כ-'+total+' דקות':'')+'</h3><ul class="tl" style="--c:#7c3aed">'+out.join('')+'</ul><div class="note">זמנים משוערים ללא המתנה. מבוסס על התחנות העיקריות במפה; לפרטים מדויקים בדקו באפליקציית התחבורה. אפשרות נוספת: מונית/אפליקציה — <a href="https://www.google.com/maps/dir/?api=1&origin='+A.lat+','+A.lng+'&destination='+B.lat+','+B.lng+'&travelmode=transit" target="_blank" rel="noopener">מסלול ב-Google Maps</a>.</div></div></div>'};
+  // נקודות למפה: מוצא → תחנות במסלול → יעד
+  const mapPts=[[A.lat,A.lng]];
+  if(nsA&&nsA.s) mapPts.push([nsA.s.lat,nsA.s.lng]);
+  if(ride&&ride.path&&!ride.same){
+    const seen=new Set();
+    ride.path.forEach(n=>{
+      const sid=n.split('|')[0];
+      if(seen.has(sid))return;seen.add(sid);
+      const st=t.stations[sid];
+      if(st) mapPts.push([st.lat,st.lng]);
+    });
+  }
+  if(nsB&&nsB.s) mapPts.push([nsB.s.lat,nsB.s.lng]);
+  mapPts.push([B.lat,B.lng]);
+  return {
+    html:'<div class="card"><div class="body"><h3>המסלול המומלץ'+(total?' · כ-'+total+' דקות':'')+'</h3>'
+      +'<div class="map" id="guideMap" style="height:42vh;min-height:260px;margin:8px 0;border-radius:14px"></div>'
+      +'<ul class="tl" style="--c:#7c3aed">'+out.join('')+'</ul>'
+      +'<div class="note">זמנים משוערים ללא המתנה. המסלול מוצג על המפה. לפרטים מדויקים בדקו באפליקציית התחבורה. '
+      +'<a href="https://www.google.com/maps/dir/?api=1&origin='+A.lat+','+A.lng+'&destination='+B.lat+','+B.lng+'&travelmode=transit" target="_blank" rel="noopener">מסלול ב-Google Maps</a>.</div></div></div>',
+    pts:mapPts,
+    A:A,B:B,
+    stations: (ride&&ride.path)?ride.path.map(n=>n.split('|')[0]):[]
+  };
+}
+function showRouteOnMap(c, result){
+  if(!result||!$('#guideMap'))return;
+  try{
+    const m=mkMap('guideMap',c.center,13);
+    const pts=result.pts||[];
+    const A=result.A,B=result.B;
+    if(A) L.marker([A.lat,A.lng],{icon:pin('A','#16a34a')}).bindPopup(popup(A.n||'מוצא','',A)).addTo(m);
+    if(B) L.marker([B.lat,B.lng],{icon:pin('B','#dc2626')}).bindPopup(popup(B.n||'יעד','',B)).addTo(m);
+    // תחנות ביניים
+    const t=T0(c);
+    (result.stations||[]).forEach(sid=>{
+      const st=t.stations[sid];
+      if(st) L.circleMarker([st.lat,st.lng],{radius:6,color:'#7c3aed',fillColor:'#c4b5fd',fillOpacity:0.9,weight:2}).bindPopup(st.n).addTo(m);
+    });
+    if(pts.length>=2){
+      L.polyline(pts,{color:'#7c3aed',weight:5,opacity:0.85}).addTo(m);
+      m.fitBounds(pts,{padding:[30,30],animate:false});
+    }
+  }catch(e){console.warn('guide map',e)}
 }
 function doGuide(){
   const c=curCity(),P=guidePoints(c);
   const A=P.find(p=>p.k===$('#gFrom').value),B=P.find(p=>p.k===$('#gTo').value);
   S.gFrom=A.k;S.gTo=B.k;
   if(A.k===B.k){$('#guideOut').innerHTML='<div class="note">בחרו שני מקומות שונים.</div>';return}
-  $('#guideOut').innerHTML=routeGuide(c,A,B).html;
+  const result=routeGuide(c,A,B);
+  $('#guideOut').innerHTML=result.html;
+  setTimeout(()=>showRouteOnMap(c,result),50);
 }
 
 /* ===== מסעדות / אוכל / קניות / שווקים / טיפים / מידע ===== */
